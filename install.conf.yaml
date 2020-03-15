@@ -15,7 +15,6 @@
     ~/.zshrc: zsh/zshrc
     ~/.gitconfig: git/gitconfig
     ~/.vimrc: vim/vimrc
-    ~/.npmrc: npm/npmrc
     ~/.tmux.conf: tmux/tmux.conf
     ~/.nvmrc: nvm/nvmrc
 
