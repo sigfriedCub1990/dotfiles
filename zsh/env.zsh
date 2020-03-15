@@ -4,11 +4,9 @@ export SUDO_EDITOR=nvim
 
 export GO_PATH=$PATH:/$HOME/go/bin
 export RUBY_PATH=$PATH:/$HOME/.gem/ruby/2.6.0/bin
-export NODE_PATH=$PATH:/$HOME/.npmglobal/bin
-export YARN_PATH=$PATH:/$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin
 
 export LANG=en_US.UTF-8
-export PATH=$PATH:$NODE_PATH:$GO_PATH:$RUBY_PATH:$YARN_PATH
+export PATH=$PATH:$GO_PATH:$RUBY_PATH
 
 #Preferred editor for local and remote sessions
 if [[ -n $SSH_CONNECTION ]]; then
