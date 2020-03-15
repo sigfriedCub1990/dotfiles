@@ -25,5 +25,3 @@ source ~/dotfiles/bash_prompt/bash_aliases
 # Finally set environment variables because we need some plugins
 # to be (installed | loaded) before this
 source ~/dotfiles/zsh/env.zsh
-
-export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
