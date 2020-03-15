@@ -1,32 +1,5 @@
-# Temp
-b() {
-}
-
 wd() {
    . ~/bin/wd/wd.sh
-}
-
-# install global npm packages to custom dir
-# ig() {
-#   cd $HOME/bin
-#   npm install --save $@
-#   cd -
-# }
-
-w() {
-  if [ $# -eq 0 ]; then
-    code .
-  else
-    code "${1:-.}"
-  fi
-}
-
-s() {
-  if [ $# -eq 0 ]; then
-    subl .
-  else
-    subl "${1:-.}"
-  fi
 }
 
 e() {
@@ -42,10 +15,6 @@ gdelsquashed() {
   git checkout -q master && git for-each-ref refs/heads/ "--format=%(refname:short)" | while read branch; do mergeBase=$(git merge-base master $branch) && [[ $(git cherry master $(git commit-tree $(git rev-parse $branch^{tree}) -p $mergeBase -m _)) == "-"* ]] && git branch -D $branch; done
 }
 
-# kp() {
-#   kubectl port-forward "$@" 5300:5432
-# }
-
 # bin <binary>. Move <binary> to /usr/local/bin (in my PATH).
 bin(){
   mv "$@" /usr/local/bin
@@ -60,21 +29,9 @@ convertAllMDFilesToTabs(){
  find . -name '*.md' ! -type d -exec bash -c 'expand -t 4 "$0" > /tmp/e && mv /tmp/e "$0"' {} \;
 }
 
-# TODO:
-# Pass in extension as argument
-# prettierFormat(){
-#   prettier --write "**/*.md"
-# }
-
-# Update nix-darwin configuration
-un(){
-  darwin-rebuild switch
-  __ETC_ZSHENV_SOURCED= exec zsh
-}
-
 # Update Zsh plugins
 uz(){
-  antibody bundle <~/.dotfiles/zsh/plugins.txt >~/.zsh_plugins.sh
+  antibody bundle <~/dotfiles/zsh/zsh_plugins.txt >~/.zsh_plugins.sh
   antibody update
 }
 
@@ -107,17 +64,6 @@ falias() {
     eval $CMD
 }
 
-# Open Xcode projects from the command line
-# function co {
-#   proj=$(ls -d *.xcodeproj/ 2>/dev/null)
-
-#   if [ -n "$proj" ]; then
-#     open -a Xcode "$proj"
-#   else
-#     echo "No Xcode project detected."
-#   fi
-# }
-
 # Lowercase every file in current dir
 lowercaseCurrentDir(){
   for i in *; do mv $i ${(L)i}; done
@@ -126,16 +72,6 @@ lowercaseCurrentDir(){
 # Show $PATH
 path(){
   echo -e ${PATH//:/\\n}
-}
-
-# cd to Finder
-cdf() {
-    target=`osascript -e 'tell application "Finder" to if (count of Finder windows) > 0 then get POSIX path of (target of front Finder window as text)'`
-    if [ "$target" != "" ]; then
-        cd "$target"
-    else
-        echo 'No Finder window found' >&2
-    fi
 }
 
 # Fetch pull request
@@ -169,186 +105,19 @@ md(){
   cd "$1"
 }
 
-# Get cheat sheet of command from cheat.sh. h <cmd>
-h(){
-  curl cheat.sh/${@:-cheat}
-  # curl cheat.sh/$@
-}
-
 # cfile <file> - Copy content of file to clipboard
 cfile(){
   cat $1 | pbcopy
 }
-
-# wr - Release Alfred workflow
-wr() {
-  # TODO: Check if current dir has go in it (if yes, cd to workflow and then run script)
-  package-workflow .
-}
-
-# re <files> - Move files to trash.
-re(){
-  mv "$@" ~/.Trash
-}
-
-# zs - Search for most visited directories from z index and open them in finder.
-zs() {
-  z $1 && open .
-}
-
-# awe - Open path of current dir in Alfred.
-# awe <file> - Open path of <file> in Alfred.
-awe() {
-    if [ $# -eq 0 ]; then   # If nothing is put as arguments open Alfred at the working directory so it list the content
-        osascript -e "tell application \"Alfred 3\" to browse \"$(pwd)\""
-    elif [ $# -eq 1 ]; then # If only one argument is set
-        if [[ -d $1 ]] || [[ -f $1 ]]; then   # if it looks like a path or file, then make sure we send a full path to Alfred
-            osascript -e "tell application \"Alfred 3\" to browse \"$(realpath -s "$1")\""
-        else    # Any other words that are not a path would be sent to Alfred as is  (ex: alfs snip  ->  would open Alfred with "snip")
-            osascript -e "tell application \"Alfred 3\" to search \"$*\""
-        fi
-    else   # If multiple arguments are set, then they are sent to Alfred as is. (ex: alfs define allo  ->  would pop Alfred with "define allo")
-        osascript -e "tell application \"Alfred 3\" to search \"$*\""
-    fi
-}
-
-# aw - Alfred file action search of current dir.
-# aw <file> - Alfred file action search for file.
-aw() {
-    if [ $# -eq 0 ]; then    # If no arguments, pop Alfred Action Window in the working directory
-        osascript -e "tell application \"Alfred 3\" to action \"$(pwd)\""
-    else
-        args=""
-        argsAreAllPaths=true
-        for arg in "$@" ; do
-            filePath=$(realpath -s "$arg")
-            if [[ -d $filePath ]] || [[ -f $filePath ]]; then    # if the arg is a file of folder, append the path to the args string to build a list for the osascript command
-                args+="\"$filePath\","
-            else
-                argsAreAllPaths=false   # if one argument is not a folder or file path, then pop Alfred with the standard search and try to access Alfred Action Window. This also makes it clear there's a problem with one of the passed paths
-                break
-            fi
-        done
-        if [ "$argsAreAllPaths" = true ] ; then    # If all arguments are files or directories, open Alfred Action Window with the list
-            args=${args%?} # remove the trailing comma
-            osascript -e "tell application \"Alfred 3\" to action { $args }"
-        else  # If not all arguments are files or directories, search as is and try to access the Alfred Action Window. The Action Window should pop if it's possible, or the standard Alfred Search would be shown (ex: alfa activity monitor  ->  Would open the file action window of the Activity Monitor)
-            actionKey="keystroke (ASCII character 29)"  # (meaning: right arrow) Put your prefered action key (Alfred -> File Search -> Actions -> Show Actions) as applescript command for keystroke or key code (ex: "key code 98")
-            delayBetweenEvents=0.1    # Play with the number if the action doesn't work correctly
-            osascript -e "tell application \"Alfred 3\" to search \"$*\"" -e "delay $delayBetweenEvents" -e "tell application \"System Events\" to $actionKey"
-        fi
-    fi
-}
-
-# mdg <dir-name> - Create dir and .go file of <dir-name> name.
-mdg() {
-    md $1
-    touch $1.go
-}
-
-# wl - Alfred link and build workflow.
-wl() {
-    alfred link
-    alfred build
-}
-
-# iz <png-file> - Create geometric primitive of png-file.
-iz () {
-    primitive -i in.png -o output.png -n "$1"
-}
-
-# NOTE: Not sure if needed.
-# fix - Fixes antigen problems.
-fix() {
-    rm -rf ~/.antigen/.zcompdump
-    rm -rf ~/.antigen/.zcompdump.zwc
-    exec zsh
-}
-
-# wa <dir> - Go to do <dir> directory and open it with VS Code.
-wa() {
-    cd "$1"
-    code .
-}
-
-# TODO: Find for anybar.
-# anybar() {
-#     echo -n "red" | nc -4u -w0 localhost 1738
-# }
 
 # dirfiles <dir> - Give number of files found inside given directory.
 dirfiles() {
     find "$1" -type f | wc -l
 }
 
-# og <git-repo> - Go get the GitHub repo.
-og() {
-  go get -u "$@"
-}
-
-# rfg <file.go> - go run <file.go> on any Go file changes inside current dir.
-rfg() {
-  reflex -g '*.go' go run $1
-}
-
-# rft <file.py> - Rerun <file.py> on any Python file changes inside current dir.
-rft() {
-  reflex -g '*.py' python3 "$@"
-}
-
-# rfm <cmd-params> - Rerun main.go with <cmd-params> passed in on any Go files changes inside current dir.
-rfm() {
-    reflex -g '*.go' go run main.go $1
-}
-
-# wfj <file.js> - Rerun <file.js> on any JS file changes inside current dir.
-wfj() {
-    reflex -g '*.js' node $1
-}
-
-# af <cmd> - View definition of <cmd>.
-af() {
-  whence -f "$1"
-}
-
-# tc - Create and edit Cartfile.
-tc() {
-    touch Cartfile
-    chmod +x Cartfile
-    nvim Cartfile
-}
-
 # fl <text> - Find where <text> is contained within current dir.
 fl() {
     grep -rnw . -e "$*"
-}
-
-# Print current active Finder dir.
-finder() {
-  osascript 2>/dev/null <<EOF
-    tell application "Finder"
-      return POSIX path of (target of window 1 as alias)
-    end tell
-EOF
-}
-
-# xo <xcode-proj> - Open Xcode project.
-xo(){
-  if test -n "$(find . -maxdepth 1 -name '*.xcworkspace' -print -quit)"
-  then
-    echo "Opening workspace"
-    open *.xcworkspace
-    return
-  else
-    if test -n "$(find . -maxdepth 1 -name '*.xcodeproj' -print -quit)"
-    then
-      echo "Opening project"
-      open *.xcodeproj
-      return
-    else
-      echo "Nothing found"
-    fi
-  fi
 }
 
 # down <url> - Download <url> and save to current dir.
@@ -363,17 +132,6 @@ cw() { printf %s "$PWD" | pbcopy; }
 md() {
   [[ -n "$1" ]] && mkdir -p "$1" && builtin cd "$1"
 }
-
-# da - cd a dir back and exa
-# da <dir> - Change to a directory and list its contents
-# dw() {
-#   if [ $# -eq 0 ]; then
-#     cd ..
-#     exa
-#   else
-#     builtin cd "$argv[-1]" && exa "${(@)argv[1,-2]}"
-#   fi
-# }
 
 # server - Create server of current dir on port 8000 and open it in browser.
 server() {
@@ -527,16 +285,6 @@ commits() {
   git log $1 --oneline --reverse | cut -d' ' -f 1 | tr '/n' ' '
 }
 
-# go get currently active Safari URL
-ogg() {
-  # Get url
-  url=$(osascript -e 'tell application "Safari" to return URL of front document')
-  # Remove https://
-  url="${url#https://}"
-  # Get the package/tool
-  go get -u $url
-}
-
 # ram <process-name> - Find how much RAM a process is taking.
 ram() {
   local sum
@@ -557,4 +305,3 @@ ram() {
     fi
   fi
 }
-
