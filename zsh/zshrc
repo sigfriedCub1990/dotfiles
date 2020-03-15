@@ -1,17 +1,23 @@
 # Load plugins
-# This line is odd because according to the zsh-syntax-highlight 
+# This line is odd because according to the zsh-syntax-highlight
 # this plugins should be `sourced` after `compinit` since this
 # is a wrapper around `zle` but the observations gave that when included
-# before `options.zsh` it's erroring to the console 
+# before `options.zsh` it's erroring to the console
 # TODO: More research, maybe there is a problema with `antibody`
 source ~/.zsh_plugins.sh
 
 source ~/dotfiles/zsh/options.zsh
 
+# NVM's config
+# Should be place before autocompletions
+export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+
 # Custom functions & utilities
 source ~/dotfiles/zsh/functions/functions.zsh
 source ~/dotfiles/zsh/functions/fzf-functions.zsh
 source ~/dotfiles/zsh/functions/git-functions.zsh
+source ~/dotfiles/zsh/autocompletions/nvm.zsh
 
 # Some aliases (TODO: for God sake, change the directory later!!)
 source ~/dotfiles/bash_prompt/bash_aliases
@@ -19,3 +25,5 @@ source ~/dotfiles/bash_prompt/bash_aliases
 # Finally set environment variables because we need some plugins
 # to be (installed | loaded) before this
 source ~/dotfiles/zsh/env.zsh
+
+export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
