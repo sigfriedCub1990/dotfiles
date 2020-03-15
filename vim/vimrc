@@ -1,4 +1,4 @@
-" filetype off                  " required
+" filetype off
 set encoding=UTF-8
 
 set shiftwidth=2 " Avoid huge Vim's default tabs, use 4 to indent
@@ -15,22 +15,20 @@ set number
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
 
-" Should set this before plugin is loaded
-let g:ale_completion_enabled = 1
-let g:ale_set_balloons = 1
-
-" Set autocompletion to ALE's default
-set omnifunc=ale#completion#OmniFunc
-
-" let g:ale_completion_tsserver_autoimport = 1
-
 call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
+if has('nvim')
+  Plugin 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+else
+  Plugin 'Shougo/deoplete.nvim'
+  Plugin 'roxma/nvim-yarp'
+  Plugin 'roxma/vim-hug-neovim-rpc'
+endif
 Plugin 'tpope/vim-fugitive'
 Plugin 'scrooloose/nerdtree'
 Plugin 'xuyuanp/nerdtree-git-plugin'
 Plugin 'vim-airline/vim-airline'
-Plugin 'scrooloose/nerdcommenter'
+" Plugin 'scrooloose/nerdcommenter'
 Plugin 'Yggdroot/indentLine'
 Plugin 'yuezk/vim-js'
 Plugin 'maxmellon/vim-jsx-pretty'
@@ -40,6 +38,9 @@ Plugin 'dracula/vim', {'name': 'dracula'}
 Plugin 'tpope/vim-surround'
 Plugin 'jiangmiao/auto-pairs'
 call vundle#end()
+
+" Start deoplete
+let g:deoplete#enable_at_startup = 1
 
 " Filetype detection, filetype options detection, auto-indent detection
 filetype plugin indent on
@@ -57,6 +58,10 @@ set hidden
 autocmd vimenter * NERDTree
 " Show hidden files
 let NERDTreeShowHidden=1
+
+" Autosave folds
+autocmd BufWinLeave *.* mkview!
+autocmd BufWinEnter *.* silent loadview
 
 " Define mapleader key
 let mapleader = ","
@@ -82,6 +87,10 @@ packadd! matchit
 nnoremap <silent> <Leader>n :tabNew<CR>
 nnoremap <silent> <Leader>] :tabnext<CR>
 nnoremap <silent> <Leader>[ :tabprevious<CR>
+
+" Navigate between ALE's errors
+nmap <silent> <C-k> <Plug>(ale_previous_wrap)
+nmap <silent> <C-j> <Plug>(ale_next_wrap)
 
 " .vimrc reload withing .vimrc
 nnoremap <silent> <Leader>rf :w\|:source %<CR>
