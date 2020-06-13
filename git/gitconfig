@@ -15,7 +15,7 @@
     amend    = commit --allow-empty --amend               --allow-empty-message --reuse-message=HEAD --reset-author
     fix      = commit               --amend               --allow-empty-message --reuse-message=HEAD
     reword   = commit --allow-empty --amend        --only --allow-empty-message --message
-    edit     = commit --allow-empty --amend        --only --allow-empty-message 
+    edit     = commit --allow-empty --amend        --only --allow-empty-message
     touch    = commit --allow-empty --amend        --only --allow-empty-message --reuse-message=HEAD --reset-author
     pick     = cherry-pick --allow-empty-message
 #log
@@ -33,6 +33,7 @@
 #navigate
     topic     = checkout -b
     switch    = checkout
+    prev      = checkout -
     drag      = rebase --preserve-merges
     move      = rebase --onto
     rewrite   = rebase --interactive
@@ -41,6 +42,7 @@
     jump      = reset --hard
     dive      = reset --hard HEAD^
     drop      = branch -D
+    rename    = branch -m
     undo      = reset --hard ORIG_HEAD
     squashamend  = !git reset HEAD^ && git set && git commit --amend --allow-empty --allow-empty-message --reuse-message=ORIG_HEAD --reset-author
     squashfix    = !git reset HEAD^ && git set && git commit --amend --allow-empty --allow-empty-message --reuse-message=HEAD
