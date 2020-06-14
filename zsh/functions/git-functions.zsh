@@ -168,24 +168,6 @@ g.() {
   fi
 }
 
-# Create MIT license file for sigfried
-mit() {
-  license-up mit sigfried sigfried.xyz
-  git add LICENSE
-}
-
-# Create MIT license file for Learn Anything
-mitla () {
-  license-up mit Learn Anything, learn-anything.xyz
-  git add LICENSE
-}
-
-# TODO: not sure
-# Pull changes made from PR to head. gp <link>
-gp() {
-    git pull origin pull/"$1"/head
-}
-
 # Create dir, go to it and initialise it with git. mg <dir-name>
 mg() {
     mkdir "$1"
@@ -193,42 +175,12 @@ mg() {
     git init
 }
 
-# git push to origin master of currently open Safari tab
-ggu() {
-    git remote add origin $(osascript -e 'tell application "Safari" to return URL of front document')
-    git push -u origin master
-}
-
-# git add origin from currently open Safari tab and push to master there
-ggo() {
-    git remote add origin $(osascript -e 'tell application "Safari" to return URL of front document')
-    git push $(osascript -e 'tell application "Safari" to return URL of front document') master
-    git push --set-upstream origin master
-}
-
-# git add origin from currently open Safari tab and push to master there
-ggg() {
-    git init
-    git add .
-    git commit -m "init"
-    git remote add origin $(osascript -e 'tell application "Safari" to return URL of front document')
-    git push $(osascript -e 'tell application "Safari" to return URL of front document') master
-}
-
-# git initialise Learn Anything repository and make first commit
-ggla() {
-    git init
-    license-up mit Learn Anything, learn-anything.xyz
-    git add .
-    git commit -m "Init"
-}
-
 # Initialise repository and add MIT license
 ggi() {
     git init
-    license-up mit Nikita Voloboev nikitavoloboev.xyz
+    license-up mit sigfried sigfried.xyz
     git add .
-    git commit -m "Init"
+    git commit -m "Initial commit"
 }
 
 # git remote add origin of link found in clipboard
@@ -242,7 +194,7 @@ gcd() {
 }
 
 # git clone link in clipboard
-gll(){
+gll() {
     OS="$(uname -a | awk '{ print $1 }')"
     if [[ $OS == 'Darwin' ]]; then
       git clone "$(pbpaste)"
@@ -252,14 +204,3 @@ gll(){
 
     # TODO: cd into cloned project (need to extract name with regex)
 }
-
-# TODO: ?
-igit() {
-  git rev-parse HEAD > /dev/null 2>&1
-}
-
-# See contents of .git from current dir recusively as a tree
-gte() {
-	tree -aC -I '.git' --dirsfirst "$@" | less -FRNX
-}
-
