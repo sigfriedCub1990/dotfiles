@@ -22,6 +22,8 @@ source ~/dotfiles/zsh/autocompletions/nvm.zsh
 # Some aliases (TODO: for God sake, change the directory later!!)
 source ~/dotfiles/bash_prompt/bash_aliases
 
+# Init starship prompt
+eval "$(starship init zsh)"
+
 # Finally set environment variables because we need some plugins
 # to be (installed | loaded) before this
-source ~/dotfiles/zsh/env.zsh
