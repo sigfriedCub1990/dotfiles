@@ -53,9 +53,9 @@ alias find_lost_souls="nmap -n  -p3128 10.8.0.0/16 --open --oG - -T4 | grep squi
 alias youtube-play='mpsyt'
 alias evpn="expressvpn"
 alias dt="dotnet"
-alias ssh-list="ssh-add -l"
+alias ssh-ls="ssh-add -l"
 alias ssh-remove="ssh-add -D"
-alias adk="ssh-add $HOME/.ssh/p1stache-rsa"
+alias ssh="TERM=xterm-256color ssh"
 alias cat="bat"
 alias dn="dnote"
 alias n="nvim"
