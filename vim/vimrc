@@ -7,6 +7,9 @@ set expandtab " Convert tabs to spaces
 
 set wildmenu " Command-line completion enhaced mode
 
+" Enable italics inside vim
+highlight Comment cterm=italic
+
 " I must see the lines!!
 set number
 " Render whitespaces :)
@@ -52,16 +55,14 @@ autocmd vimenter * NERDTree
 " Show hidden files
 let NERDTreeShowHidden=1
 
-" Autosave folds
-autocmd BufWinLeave *.* mkview!
-autocmd BufWinEnter *.* silent loadview
-
 " Define mapleader key
-let mapleader = ","
+let mapleader = " "
 
-" Highly experimental ( Might break something :( )
-" I'll start mapping some useful keybinds to use (Neo)Vim as my main editor
-" for everything I do
+" CtrlP configs
+let g:ctrlp_map = '<c-p>'
+let g:ctrlp_cmd = 'CtrlP'
+
+let g:ctrlp_working_path_mode = 'ra'
 
 " Toggle NERDTree
 nnoremap <silent> <Leader>nt :NERDTreeToggle<CR>
@@ -70,16 +71,15 @@ nnoremap <silent> <Leader>nr :NERDTreeRefreshRoot<CR>
 " Remove search highlight
 nnoremap <silent> <Leader>us :noh<CR>
 
+" Split vertically|horizontally
+nnoremap <silent> <leader>w/ :vs<CR>
+nnoremap <silent> <leader>w- :split<CR>
+
 " Cycle between open buffers
 nnoremap <leader>l :ls<CR>:b<space>
 
 " Vim has some built-ins plugins!!!
 packadd! matchit
-
-" Work with tabs
-nnoremap <silent> <Leader>n :tabNew<CR>
-nnoremap <silent> <Leader>] :tabnext<CR>
-nnoremap <silent> <Leader>[ :tabprevious<CR>
 
 " Navigate between ALE's errors
 nmap <silent> <C-k> <Plug>(ale_previous_wrap)
@@ -97,9 +97,6 @@ set incsearch " Highlight matching search
 
 set statusline=%{FugitiveStatusline()}
 
-" vim-arline plugin will handle linting errors
-let g:airline#extensions#ale#enabled = 1
-
 " Vim-fugitive's
 set statusline=%{FugitiveStatusline()}
 
@@ -108,6 +105,11 @@ syntax enable
 
 " Set colorscheme
 colorscheme dracula
+
+set wildignore+=*/node_modules/*,/.git/
+
+" Needed for YATS
+set re=0
 
 " ALE configs
 "
@@ -119,3 +121,120 @@ let g:ale_sign_error = '✕'
 let g:ale_sign_warning = '•'
 " Activate Fix on save
 let g:ale_fix_on_save= 1
+
+" CoC options
+" TextEdit might fail if hidden is not set.
+set hidden
+let g:airline#extensions#coc#enabled = 1
+
+" Some servers have issues with backup files, see #649.
+set nobackup
+set nowritebackup
+
+" Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
+" delays and poor user experience.
+set updatetime=300
+
+" Don't pass messages to |ins-completion-menu|.
+set shortmess+=c
+
+" Always show the signcolumn, otherwise it would shift the text each time
+" diagnostics appear/become resolved.
+set signcolumn=yes
+
+" Use tab for trigger completion with characters ahead and navigate.
+" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
+" other plugin before putting this into your config.
+inoremap <silent><expr> <TAB>
+     \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" Use <c-space> to trigger completion.
+inoremap <silent><expr> <c-space> coc#refresh()
+
+" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current
+" position. Coc only does snippet and additional edit on confirm.
+" <cr> could be remapped by other vim plugin, try `:verbose imap <CR>`.
+if exists('*complete_info')
+  inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
+else
+  inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+endif
+
+" Use `[g` and `]g` to navigate diagnostics
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+" GoTo code navigation.
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Use K to show documentation in preview window.
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
+" Highlight the symbol and its references when holding the cursor.
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+" Symbol renaming.
+nmap <leader>rn <Plug>(coc-rename)
+
+" Formatting selected code.
+xmap <leader>f  <Plug>(coc-format-selected)
+nmap <leader>f  <Plug>(coc-format-selected)
+
+augroup mygroup
+  autocmd!
+  " Setup formatexpr specified filetype(s).
+  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+  " Update signature help on jump placeholder.
+  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+augroup end
+
+" Applying codeAction to the selected region.
+" Example: `<leader>aap` for current paragraph
+xmap <leader>a  <Plug>(coc-codeaction-selected)
+nmap <leader>a  <Plug>(coc-codeaction-selected)
+
+" Remap keys for applying codeAction to the current line.
+nmap <leader>ac  <Plug>(coc-codeaction)
+" Apply AutoFix to problem on the current line.
+nmap <leader>qf  <Plug>(coc-fix-current)
+
+" Introduce function text object
+" NOTE: Requires 'textDocument.documentSymbol' support from the language server.
+xmap if <Plug>(coc-funcobj-i)
+xmap af <Plug>(coc-funcobj-a)
+omap if <Plug>(coc-funcobj-i)
+omap af <Plug>(coc-funcobj-a)
+
+" Use <TAB> for selections ranges.
+" NOTE: Requires 'textDocument/selectionRange' support from the language server.
+" coc-tsserver, coc-python are the examples of servers that support it.
+nmap <silent> <TAB> <Plug>(coc-range-select)
+xmap <silent> <TAB> <Plug>(coc-range-select)
+
+" Add `:Format` command to format current buffer.
+command! -nargs=0 Format :call CocAction('format')
+
+" Add `:Fold` command to fold current buffer.
+command! -nargs=? Fold :call     CocAction('fold', <f-args>)
+
+" Add `:OR` command for organize imports of the current buffer.
+command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
