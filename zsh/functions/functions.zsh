@@ -1,7 +1,3 @@
-wd() {
-   . ~/bin/wd/wd.sh
-}
-
 e() {
   if [ $# -eq 0 ]; then
     nvim .
