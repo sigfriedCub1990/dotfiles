@@ -17,5 +17,6 @@
     ~/.vimrc: vim/vimrc
     ~/.tmux.conf: tmux/tmux.conf
     ~/.nvmrc: nvm/nvmrc
+    ~/.alacritty.yml: alacritty/alacritty.yml
 
 - clean: ['~']
