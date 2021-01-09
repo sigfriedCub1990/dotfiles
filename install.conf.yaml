@@ -5,10 +5,20 @@
       relink: true
       force: true
 
+- create:
+  - ~/.tmux/plugins/tpm
+
 - shell:
-    - [git submodule update --init --recursive, Installing submodules] # Install submodules
-      #    - [git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm, Clone tmux plugin manager]
-      #    - [chsh -s $(which zsh), Make ZSH the default shell]
+    - [git submodule update --init --recursive, Installing submodules]
+    - [chsh -s $(which zsh), Make ZSH the default shell]
+
+- git:
+  '~/.tmux/plugins/tpm':
+    url: 'https://github.com/tmux-plugins/tpm'
+    description: 'Clone tmux plugin manager'
+  '~/.emacs.d':
+    url: 'https://github.com/hlissner/doom-emacs'
+    description: 'Clone doom-emacs!'
 
 # Symlinks
 - link:
@@ -18,5 +28,14 @@
     ~/.tmux.conf: tmux/tmux.conf
     ~/.nvmrc: nvm/nvmrc
     ~/.alacritty.yml: alacritty/alacritty.yml
+    ~/.yabairc:
+      if: '[ `uname`= Darwin ]'
+      path: yabairc
+    ~/.spacebarrc:
+      if: '[ `uname`= Darwin ]'
+      path: spacebarrc
+    ~/.skhdrc:
+      if: '[ `uname`= Darwin ]'
+      path: skhdrc
 
 - clean: ['~']
