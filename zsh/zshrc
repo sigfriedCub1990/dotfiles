@@ -1,33 +1,48 @@
-# Load plugins
-# This line is odd because according to the zsh-syntax-highlight
-# this plugins should be `sourced` after `compinit` since this
-# is a wrapper around `zle` but the observations gave that when included
-# before `options.zsh` it's erroring to the console
-# TODO: More research, maybe there is a problema with `antibody`
-source ~/.zsh_plugins.sh
-source ~/dotfiles/zsh/env.zsh
+#!/bin/zsh
+export DOTFILES="$HOME/dotfiles"
+export PROJECTS="$HOME/code"
 
-source ~/dotfiles/zsh/options.zsh
+typeset -U config_files
+typeset -U fns
+config_files=($DOTFILES/*/*.zsh)
+fns=($DOTFILES/*/functions/*.zsh)
+
+# load antibody plugins
+source ~/.zsh_plugins.sh
+
+# load everything but the path and completion files
+for file in ${${config_files:#*/path.zsh}:#*/completion.zsh}; do
+  echo "$file"
+  source "$file"
+done
 
 # NVM's config
 # Should be place before autocompletions
 export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
 
-# Custom functions & utilities
-source ~/dotfiles/zsh/functions/functions.zsh
-source ~/dotfiles/zsh/functions/fzf-functions.zsh
-source ~/dotfiles/zsh/functions/git-functions.zsh
-source ~/dotfiles/zsh/autocompletions/nvm.zsh
+autoload -Uz compinit
+for dump in ~/.zcompdump(N.mh+24); do
+  compinit
+done
+compinit -C
 
-# Some aliases (TODO: for God sake, change the directory later!!)
-source ~/dotfiles/bash_prompt/bash_aliases
+# load every completion after autocomplete loads
+for file in ${(M)config_files:#*/completion.zsh}; do
+  source "$file"
+done
+
+# load functions inside functions directory
+for file in ${fns}; do
+  echo "$file"
+  source "$file"
+done
+
+unset config_files
+unset fns
 
 # Init fasd
 eval "$(fasd --init auto)"
 
 # Init starship prompt
 eval "$(starship init zsh)"
-
-# Finally set environment variables because we need some plugins
-# to be (installed | loaded) before this
