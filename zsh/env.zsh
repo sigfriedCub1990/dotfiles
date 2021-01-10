@@ -3,7 +3,7 @@ export EDITOR=nvim
 export SUDO_EDITOR=nvim
 
 export GO_PATH=$PATH:/$HOME/go/bin
-export RUBY_PATH=$PATH:/$HOME/.gem/ruby/2.6.0/bin
+export RUBY_PATH=$PATH:/$HOME/.gem/ruby/2.7.0/bin
 
 export LANG=en_US.UTF-8
 export PATH=$PATH:$GO_PATH:$RUBY_PATH
@@ -19,6 +19,3 @@ test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell
 
 # Colorls
 source $(dirname $(gem which colorls))/tab_complete.sh
-
-# Init starship prompt
-eval "$(starship init zsh)"
