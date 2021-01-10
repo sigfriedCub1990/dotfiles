@@ -59,6 +59,7 @@ zle -N zle-line-init
 echo -ne '\e[5 q' # Use beam shape cursor on startup.
 preexec() { echo -ne '\e[5 q' ;} # Use beam shape cursor for each new prompt.
 
+# NOTE: This works on Arch Linux, should test on MacOS
 if test -d /usr/share/fzf; then
     # shellcheck disable=SC1091
     . /usr/share/fzf/key-bindings.zsh
