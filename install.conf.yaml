@@ -34,5 +34,7 @@
     ~/.skhdrc:
       if: '[ `uname`= Darwin ]'
       path: skhdrc
+    ~/.config/starship.toml:
+      path: /starship/starship.toml
 
 - clean: ['~']
