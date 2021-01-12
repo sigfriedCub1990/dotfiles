@@ -1,7 +1,6 @@
 export VISUAL=nvim
 export EDITOR=nvim
 export SUDO_EDITOR=nvim
-export VISUAL=emacs
 
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
