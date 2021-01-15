@@ -5,5 +5,5 @@ if command -v brew >/dev/null 2>&1; then
 else
 	curl -sL https://git.io/antibody | sudo sh -s -- -b /usr/local/bin
 fi
-antibody bundle <"$DOTFILES/antibody/bundles.txt" >~/.zsh_plugins.sh
+antibody bundle <"$DOTFILES/antibody/zsh_plugins.txt" >~/.zsh_plugins.sh
 antibody update
