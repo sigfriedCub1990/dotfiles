@@ -6,7 +6,7 @@ alias clear='clear && printf "\e[3J"'
 #alias ls='ls -lFh --sort=extension --color=auto'
 #alias lc='ls -lhC --sort=extension --color=auto'
 #Fanzy ls :)
-alias ls='colorls -1l --sd'
+alias ls='exa -lFh'
 alias lsil='ls -l'
 alias lsc='ls -lFhC --sort=extension'
 #Configuration files.
