@@ -20,7 +20,7 @@
 
 - link:
     ~/.zshrc: zsh/zshrc
-    ~/.gitconfig: git/gitconfig
+    ~/.gitconfig.local: git/gitconfig
     ~/.vimrc: vim/vimrc
     ~/.tmux.conf: tmux/tmux.conf
     ~/.nvmrc: nvm/nvmrc

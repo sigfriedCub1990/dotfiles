@@ -70,6 +70,9 @@ preexec() { echo -ne '\e[5 q' ;} # Use beam shape cursor for each new prompt.
 if test -d /usr/share/fzf; then
     # shellcheck disable=SC1091
     . /usr/share/fzf/key-bindings.zsh
+elif test -d /usr/share/doc/fzf/examples; then
+    # shellcheck disable=SC1091
+    . /usr/share/doc/fzf/examples/key-bindings.zsh
 else
     bindkey '^R' history-incremental-search-backward
 fi
