@@ -1,3 +1,94 @@
+local set = vim.opt
+local map = vim.api.nvim_set_keymap
+
+set.completeopt = "menu,menuone,noselect"
+set.signcolumn = "yes"
+
+-- moving around, searching and patterns
+set.path = ".,**"
+set.ignorecase = true
+set.smartcase = true
+
+-- tabs and indenting
+set.tabstop = 4
+set.shiftwidth = 4
+set.softtabstop = 4
+set.expandtab = true
+
+--Remap space as leader key
+map('', '<Space>', '<Nop>', { noremap = true, silent = true })
+vim.g.mapleader = ' '
+vim.g.maplocalleader = ' '
+
+-- edit config file
+map("n", "<leader>v", ":e ~/.config/nvim/init.lua<CR>", { noremap = true })
+
+-- clear search highlights
+map("n", "<leader>/", ":nohlsearch<cr>", { noremap = true })
+
+-- Substitute
+map("n", "gs", ":%s/", { noremap = true })
+
+--Make line numbers default
+vim.wo.number = true
+
+--Enable break indent
+vim.o.breakindent = true
+
+--Save undo history
+vim.opt.undofile = true
+
+--Decrease update time
+vim.o.updatetime = 250
+vim.wo.signcolumn = 'yes'
+
+-- displaying text
+set.scrolloff = 5
+set.display = "truncate"
+set.fillchars = { vert = "│" }
+set.lazyredraw = true
+set.list = true
+set.listchars = {
+  extends = "⟩",
+  nbsp = "␣",
+  precedes = "⟨",
+  tab = "► ",
+  trail = "·",
+}
+
+-- multiple windows
+set.previewheight = 5
+set.splitbelow = true
+set.splitright = true
+
+-- selecting text
+set.clipboard = "unnamedplus,unnamed"
+
+-- reading and writing files
+set.fileformats = "unix"
+set.writebackup = false
+set.autowrite = true
+
+-- the swap file
+set.swapfile = false
+
+--Set colorscheme (order is important here)
+vim.g.onedark_terminal_italics = 2
+vim.cmd [[colorscheme onedark]]
+
+--Set statusbar
+vim.g.lightline = {
+  colorscheme = 'onedark',
+  active = { left = { { 'mode', 'paste' }, { 'gitbranch', 'readonly', 'filename', 'modified' } } },
+  component_function = { gitbranch = 'fugitive#head' },
+}
+
+
+--Remap for dealing with word wrap
+map('n', 'k', "v:count == 0 ? 'gk' : 'k'", { noremap = true, expr = true, silent = true })
+map('n', 'j', "v:count == 0 ? 'gj' : 'j'", { noremap = true, expr = true, silent = true })
+
+
 -- Install packer
 local install_path = vim.fn.stdpath 'data' .. '/site/pack/packer/start/packer.nvim'
 
@@ -17,28 +108,28 @@ require('packer').startup(function()
   -- plugin manager and optimizations
   use 'wbthomason/packer.nvim'
   use 'lewis6991/impatient.nvim'
+  
   -- Pope's commandments
   use 'tpope/vim-fugitive'
   use 'tpope/vim-commentary'
   use 'tpope/vim-surround'
+  
   -- UI to select things (files, grep results, open buffers...)
   use { 'nvim-telescope/telescope.nvim', requires = { 'nvim-lua/plenary.nvim' } }
+
   -- theming neovim
   use 'joshdick/onedark.vim'
   use 'itchyny/lightline.vim'
+
+  -- tags management
   use 'ludovicchabant/vim-gutentags'
-  -- Add git related info in the signs columns and popups
-  use { 'lewis6991/gitsigns.nvim', requires = { 'nvim-lua/plenary.nvim' } }
+
   -- Highlight, edit, and navigate code using a fast incremental parsing library
   use 'nvim-treesitter/nvim-treesitter'
-  -- Additional textobjects for treesitter
   use 'nvim-treesitter/nvim-treesitter-textobjects'
-  use 'neovim/nvim-lspconfig' -- Collection of configurations for built-in LSP client
-  use 'hrsh7th/nvim-cmp' -- Autocompletion plugin
-  use 'hrsh7th/cmp-nvim-lsp'
-  use 'saadparwaiz1/cmp_luasnip'
-  use 'L3MON4D3/LuaSnip' -- Snippets plugin
-  use 'jiangmiao/auto-pairs'
+
+  -- lsp stuff
+  use 'neovim/nvim-lspconfig'
   use({
     "jose-elias-alvarez/null-ls.nvim",
     config = function()
@@ -46,6 +137,23 @@ require('packer').startup(function()
     end,
     requires = { "nvim-lua/plenary.nvim" },
   })
+
+  -- autocompletion
+  use 'hrsh7th/nvim-cmp'
+  use 'hrsh7th/cmp-nvim-lsp'
+  use 'saadparwaiz1/cmp_luasnip'
+
+  -- searching
+  use("junegunn/fzf")
+  use("junegunn/fzf.vim")
+
+  -- snippets
+  use 'L3MON4D3/LuaSnip' -- Snippets plugin
+  use("rafamadriz/friendly-snippets")
+
+  -- misc
+  use 'jiangmiao/auto-pairs'
+  use { 'lewis6991/gitsigns.nvim', requires = { 'nvim-lua/plenary.nvim' } }
 end)
 
 require('impatient')
@@ -68,56 +176,6 @@ require("null-ls").setup({
         end
     end,
 })
-
--- tabs and indenting
--- set.tabstop = 4
--- set.shiftwidth = 4
--- set.softtabstop = 4
--- set.expandtab = true
-
--- clear search highlights
--- map("n", "<leader>/", ":nohlsearch<cr>", { noremap = true })
-
---Set highlight on search
-vim.o.hlsearch = false
-
---Make line numbers default
-vim.wo.number = true
-
---Enable break indent
-vim.o.breakindent = true
-
---Save undo history
-vim.opt.undofile = true
-
---Case insensitive searching UNLESS /C or capital in search
-vim.o.ignorecase = true
-vim.o.smartcase = true
-
---Decrease update time
-vim.o.updatetime = 250
-vim.wo.signcolumn = 'yes'
-
---Set colorscheme (order is important here)
-vim.g.onedark_terminal_italics = 2
-vim.cmd [[colorscheme onedark]]
-
---Set statusbar
-vim.g.lightline = {
-  colorscheme = 'onedark',
-  active = { left = { { 'mode', 'paste' }, { 'gitbranch', 'readonly', 'filename', 'modified' } } },
-  component_function = { gitbranch = 'fugitive#head' },
-}
-
---Remap space as leader key
-vim.api.nvim_set_keymap('', '<Space>', '<Nop>', { noremap = true, silent = true })
-vim.g.mapleader = ' '
-vim.g.maplocalleader = ' '
-
---Remap for dealing with word wrap
-vim.api.nvim_set_keymap('n', 'k', "v:count == 0 ? 'gk' : 'k'", { noremap = true, expr = true, silent = true })
-vim.api.nvim_set_keymap('n', 'j', "v:count == 0 ? 'gj' : 'j'", { noremap = true, expr = true, silent = true })
-
 -- Highlight on yank
 vim.cmd [[
   augroup YankHighlight
@@ -155,15 +213,15 @@ require('telescope').setup {
   },
 }
 --Add leader shortcuts
-vim.api.nvim_set_keymap('n', '<leader><space>', [[<cmd>lua require('telescope.builtin').buffers()<CR>]], { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>sf', [[<cmd>lua require('telescope.builtin').find_files({previewer = false})<CR>]], { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>sb', [[<cmd>lua require('telescope.builtin').current_buffer_fuzzy_find()<CR>]], { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>sh', [[<cmd>lua require('telescope.builtin').help_tags()<CR>]], { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>st', [[<cmd>lua require('telescope.builtin').tags()<CR>]], { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>sd', [[<cmd>lua require('telescope.builtin').grep_string()<CR>]], { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>sp', [[<cmd>lua require('telescope.builtin').live_grep()<CR>]], { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>so', [[<cmd>lua require('telescope.builtin').tags{ only_current_buffer = true }<CR>]], { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>?', [[<cmd>lua require('telescope.builtin').oldfiles()<CR>]], { noremap = true, silent = true })
+map('n', '<leader><space>', [[<cmd>lua require('telescope.builtin').buffers()<CR>]], { noremap = true, silent = true })
+map('n', '<leader>sf', [[<cmd>lua require('telescope.builtin').find_files({previewer = false})<CR>]], { noremap = true, silent = true })
+map('n', '<leader>sb', [[<cmd>lua require('telescope.builtin').current_buffer_fuzzy_find()<CR>]], { noremap = true, silent = true })
+map('n', '<leader>sh', [[<cmd>lua require('telescope.builtin').help_tags()<CR>]], { noremap = true, silent = true })
+map('n', '<leader>st', [[<cmd>lua require('telescope.builtin').tags()<CR>]], { noremap = true, silent = true })
+map('n', '<leader>sd', [[<cmd>lua require('telescope.builtin').grep_string()<CR>]], { noremap = true, silent = true })
+map('n', '<leader>sp', [[<cmd>lua require('telescope.builtin').live_grep()<CR>]], { noremap = true, silent = true })
+map('n', '<leader>so', [[<cmd>lua require('telescope.builtin').tags{ only_current_buffer = true }<CR>]], { noremap = true, silent = true })
+map('n', '<leader>?', [[<cmd>lua require('telescope.builtin').oldfiles()<CR>]], { noremap = true, silent = true })
 
 -- Treesitter configuration
 -- Parsers must be installed manually via :TSInstall
@@ -312,3 +370,9 @@ cmp.setup {
     { name = 'luasnip' },
   },
 }
+
+-- fzf
+vim.g["fzf_layout"] = { down = "40%" }
+map("n", "<leader>p", ":Files<CR>", { noremap = true })
+map("n", "<leader>t", ":Tags<CR>", { noremap = true })
+map("n", "<leader>b", ":Buffers<CR>", { noremap = true })
