@@ -1,3 +1,11 @@
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
+. /opt/asdf-vm/asdf.sh
 #!/bin/zsh
 export DOTFILES="$HOME/dotfiles"
 export PROJECTS="$HOME/code"
@@ -14,11 +22,6 @@ source ~/.zsh_plugins.sh
 for file in ${${config_files:#*/path.zsh}:#*/completion.zsh}; do
   source "$file"
 done
-
-# NVM's config
-# Should be place before autocompletions
-export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
 
 autoload -Uz compinit
 for dump in ~/.zcompdump(N.mh+24); do
@@ -42,14 +45,12 @@ unset fns
 # Init fasd
 eval "$(fasd --init auto)"
 
-# Init starship prompt
-eval "$(starship init zsh)"
-
-# Init pyenv and pyenv-virtualenv
-eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"
-
-
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="/home/sigfried/.sdkman"
 [[ -s "/home/sigfried/.sdkman/bin/sdkman-init.sh" ]] && source "/home/sigfried/.sdkman/bin/sdkman-init.sh"
+
+source /home/sigfried/.profile
+source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
