@@ -176,6 +176,7 @@ require("null-ls").setup({
         end
     end,
 })
+
 -- Highlight on yank
 vim.cmd [[
   augroup YankHighlight
@@ -384,3 +385,7 @@ vim.g["fzf_layout"] = { down = "40%" }
 map("n", "<leader>p", ":Files<CR>", { noremap = true })
 map("n", "<leader>t", ":Tags<CR>", { noremap = true })
 map("n", "<leader>b", ":Buffers<CR>", { noremap = true })
+
+vim.cmd [[
+    autocmd VimEnter * :Files
+]]
