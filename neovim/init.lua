@@ -154,20 +154,20 @@ require('packer').startup(function()
   -- misc
   use 'jiangmiao/auto-pairs'
   use { 'lewis6991/gitsigns.nvim', requires = { 'nvim-lua/plenary.nvim' } }
+  use 'dhruvasagar/vim-table-mode'
 end)
 
 require('impatient')
 
 --Config null-ls
 require("null-ls").setup({
-    debug = true,
     sources = {
         require("null-ls").builtins.formatting.prettier.with({
-		prefer_local = "node_modules/.bin",
-	}),
-	require("null-ls").builtins.diagnostics.eslint.with({
-		prefer_local = "node_modules/.bin"
-	}),
+            prefer_local = "node_modules/.bin",
+        }),
+        require("null-ls").builtins.diagnostics.eslint.with({
+            prefer_local = "node_modules/.bin"
+        }),
         require("null-ls").builtins.completion.spell,
     },
     on_attach = function(client)
