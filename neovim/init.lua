@@ -129,6 +129,7 @@ require('packer').startup(function()
   use 'nvim-treesitter/nvim-treesitter-textobjects'
 
   -- lsp stuff
+  use("onsails/lspkind-nvim")
   use 'neovim/nvim-lspconfig'
   use({
     "jose-elias-alvarez/null-ls.nvim",
@@ -373,6 +374,9 @@ cmp.setup {
         fallback()
       end
     end,
+  },
+  formatting = {
+    format = require("lspkind").cmp_format({ with_text = true, maxwidth = 50 }),
   },
   sources = {
     { name = 'nvim_lsp' },
