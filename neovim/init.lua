@@ -130,6 +130,7 @@ require('packer').startup(function()
 
   -- lsp stuff
   use("onsails/lspkind-nvim")
+  use("ray-x/lsp_signature.nvim")
   use 'neovim/nvim-lspconfig'
   use({
     "jose-elias-alvarez/null-ls.nvim",
@@ -309,6 +310,13 @@ local on_attach = function(_, bufnr)
   vim.api.nvim_buf_set_keymap(bufnr, 'n', ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
   vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>q', '<cmd>lua vim.diagnostic.setloclist()<CR>', opts)
   vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>so', [[<cmd>lua require('telescope.builtin').lsp_document_symbols()<CR>]], opts)
+
+  require("lsp_signature").on_attach({
+    bind = true,
+    floating_window_above_cur_line = true,
+    hint_enable = false,
+    handler_opts = { border = "none" },
+  }, bufnr)
 end
 
 -- nvim-cmp supports additional completion capabilities
@@ -379,8 +387,11 @@ cmp.setup {
     format = require("lspkind").cmp_format({ with_text = true, maxwidth = 50 }),
   },
   sources = {
-    { name = 'nvim_lsp' },
-    { name = 'luasnip' },
+    { name = 'nvim_lsp', priority = 100 },
+    { name = 'luasnip', priority = 80 },
+    { name = "nvim_lua", priority = 60 },
+    { name = "buffer", priority = 40 },
+    { name = "path", priority = 20 },
   },
 }
 
