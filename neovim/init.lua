@@ -339,6 +339,19 @@ lspconfig.tsserver.setup {
   end,
 }
 
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
+
+local lsp_options = {
+  capabilities = capabilities,
+  on_attach = on_attach,
+  single_file_support = true,
+}
+
+lspconfig.html.setup(vim.tbl_extend("force", lsp_options, { filetypes = { "html" } }))
+
+lspconfig.emmet_ls.setup(vim.tbl_extend("force", lsp_options, { filetypes = { "html", "css" } }))
+
 -- Set completeopt to have a better completion experience
 vim.o.completeopt = 'menuone,noselect'
 
