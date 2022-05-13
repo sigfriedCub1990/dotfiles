@@ -361,11 +361,11 @@ lspconfig.html.setup(vim.tbl_extend("force", lsp_options, { filetypes = { "html"
 
 lspconfig.emmet_ls.setup(vim.tbl_extend("force", lsp_options, { filetypes = { "html", "css" } }))
 
--- Set completeopt to have a better completion experience
-vim.o.completeopt = 'menuone,noselect'
 
 -- luasnip setup
 local luasnip = require 'luasnip'
+
+require("luasnip.loaders.from_vscode").lazy_load()
 
 -- nvim-cmp setup
 local cmp = require 'cmp'
