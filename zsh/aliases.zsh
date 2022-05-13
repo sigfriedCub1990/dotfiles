@@ -4,6 +4,7 @@ alias ..3='cd ../../..'
 alias ..4='cd ../../../..'
 alias clear='clear && printf "\e[3J"'
 alias ls='exa -lhFs Extension -b'
+alias lst='ls -T'
 alias lsil='ls -l'
 alias lsc='ls -lFhC --sort=extension'
 #Configuration files.
@@ -20,4 +21,6 @@ alias lzd="lazydocker"
 alias g="git"
 alias dco="docker-compose"
 alias zt="zathura"
+alias pes="pipenv shell"
+alias cx="chmod +x "
 # vim: set filetype=sh :
