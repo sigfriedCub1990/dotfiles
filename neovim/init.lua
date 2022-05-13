@@ -33,6 +33,14 @@ map("n", "<leader>/", ":nohlsearch<cr>", { noremap = true })
 -- Substitute
 map("n", "gs", ":%s/", { noremap = true })
 
+-- Splits
+map("n", "<leader>vs", ":vsplit<cr>", { noremap = true })
+map("n", "<leader>hs", ":split<cr>", { noremap = true })
+
+-- Buffers (evil like maps)
+map("n", "<leader>bs", ":w<cr>", { noremap = true })
+map("n", "<leader>bd", ":bd<cr>", { noremap = true })
+
 --Make line numbers default
 vim.wo.number = true
 
