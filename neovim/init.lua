@@ -1,6 +1,7 @@
 local set = vim.opt
 local map = vim.api.nvim_set_keymap
 
+-- Set completeopt to have a better completion experience
 set.completeopt = "menu,menuone,noselect"
 set.signcolumn = "yes"
 
@@ -14,6 +15,9 @@ set.tabstop = 4
 set.shiftwidth = 4
 set.softtabstop = 4
 set.expandtab = true
+
+-- relative movement
+set.relativenumber = true
 
 --Remap space as leader key
 map('', '<Space>', '<Nop>', { noremap = true, silent = true })
