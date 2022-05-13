@@ -85,12 +85,11 @@ set.autowrite = true
 set.swapfile = false
 
 --Set colorscheme (order is important here)
-vim.g.onedark_terminal_italics = 2
-vim.cmd [[colorscheme onedark]]
+vim.cmd [[colorscheme gruvbox]]
 
 --Set statusbar
 vim.g.lightline = {
-  colorscheme = 'onedark',
+  colorscheme = 'gruvbox',
   active = { left = { { 'mode', 'paste' }, { 'gitbranch', 'readonly', 'filename', 'modified' } } },
   component_function = { gitbranch = 'fugitive#head' },
 }
@@ -130,8 +129,8 @@ require('packer').startup(function()
   use { 'nvim-telescope/telescope.nvim', requires = { 'nvim-lua/plenary.nvim' } }
 
   -- theming neovim
-  use 'joshdick/onedark.vim'
   use 'itchyny/lightline.vim'
+  use 'ellisonleao/gruvbox.nvim'
 
   -- tags management
   use 'ludovicchabant/vim-gutentags'
