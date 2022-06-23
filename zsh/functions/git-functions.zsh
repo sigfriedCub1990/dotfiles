@@ -88,11 +88,6 @@ gzo(){
   git push
 }
 
-# Create new branch. geb <branch-name>
-geb(){
-  git checkout -b "$1"
-}
-
 # Commit all changes with <commit-msg>. gw <commit-msg>
 gw() {
     git add .
