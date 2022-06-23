@@ -1,95 +1,95 @@
 [pull]
-	rebase = true
+  rebase = true
 [user]
-	name = sigfried
-	email = rssanjuan2704@gmail.com
+  name = Ruben S. Garcia
+  email = rssanjuan2704@gmail.com
 [alias]
 #stage
-    alias = "!sh -c '[ $# = 2 ] && git config --global alias.\"$1\" \"$2\" && exit 0 || echo \"usage: git alias <new alias> <original command>\" >&2 && exit 1' -"
-    how	     = "!f() { bat ~/.gitconfig.local | rg "$1"; }; f"
-    set	     = add --all
-    reset    = reset
-    nuke     = !git reset --hard HEAD && git clean -xfd
-    save     = stash
+  alias    = "!sh -c '[ $# = 2 ] && git config --global alias.\"$1\" \"$2\" && exit 0 || echo \"usage: git alias <new alias> <original command>\" >&2 && exit 1' -"
+  how      = "!f() { bat -l gitconfig ~/.gitconfig.local | rg "$1"; }; f"
+  set      = add -u
+  nuke     = !git reset --hard HEAD && git clean -xfd
+  save     = stash
 #commit
-    put      = commit --allow-empty                       --allow-empty-message --message ''
-    amend    = commit --allow-empty --amend               --allow-empty-message --reuse-message=HEAD --reset-author
-    fix      = commit               --amend               --allow-empty-message --reuse-message=HEAD
-    reword   = commit --allow-empty --amend        --only --allow-empty-message --message
-    edit     = commit --allow-empty --amend        --only --allow-empty-message
-    touch    = commit --allow-empty --amend        --only --allow-empty-message --reuse-message=HEAD --reset-author
-    pick     = cherry-pick --allow-empty-message
+  ci       = commit
+  put      = commit --allow-empty                       --allow-empty-message --message ''
+  amend    = commit --allow-empty --amend               --allow-empty-message --reuse-message=HEAD --reset-author
+  pick     = cherry-pick --allow-empty-message
+  upstream = !git push -u origin $(git current)
 #log
-    look     = !git diff HEAD^ HEAD --name-status && git diff HEAD^ HEAD
-    glance   = !git diff HEAD^ HEAD --name-status && git show --stat
-    tree     = log --graph --color --decorate --use-mailmap --oneline --all
-    history  = log --graph --color --decorate --use-mailmap
-    topology = log --graph --oneline --color --decorate --all --simplify-by-decoration
-    wtf      = !git status && git log --graph --oneline --color --decorate --all | head -n 15
-    lg1      = log --graph --abbrev-commit --decorate --date=relative --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(white) %C(white)%s%C(white) %C(bold cyan)- %an%C(bold yellow)%C(bold yellow)%d%C(reset)' --all
-    lg2      = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)' --all
-    lg       = !"git lg1 | head -30"
-    k        = !gitk --all
-    g        = !gitg --all
+  st       = status -sb
+  current  = !git rev-parse --abbrev-ref HEAD
+  lg       = log --oneline --graph -10
 #navigate
-    topic     = checkout -b
-    switch    = checkout
-    prev      = checkout -
-    drag      = rebase --preserve-merges
-    move      = rebase --onto
-    rewrite   = rebase --interactive
-    go        = reset
-    dig       = reset HEAD^
-    jump      = reset --hard
-    dive      = reset --hard HEAD^
-    drop      = branch -D
-    rename    = branch -m
-    undo      = reset --hard ORIG_HEAD
-    squashamend  = !git reset HEAD^ && git set && git commit --amend --allow-empty --allow-empty-message --reuse-message=ORIG_HEAD --reset-author
-    squashfix    = !git reset HEAD^ && git set && git commit --amend --allow-empty --allow-empty-message --reuse-message=HEAD
-    integrate = merge --no-ff --no-edit
+  topic     = checkout -b
+  co        = checkout
+  prev      = checkout -
+  uncommit  = reset HEAD^
+  branches  = branch -vv
+  drop      = branch -D
 #sync
-    sync = fetch --prune
-    c = clone
-		fr = !git svn fetch && git svn rebase
+  sync = fetch --prune
+  c = clone
+  fr = !git svn fetch && git svn rebase
 #submodules
-		cs = clone --recurse-submodules
-		uis = submodule update --init
+  cs = clone --recurse-submodules
+  uis = submodule update --init
 #tricks
-untrack = rm --cache --
-#diff
-    df   = diff --find-copies-harder
-    dfw  = diff --find-copies-harder          --color-words --word-diff-regex="[^[:space:]]|([[:alnum:]]|UTF_8_GUARD)+"
-    dfc  = diff --find-copies-harder --cached
-    dfcw = diff --find-copies-harder --cached --color-words --word-diff-regex="[^[:space:]]|([[:alnum:]]|UTF_8_GUARD)+"
-    kdf  = !~/runnable/git/git-diffc
-    kdfc = !~/runnable/git/git-diffc --cached
+  untrack = rm --cache --
+
 [diff]
-    color = true
-    renames = copy
+  color = true
+  renames = copy
+
 [color]
-    ui = true
+  ui = true
+
 [color "branch"]
-    current = blue reverse bold
-    local = blue bold
-    remote = green bold
+  current = blue reverse bold
+  local = blue bold
+  remote = green bold
+
 [color "diff"]
-	meta = 11
-	frag = magenta bold
-	old = red bold
-	new = green bold
-	commit = yellow bold
-	whitespace = red reverse
+  meta = 11
+  frag = magenta bold
+  old = red bold
+  new = green bold
+  commit = yellow bold
+  whitespace = red reverse
+
 [color "status"]
-    added = green bold
-    changed = yellow bold
-    untracked = red bold
+  added = green bold
+  changed = yellow bold
+  untracked = red bold
+
 [clean]
-    requireForce = false
-[core]
-	pager = diff-so-fancy | less --tabs=4 -RFX
+  requireForce = false
+
 [color "diff-highlight"]
-	oldNormal = red bold
-	oldHighlight = red bold 52
-	newNormal = green bold
-	newHighlight = green bold 22
+  oldNormal = red bold
+  oldHighlight = red bold 52
+  newNormal = green bold
+  newHighlight = green bold 22
+
+[pager]
+  diff = delta
+  log = delta
+  reflog = delta
+  show = delta
+
+[interactive]
+  diffFilter = delta --color-only
+
+[delta]
+  syntax-theme = Dracula
+  features = side-by-side line-numbers decorations
+  whitespace-error-style = 22 reverse
+
+[delta "decorations"]
+  commit-decoration-style = bold yellow box ul
+  file-style = bold yellow ul
+  file-decoration-style = none
+
+[push]
+  default=current
+; vim:ft=dosini
