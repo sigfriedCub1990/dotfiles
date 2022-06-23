@@ -27,7 +27,7 @@ convertAllMDFilesToTabs(){
 
 # Update Zsh plugins
 uz(){
-  antibody bundle <~/dotfiles/zsh/zsh_plugins.txt >~/.zsh_plugins.sh
+  antibody bundle <~/dotfiles/antibody/zsh_plugins.txt >~/.zsh_plugins.sh
   antibody update
 }
 
