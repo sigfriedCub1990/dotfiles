@@ -185,7 +185,12 @@ gao() {
 
 # git clone and cd instantly to cloned repo. gcd <git-url>
 gcd() {
-   git clone "$(pbpaste)" && cd "${1##*/}"
+    OS="$(uname -a | awk '{ print $1 }')"
+    if [[ $OS == 'Darwin' ]]; then
+      git clone "$(pbpaste)" && cd "${1##*/}"
+    else
+      git clone "$(clipit -c)" && cd "${1##*/}"
+    fi
 }
 
 # git clone link in clipboard
@@ -196,6 +201,6 @@ gll() {
     else
       git clone "$(clipit -c)"
     fi
+}
 
-    # TODO: cd into cloned project (need to extract name with regex)
 }
