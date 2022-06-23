@@ -14,6 +14,14 @@ export PATH=$GO_PATH:$RUBY_PATH:$PATH
 
 export FZF_DEFAULT_COMMAND="fd --type f"
 
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/home/sigfried/Downloads/google-cloud-sdk/path.zsh.inc' ]; then source '/home/sigfried/Downloads/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/home/sigfried/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then source '/home/sigfried/Downloads/google-cloud-sdk/completion.zsh.inc'; fi
+
+export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+
 #Preferred editor for local and remote sessions
 if [[ -n $SSH_CONNECTION ]]; then
   export EDITOR='nvim'
