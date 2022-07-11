@@ -10,6 +10,7 @@
   alias    = "!sh -c '[ $# = 2 ] && git config --global alias.\"$1\" \"$2\" && exit 0 || echo \"usage: git alias <new alias> <original command>\" >&2 && exit 1' -"
   how      = "!f() { bat -l gitconfig ~/.gitconfig.local | rg "$1"; }; f"
   set      = add -u
+  all      = add .
   nuke     = !git reset --hard HEAD && git clean -xfd
   save     = stash
 #commit
