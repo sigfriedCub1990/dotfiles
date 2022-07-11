@@ -5,6 +5,7 @@ alias ..4='cd ../../../..'
 alias clear='clear && printf "\e[3J"'
 alias ls='exa -lhFs Extension -b --group-directories-first'
 alias lt='ls -T'
+alias lga='ls -G'
 alias lsil='ls -l'
 alias lsc='ls -lFhC --sort=extension'
 #Configuration files.
@@ -23,4 +24,11 @@ alias dco="docker-compose"
 alias zt="zathura"
 alias pes="pipenv shell"
 alias cx="chmod +x "
+
+# ExpressVPN aliases
+alias vpn="expressvpn connect smart"
+alias vpnc="expressvpn connect $1"
+alias vpnd="expressvpn disconnect"
+alias vpns="expressvpn status"
+
 # vim: set filetype=sh :
