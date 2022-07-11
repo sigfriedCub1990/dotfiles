@@ -1,3 +1,5 @@
+[core]
+  pager = delta
 [pull]
   rebase = true
 [user]
@@ -71,16 +73,11 @@
   newNormal = green bold
   newHighlight = green bold 22
 
-[pager]
-  diff = delta
-  log = delta
-  reflog = delta
-  show = delta
-
 [interactive]
   diffFilter = delta --color-only
 
 [delta]
+  navigate = true
   syntax-theme = Dracula
   features = side-by-side line-numbers decorations
   whitespace-error-style = 22 reverse
@@ -92,4 +89,7 @@
 
 [push]
   default=current
+
+[diff]
+  colorMoved = default
 ; vim:ft=dosini
