@@ -36,17 +36,16 @@ For macOS:
 - iTerm: a better terminal emulator;
 
 For Linux:
-- [`alacritty`](https://github.com/alacritty/alacritty)
+- [`Luke Smith's st build`](https://github.com/LukeSmithxyz/st)
 
 For both:
+- [`nvim`](https://github.com/neovim/neovim)
 - [`fzf`](https://github.com/junegunn/fzf): command-line fuzzy finder
 - [`fd`](https://github.com/sharkdp/fd): user-friendly alternative to `find`
 - [`bat`](https://github.com/sharkdp/bat): a cat clone with wings
 - [`ripgrep`](https://github.com/BurntSushi/ripgrep): super fast `grep` alternative
 - [`delta`](https://github.com/dandavison/delta): even better `git` diff outputs
 - [`grc`](https://github.com/garabik/grc): generic colouriser
-- [`doom-emacs`](https://github.com/hlissner/doom-emacs)
-
 
 ## Heavily inspired by
 [Nikita's dotfile](https://github.com/nikitavoloboev/dotfiles)
