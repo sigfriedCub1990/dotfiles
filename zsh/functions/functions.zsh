@@ -301,3 +301,11 @@ ram() {
     fi
   fi
 }
+# Connect to a tmux session over ssh
+sst() {
+    if [ -z "$1" ] || [ -z "$2" ]; then
+        echo "Usage: $0 <host> <tmux session>"
+        return 1
+    fi
+    ssh -t "$1" "tmux attach -t '$2'"
+}
