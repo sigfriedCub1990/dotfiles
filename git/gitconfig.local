@@ -30,6 +30,10 @@
   uncommit  = reset HEAD^
   branches  = branch -vv
   drop      = branch -D
+  #delete remote's branch
+  drop2     = push origin --delete
+  drop3     = !git drop $1 && git drop2 $1
+  rename    = branch -m
 #sync
   sync = fetch --prune
   c = clone
