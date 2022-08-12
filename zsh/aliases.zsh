@@ -5,10 +5,11 @@ alias ..4='cd ../../../..'
 alias clear='clear && printf "\e[3J"'
 alias ls='exa -lhFs Extension -b --group-directories-first'
 alias la='exa -lahFs Extension -b --group-directories-first'
-alias lt='ls -T'
+alias lt='ls -T --git-ignore'
 alias lga='ls -G'
 alias lsil='ls -l'
 alias lsc='ls -lFhC --sort=extension'
+alias top='bpytop'
 #Configuration files.
 alias vimr='vim ~/.vimrc'
 #VirtualEnvs
