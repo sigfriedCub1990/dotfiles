@@ -124,11 +124,6 @@ curl -O "$1"
 # cw - Copy working dir.
 cw() { printf %s "$PWD" | pbcopy; }
 
-# md <dir-name> - Create directory and cd into it.
-md() {
-  [[ -n "$1" ]] && mkdir -p "$1" && builtin cd "$1"
-}
-
 # server - Create server of current dir on port 8000 and open it in browser.
 server() {
 	local port="${1:-8000}"
@@ -139,8 +134,7 @@ server() {
 }
 
 # compress <file/dir> - Compress <file/dir>.
-compress()
-  {
+compress() {
     dirPriorToExe=`pwd`
     dirName=`dirname $1`
     baseName=`basename $1`
