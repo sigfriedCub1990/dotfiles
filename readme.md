@@ -2,10 +2,15 @@
 
 [![Powered by Antibody][ab]][ap]
 
-> Config files for ZSH, Node, Editors, Terminals and more.
+> Config files for ZSH, Nvim, st and more.
 
 ### The configurations I use in my workstations, both MacOS and Linux.
-![](https://i.imgur.com/0431KrD.png)
+
+#### Desktop
+![](https://i.imgur.com/NI4VCuf.png)
+
+#### Nvim
+![](https://i.imgur.com/FBsIG1Q.png)
 
 [ap]: https://github.com/getantibody/antibody
 [ab]: https://img.shields.io/badge/powered%20by-antibody-blue.svg?style=flat-square
