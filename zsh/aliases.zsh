@@ -15,12 +15,15 @@ alias vimr='vim ~/.vimrc'
 #VirtualEnvs
 alias activate='. env/bin/activate'
 
+# Lazy stuff
+alias lzd="lazydocker"
+alias lg="lazygit"
+
 alias ssh-ls="ssh-add -l"
 alias ssh-remove="ssh-add -D"
 alias ssh="TERM=xterm-256color ssh"
 alias cat="bat"
 alias n="nvim"
-alias lzd="lazydocker"
 alias g="git"
 alias dco="docker-compose"
 alias zt="zathura"
