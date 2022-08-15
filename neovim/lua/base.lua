@@ -1,5 +1,7 @@
 local set = vim.opt
 
+vim.cmd([[colorscheme gruvbox]])
+
 -- Set completeopt to have a better completion experience
 set.completeopt = "menu,menuone,noselect"
 set.signcolumn = "yes"
@@ -29,7 +31,7 @@ vim.opt.undofile = true
 
 --Decrease update time
 vim.o.updatetime = 250
-vim.wo.signcolumn = 'yes'
+vim.wo.signcolumn = "yes"
 
 -- displaying text
 set.scrolloff = 5
@@ -38,11 +40,11 @@ set.fillchars = { vert = "│" }
 set.lazyredraw = true
 set.list = true
 set.listchars = {
-  extends = "⟩",
-  nbsp = "␣",
-  precedes = "⟨",
-  tab = "► ",
-  trail = "·",
+    extends = "⟩",
+    nbsp = "␣",
+    precedes = "⟨",
+    tab = "► ",
+    trail = "·",
 }
 
 -- multiple windows
