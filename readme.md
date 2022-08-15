@@ -46,6 +46,7 @@ For both:
 - [`ripgrep`](https://github.com/BurntSushi/ripgrep): super fast `grep` alternative
 - [`delta`](https://github.com/dandavison/delta): even better `git` diff outputs
 - [`grc`](https://github.com/garabik/grc): generic colouriser
+- [`ghq`](https://github.com/x-motemen/ghq)
 
 ## Heavily inspired by
 [Nikita's dotfile](https://github.com/nikitavoloboev/dotfiles)

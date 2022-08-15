@@ -97,4 +97,16 @@
 
 [diff]
   colorMoved = default
+
+[ghq]
+  root = ~/code
+
+[ghq "https://github.com/getPopsure/"]
+  vsc = git
+  root = ~/code/feather
+
+[ghq "ssh://git@github.com/getPopsure"]
+  vsc = git
+  root = ~/code/feather
+
 ; vim:ft=dosini
