@@ -1,4 +1,4 @@
-# sigfried's dotfiles. 
+# Ruben's dotfiles. 
 
 [![Powered by Antibody][ab]][ap]
 
@@ -50,7 +50,6 @@ For both:
 
 ## Heavily inspired by
 [Nikita's dotfile](https://github.com/nikitavoloboev/dotfiles)
-
 [caarlos0's dotfiles](https://github.com/caarlos0/dotfiles)
 
 [![MIT](https://img.shields.io/badge/license-MIT-0a0a0a.svg?style=flat&colorA=0a0a0a)](LICENSE)
