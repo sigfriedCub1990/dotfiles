@@ -4,7 +4,7 @@ if not status then
 end
 
 null_ls.setup({
-    debug = true,
+    -- debug = true,
     sources = {
         null_ls.builtins.diagnostics.eslint.with({
             diagnostics_format = "[eslint] #{m}\n(#{c})",
