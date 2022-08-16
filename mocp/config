@@ -1,4 +1,0 @@
-# Theme file. This can be absolute path or relative to
-# /usr/share/moc/themes/ (depends on installation prefix) or ~/.moc/themes/
-Theme = nightly_theme
-Keymap = keymap
