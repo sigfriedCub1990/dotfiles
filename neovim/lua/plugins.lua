@@ -21,6 +21,7 @@ packer.startup(function(use)
 
     -- UI to select things (files, grep results, open buffers...)
     use("nvim-telescope/telescope.nvim")
+    use("nvim-telescope/telescope-file-browser.nvim")
 
     -- theming neovim
     use("itchyny/lightline.vim")
