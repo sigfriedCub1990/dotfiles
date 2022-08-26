@@ -6,7 +6,7 @@ end
 null_ls.setup({
     -- debug = true,
     sources = {
-        null_ls.builtins.diagnostics.eslint.with({
+        null_ls.builtins.diagnostics.eslint_d.with({
             diagnostics_format = "[eslint] #{m}\n(#{c})",
         }),
         null_ls.builtins.diagnostics.zsh,
