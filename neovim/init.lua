@@ -10,7 +10,3 @@ vim.cmd([[
     autocmd TextYankPost * silent! lua vim.highlight.on_yank()
   augroup end
 ]])
-
-vim.cmd([[
-    autocmd VimEnter * :Files
-]])

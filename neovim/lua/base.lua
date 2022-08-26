@@ -2,6 +2,8 @@ local set = vim.opt
 
 vim.cmd([[colorscheme gruvbox]])
 
+set.shortmess = "I"
+
 -- Set completeopt to have a better completion experience
 set.completeopt = "menu,menuone,noselect"
 set.signcolumn = "yes"
