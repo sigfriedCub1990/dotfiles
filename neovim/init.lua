@@ -1,3 +1,5 @@
+require("impatient")
+
 require("globals")
 require("base")
 require("maps")
