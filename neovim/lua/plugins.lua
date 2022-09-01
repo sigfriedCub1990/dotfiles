@@ -22,6 +22,7 @@ packer.startup(function(use)
     -- UI to select things (files, grep results, open buffers...)
     use("nvim-telescope/telescope.nvim")
     use("nvim-telescope/telescope-file-browser.nvim")
+    use({ "nvim-telescope/telescope-fzf-native.nvim", run = "make" })
 
     -- theming neovim
     use("itchyny/lightline.vim")
@@ -50,8 +51,8 @@ packer.startup(function(use)
     use("saadparwaiz1/cmp_luasnip")
 
     -- searching
-    use("junegunn/fzf")
-    use("junegunn/fzf.vim")
+    -- use("junegunn/fzf")
+    -- use("junegunn/fzf.vim")
 
     -- snippets
     use("L3MON4D3/LuaSnip") -- Snippets plugin
@@ -64,5 +65,3 @@ packer.startup(function(use)
     use("MunifTanjim/prettier.nvim") -- Prettier plugin for Neovim's built-in LSP client
     use("jose-elias-alvarez/null-ls.nvim")
 end)
-
-require("impatient")
