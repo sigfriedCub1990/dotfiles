@@ -36,4 +36,19 @@ gitsigns.setup({
     yadm = {
         enable = false,
     },
+    on_attach = function(bufnr)
+        local function map(mode, l, r, opts)
+            opts = opts or {}
+            opts.buffer = bufnr
+            vim.keymap.set(mode, l, r, opts)
+        end
+
+        map("n", "<leader>hb", function()
+            gitsigns.blame_line({ full = true })
+        end)
+        map("n", "<leader>ht", gitsigns.toggle_current_line_blame)
+        map({ "n", "v" }, "<leader>hs", "<cmd>Gitsigns stage_hunk<CR>")
+        map({ "n", "v" }, "<leader>hr", "<cmd>Gitsigns reset_hunk<CR>")
+        map("n", "<leader>hu", gitsigns.undo_stage_hunk)
+    end,
 })
