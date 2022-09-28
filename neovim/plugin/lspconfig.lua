@@ -31,18 +31,6 @@ local on_attach = function(client, bufnr)
     buf_set_keymap("n", "[d", "<cmd>lua vim.diagnostic.goto_prev()<CR>", opts)
     buf_set_keymap("n", "]d", "<cmd>lua vim.diagnostic.goto_next()<CR>", opts)
     buf_set_keymap("n", "<leader>q", "<cmd>lua vim.diagnostic.setloclist()<CR>", opts)
-
-    -- formatting
-    -- client props are described in :help vim.lsp.client
-    if client.server_capabilities.documentFormattingProvider then
-        vim.api.nvim_create_autocmd("BufWritePre", {
-            group = vim.api.nvim_create_augroup("Format", { clear = true }),
-            buffer = bufnr,
-            callback = function()
-                vim.lsp.buf.formatting_seq_sync()
-            end,
-        })
-    end
 end
 
 protocol.CompletionItemKind = {
@@ -82,7 +70,7 @@ for _, client in ipairs(clients) do
     -- TODO: I'm doing this in order to allow Prettier
     -- to automatically format the code
     if client.name == "tsserver" then
-        nvim_lsp[server].setup({
+        nvim_lsp[client].setup({
             on_attach = on_attach,
             filetypes = { "typescript", "typescriptreact", "typescript.tsx" },
             cmd = { "typescript-language-server", "--stdio" },
@@ -104,7 +92,7 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagn
 })
 
 -- Diagnostic symbols in the sign column (gutter)
-local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
+local signs = { Error = " ", Warn = " ", Hint = "", Info = " " }
 for type, icon in pairs(signs) do
     local hl = "DiagnosticSign" .. type
     vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
