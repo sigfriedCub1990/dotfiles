@@ -150,12 +150,17 @@ assign [class="zoom"] $ws7
 assign [class="Slack"] $ws5
 assign [class="firefoxdeveloperedition"] $ws3
 assign [class="Workspacesclient"] $ws6
-# assign [class="Pcmanfm"] $ws3
-# assign [class="Skype"] $ws5
 
 # Open specific applications in floating mode
 for_window [class="GParted"] floating enable border normal
 for_window [class="zoom"] floating enable border normal
+for_window [class="Arandr"] floating enable border normal
+
+# float pop-up automatically
+for_window [window_role="pop-up"] floating enable
+for_window [window_role="task_dialog"] floating enable
+
+for_window [class="Alacritty"] border pixel 1
 
 # switch to workspace with urgent window automatically
 for_window [urgent=latest] focus
