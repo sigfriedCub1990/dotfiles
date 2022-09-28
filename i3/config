@@ -226,16 +226,11 @@ bindsym $mod+9 exec --no-startup-id blurlock
 # Autostart applications
 exec_always --no-startup-id $HOME/.config/polybar/run.sh
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
-exec --no-startup-id nitrogen --restore; sleep 1; picom -b
-#exec --no-startup-id manjaro-hello
-#exec --no-startup-id xfce4-power-manager
 exec --no-startup-id clipit
-# exec --no-startup-id blueman-applet
-# exec_always --no-startup-id sbxkb
-# exec --no-startup-id start_conky_green
-#exec_always --no-startup-id connect-monitors
 exec_always --no-startup-id compton
 exec_always feh --bg-scale ~/Pictures/isle_of_death.jpg
+# exec --no-startup-id nitrogen --restore; sleep 1; picom -b
+#exec_always --no-startup-id connect-monitors
 
 #######
 #THEME#
