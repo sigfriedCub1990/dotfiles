@@ -37,5 +37,6 @@ map("n", "<leader>st", "<cmd>Telescope tags<CR>", opts)
 map("n", "<leader>sd", "<cmd>Telescope grep_string<CR>", opts)
 map("n", "<leader>sp", "<cmd>Telescope find_files<CR>", opts)
 map("n", "<leader>sm", "<cmd>Telescope man_pages<CR>", opts)
+map("n", "<leader>gb", "<cmd>Telescope git_branches<CR>", opts)
 
 map("n", "<leader>p", "<cmd>Telescope find_files<CR>", { noremap = true })
