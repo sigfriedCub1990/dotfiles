@@ -33,39 +33,14 @@ setopt HIST_BEEP                 # Beep when accessing nonexistent history.
 bindkey -v
 export KEYTIMEOUT=1
 
-# Edit line in vim with ctrl-e:
-bindkey '^e' edit-command-line
-
-# Change cursor shape for different vi modes.
-#function zle-keymap-select {
-#  if [[ ${KEYMAP} == vicmd ]] ||
-#     [[ $1 = 'block' ]]; then
-#    echo -ne '\e[1 q'
-#  elif [[ ${KEYMAP} == main ]] ||
-#       [[ ${KEYMAP} == viins ]] ||
-#       [[ ${KEYMAP} = '' ]] ||
-#       [[ $1 = 'beam' ]]; then
-#    echo -ne '\e[5 q'
-#  fi
-#}
-
-# zle -N zle-keymap-select
-# zle-line-init() {
-#     zle -K viins # initiate `vi insert` as keymap (can be removed if `bindkey -V` has been set elsewhere)
-#     echo -ne "\e[5 q"
-# }
-#
-# zle -N zle-line-init
-# echo -ne '\e[5 q' # Use beam shape cursor on startup.
-# preexec() { echo -ne '\e[5 q' ;} # Use beam shape cursor for each new prompt.
+# Edit line in vim with e in Normal mode:
+bindkey -M vicmd e edit-command-line
 
 # NOTE: This works on Arch Linux, should test on MacOS
-if test -d /usr/share/fzf; then
+if [ $(command -v "fzf") ]; then
     # shellcheck disable=SC1091
-    . /usr/share/fzf/key-bindings.zsh
-elif test -d /usr/share/doc/fzf/examples; then
-    # shellcheck disable=SC1091
-    . /usr/share/doc/fzf/examples/key-bindings.zsh
+    source /usr/share/fzf/completion.zsh
+    source /usr/share/fzf/key-bindings.zsh
 else
     bindkey '^R' history-incremental-search-backward
 fi
