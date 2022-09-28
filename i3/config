@@ -42,7 +42,9 @@ bindsym $mod+z exec --no-startup-id morc_menu
 bindsym $mod+F2 exec firefox-developer-edition
 # bindsym $mod+F3 exec ranger
 bindsym $mod+Shift+d --release exec "killall dunst; exec notify-send 'restart dunst'"
-focus_follows_mouse yes
+
+# Don't follow mouse
+focus_follows_mouse no
 
 # keyboard layout
 bindsym $mod+space exec i3-keyboard-layout cycle us es ru
@@ -95,10 +97,6 @@ bindsym $mod+Shift+minus move scratchpad
 # Show the next scratchpad window or hide the focused scratchpad window.
 # If there are multiple scratchpad windows, this command cycles through them.
 bindsym $mod+minus scratchpad show
-
-#navigate workspaces next / previous
-bindsym $mod+Ctrl+Right workspace next
-bindsym $mod+Ctrl+Left workspace prev
 
 # Workspace names
 # to display names or symbols instead of plain workspace numbers you can use
@@ -198,9 +196,6 @@ mode "resize" {
         bindsym Return mode "default"
         bindsym Escape mode "default"
 }
-
-# Lock screen
-bindsym $mod+9 exec --no-startup-id blurlock
 
 # Autostart applications
 exec_always --no-startup-id $HOME/.config/polybar/run.sh
