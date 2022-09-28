@@ -237,12 +237,26 @@ exec --no-startup-id clipit
 exec_always --no-startup-id compton
 exec_always feh --bg-scale ~/Pictures/isle_of_death.jpg
 
-# Theme colors
-# class                 border  bground text    indicator child_border
-client.focused          #6272A4 #6272A4 #F8F8F2 #6272A4   #6272A4
-client.focused_inactive #44475A #44475A #F8F8F2 #44475A   #44475A
-client.unfocused        #282A36 #282A36 #BFBFBF #282A36   #282A36
-client.urgent           #44475A #FF5555 #F8F8F2 #FF5555   #FF5555
-client.placeholder      #282A36 #282A36 #F8F8F2 #282A36   #282A36
+#######
+#THEME#
+#######
 
-client.background       #F8F8F2
+# set primary gruvbox colorscheme colors
+set $bg #282828
+set $red #cc241d
+set $green #98971a
+set $yellow #d79921
+set $blue #458588
+set $purple #b16286
+set $aqua #689d68
+set $gray #a89984
+set $darkgray #1d2021
+
+#start of window title bars & borders section
+
+# green gruvbox
+# class                 border|backgr|text|indicator|child_border
+client.focused          $green $green $darkgray $purple $green
+client.focused_inactive $darkgray $darkgray $yellow $purple $darkgray
+client.unfocused        $darkgray $darkgray $yellow $purple $darkgray
+client.urgent           $red $red $white $red $red
