@@ -303,3 +303,13 @@ sst() {
     fi
     ssh -t "$1" "tmux attach -t '$2'"
 }
+
+# Reload a completion function from ZSH
+rc() {
+    if [ -z "$1" ]; then
+        echo "Usage: $0 <completion to reload>"
+        return 1
+    fi
+    unfunction "$1"
+    autoload -U "$1"
+}
