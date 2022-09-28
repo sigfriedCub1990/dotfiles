@@ -167,7 +167,8 @@ bindsym $mod+Shift+c reload
 bindsym $mod+Shift+r restart
 
 # lock screen
-bindsym $mod+Shift+l exec "$HOME/dotfiles/script/lock.sh $HOME/Pictures/lock.png"
+set $i3lockwall sh $HOME/dotfiles/script/lock.sh $HOME/Pictures/lock.png
+bindsym $mod+Ctrl+l exec --no-startup-id $i3lockwall
 
 # Set shut down, restart and locking features
 set $mode_system (l)ock, (e)xit, (r)eboot, (Ctrl+s)hutdown
