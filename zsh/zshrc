@@ -6,9 +6,14 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
+# man zshbuiltins
+# -U options, for array (but not for associative arrays) keep only the first occurrence of each duplicated value.
+typeset -U PATH path
+
 export ASDF_DATA_DIR=/cache/.asdf
 
 . /opt/asdf-vm/asdf.sh
+
 export DOTFILES="$HOME/dotfiles"
 export PROJECTS="$HOME/code"
 
