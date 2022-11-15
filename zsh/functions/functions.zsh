@@ -70,6 +70,15 @@ path(){
   echo -e ${PATH//:/\\n}
 }
 
+# Show stuff in $FPATH
+fpath() {
+    echo $fpath | awk '{
+        for (i = 1; i < NF; i++) {
+            print $i
+        }
+    }'
+}
+
 # Fetch pull request
 fpr() {
     if ! git rev-parse --git-dir > /dev/null 2>&1; then
@@ -103,7 +112,7 @@ md(){
 
 # cfile <file> - Copy content of file to clipboard
 cfile(){
-  cat $1 | pbcopy
+  cat $1 | xclip
 }
 
 # dirfiles <dir> - Give number of files found inside given directory.
@@ -118,7 +127,7 @@ fl() {
 
 # down <url> - Download <url> and save to current dir.
 down(){
-curl -O "$1"
+    curl -O "$1"
 }
 
 # cw - Copy working dir.
@@ -200,7 +209,6 @@ compress() {
     echo "###########################################"
   }
 
-# TODO: Write a Go CLI that wraps extract and compress functions + more.
 # extract <file.tar> - Extract <file.tar>.
 extract() {
   local remove_archive
@@ -295,6 +303,7 @@ ram() {
     fi
   fi
 }
+
 # Connect to a tmux session over ssh
 sst() {
     if [ -z "$1" ] || [ -z "$2" ]; then
