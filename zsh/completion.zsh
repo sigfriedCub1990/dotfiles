@@ -1,6 +1,9 @@
 #!/bin/zsh
 
-# debug completion?
+# This is completion's general form of the `context` (man zshcompsys)
+# :completion:function:completer:command:argument:tag
+
+# generate matches for all completions in a verbose way
 zstyle ':completion:*' verbose yes
 
 # forces zsh to realize new commands
@@ -29,3 +32,5 @@ zstyle ':completion:*' file-list all
 # corrections made to a command
 zstyle ':completion:*:*:*:*:descriptions' format '%F{blue}-- %d --%f'
 zstyle ':completion:*:*:*:*:corrections' format '%F{yellow}!-- %d (errors: %e) -!%f'
+zstyle ':completion:*:*:*:*:messages' format ' %F{purple} -- %d --%f'
+zstyle ':completion:*:*:*:*:warnings' format ' %F{red}-- no matches found --%f'
