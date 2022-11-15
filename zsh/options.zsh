@@ -1,7 +1,9 @@
 #!/bin/zsh
-#
-autoload edit-command-line; zle -N edit-command-line
+
 fpath=($DOTFILES/zsh/completions $fpath)
+
+autoload edit-command-line
+zle -N edit-command-line
 
 # History
 HISTSIZE=10000 # Lines of history to keep in memory for current session
@@ -36,7 +38,7 @@ bindkey -v
 export KEYTIMEOUT=1
 
 # Edit line in vim with e in Normal mode:
-bindkey -M vicmd e edit-command-line
+bindkey -M vicmd '^e' edit-command-line
 
 # NOTE: This works on Arch Linux, should test on MacOS
 if [ $(command -v "fzf") ]; then
