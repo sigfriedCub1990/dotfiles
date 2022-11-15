@@ -1,6 +1,8 @@
 #!/bin/zsh
 #
 autoload edit-command-line; zle -N edit-command-line
+fpath=($DOTFILES/zsh/completions $fpath)
+
 # History
 HISTSIZE=10000 # Lines of history to keep in memory for current session
 HISTFILESIZE=10000 # Number of commands to save in the file
