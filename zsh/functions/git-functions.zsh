@@ -164,7 +164,7 @@ g.() {
 }
 
 # Create dir, go to it and initialise it with git. mg <dir-name>
-mg() {
+mdg() {
     mkdir "$1"
     cd "$1"
     git init
