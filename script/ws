@@ -1,0 +1,90 @@
+#!/bin/bash
+# Simple tmux work session builder/launcher
+# Written by skiqqy
+
+argv=("$@")
+
+usage() {
+	cat <<EOF
+ws ~ skiqqy's tmux workspace
+
+Usage: ws [options] WINDOW-NAME
+
+options
+-------
+
+-h         Shows this message.
+-s NAME    Specify the session name.
+-a         Attach to the session.
+EOF
+	exit "$1"
+}
+
+# Build my tmux workspace
+# Usage: build "session:pain"
+build() {
+	first_pane_index=$(tmux show -g pane-base-index | awk '{ print $2 }')
+
+	tmux split-window -t "$1" -h -p 50
+	tmux send-keys -t "$1.$first_pane_index" 'ranger' Enter
+	#tmux send-keys -t "$1.1" '' Enter
+	tmux select-pane -t "$1.$first_pane_index"
+}
+
+# Build my standerd work setup
+init() {
+	:
+}
+
+main() {
+	opts='hs:a'
+	sesh=PW
+	attach=false
+
+	# Get the session name, whilst checking it was actually passed
+	[ "$#" -eq 0 ] && usage 1
+	wn=$(sed -E 's|(-s .+ )\|(-.* )||g' <<<"$@")
+	if [[ $wn =~ ^- ]]; then
+		# Last argument is a parameter, hence WINDOW-NAME was not passed
+		usage 1
+	fi
+
+	while getopts "$opts" opt; do
+		case "$opt" in
+		h)
+			usage 0
+			;;
+		s)
+			sesh="$OPTARG"
+			;;
+		a)
+			attach=true
+			;;
+		*)
+			usage 1
+			;;
+		esac
+	done
+
+	first_window_index=$(tmux show -g base-index | awk '{ print $2 }')
+
+	if tmux has-session -t "$sesh:$wn" >/dev/null 2>&1; then
+		# Session exists, attach
+		echo "$sesh:$wn already exists, skipping."
+	elif tmux has-session -t "$sesh" >/dev/null 2>&1; then
+		echo "Creating window."
+		tmux new-window -d -n "$wn" -t "$sesh"
+		build "$sesh:$wn"
+	else
+		echo "Session DNE, creating $sesh:$wn"
+		tmux new-session -d -s "$sesh"
+		tmux rename-window -t "$sesh:$first_window_index" "$wn"
+		build "$sesh:$wn"
+	fi
+
+	if "$attach"; then
+		tmux a -t "$sesh:$wn"
+	fi
+}
+
+main "$@"
