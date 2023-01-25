@@ -16,7 +16,7 @@
 #commit
   ci       = commit
   put      = commit --allow-empty                       --allow-empty-message --message ''
-  amend    = commit --allow-empty --amend               --allow-empty-message --reuse-message=HEAD --reset-author
+  ca       = commit --allow-empty --amend               --allow-empty-message --reuse-message=HEAD --reset-author
   pick     = cherry-pick --allow-empty-message
   upstream = !git push -u origin $(git current)
 #log
@@ -39,8 +39,9 @@
   c = clone
   fr = !git svn fetch && git svn rebase
 #submodules
-  cs = clone --recurse-submodules
-  uis = submodule update --init
+# Why on demand?
+  spush = push --recurse-submodules="on-demand"
+  supdate = submodule update --remote --merge
 #tricks
   untrack = rm --cache --
 
@@ -99,14 +100,6 @@
   colorMoved = default
 
 [ghq]
-  root = ~/code
-
-[ghq "https://github.com/getPopsure/"]
-  vsc = git
-  root = ~/code/feather
-
-[ghq "ssh://git@github.com/getPopsure"]
-  vsc = git
-  root = ~/code/feather
+  root = /cache/code
 
 ; vim:ft=dosini
