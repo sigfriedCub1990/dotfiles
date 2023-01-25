@@ -2,7 +2,11 @@ local set = vim.opt
 
 vim.cmd([[colorscheme gruvbox]])
 
+-- Disable initial Vim message
 set.shortmess = "I"
+
+-- Don't display mode below status line (lightline)
+set.showmode = false
 
 -- Set completeopt to have a better completion experience
 set.completeopt = "menu,menuone,noselect"

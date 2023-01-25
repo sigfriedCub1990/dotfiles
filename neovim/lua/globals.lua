@@ -1,15 +1,43 @@
 local global = vim.g
 
+vim.cmd([[
+    function! Scrollbar()
+        let width = 9
+        let perc = (line('.') - 1.0) / (max([line('$'), 2]) - 1.0)
+        let before = float2nr(round(perc * (width - 3)))
+        let after = width - 3 - before
+        return '[' . repeat(' ',  before) . '=' . repeat(' ', after) . ']'
+    endfunction
+]])
+
 -- Lightline config
 global.lightline = {
-    colorscheme = "gruvbox",
+    mode_map = {
+        n = "N",
+        i = "I",
+        R = "R",
+        v = "V",
+        V = "VL",
+        c = "C",
+        s = "S",
+        S = "SL",
+        t = "T",
+        -- "C\-v" = 'VB',
+        -- "C\-s" = 'SB',
+    },
     active = {
         left = {
             { "mode", "paste" },
             { "gitbranch", "readonly", "filename", "modified" },
         },
+        right = {
+            {"indicator", "filetype", "fileformat", "fileencoding", "lineinfo"},
+        },
     },
-    component_function = { gitbranch = "FugitiveHead" },
+    component_function = {
+        gitbranch = "FugitiveHead",
+        indicator = "Scrollbar",
+    },
 }
 
 -- Gutentags config
@@ -89,5 +117,3 @@ global.indent_blankline_char = "┊"
 global.indent_blankline_filetype_exclude = { "help", "packer" }
 global.indent_blankline_buftype_exclude = { "terminal", "nofile" }
 global.indent_blankline_show_trailing_blankline_indent = false
-
-vim.g["fzf_layout"] = { down = "40%" }
