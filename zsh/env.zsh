@@ -12,9 +12,8 @@ export RUBY_PATH=$PATH:/$HOME/.gem/ruby/3.0.0/bin
 export LANG=en_US.UTF-8
 export PATH=$GO_PATH:$RUBY_PATH:$PATH
 
-export FZF_DEFAULT_COMMAND="fd --type f"
-
-export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+export FZF_DEFAULT_COMMAND="rg --files --hidden --glob '!.git'"
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
 #Preferred editor for local and remote sessions
 if [[ -n $SSH_CONNECTION ]]; then
