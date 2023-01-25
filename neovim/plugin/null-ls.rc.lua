@@ -3,26 +3,51 @@ if not status then
     return "null-ls not installed"
 end
 
-local augroup_format = vim.api.nvim_create_augroup("Format", { clear = true })
+local diagnostics = null_ls.builtins.diagnostics
+local formatting = null_ls.builtins.formatting
+local code_actions = null_ls.builtins.code_actions
+
+-- Disable tsserver formating capabilities
+local custom_format = function(bufnr)
+    vim.lsp.buf.format({
+        bufnr = bufrn,
+        filter = function(client)
+            return client.name ~= "tsserver"
+        end,
+    })
+end
+
+local augroup_format = vim.api.nvim_create_augroup("LspFormatting", { clear = true })
+
+local format_on_save = function(bufnr)
+  vim.api.nvim_create_autocmd("BufWritePre", {
+    group = augroup_format,
+    buffer = bufnr,
+    callback = function() custom_format(bufnr) end,
+  })
+end
 
 null_ls.setup({
     -- debug = true,
     sources = {
-        null_ls.builtins.diagnostics.eslint.with({
+        -- Linters
+        diagnostics.eslint.with({
             diagnostics_format = "[eslint] #{m}\n(#{c})",
+            prefer_local = "node_modules/.bin"
         }),
-        null_ls.builtins.diagnostics.zsh,
-        null_ls.builtins.formatting.shfmt,
-        null_ls.builtins.formatting.prettier,
+        diagnostics.pylint,
+        diagnostics.zsh,
+        -- Formatters
+        formatting.shfmt,
+        formatting.prettier,
+        formatting.black,
+        -- Code Actions
+        code_actions.eslint
     },
     on_attach = function(client, bufnr)
         if client.server_capabilities.documentFormattingProvider then
           vim.api.nvim_clear_autocmds { buffer = 0, group = augroup_format }
-          vim.api.nvim_create_autocmd("BufWritePre", {
-            group = augroup_format,
-            buffer = 0,
-            callback = function() vim.lsp.buf.format() end
-          })
+          format_on_save(bufnr)
         end
       end,
 })
