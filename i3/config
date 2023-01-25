@@ -8,11 +8,16 @@ set $mod Mod4
 # workspace_layout tabbed <stacking|tabbed>
 
 # Configure border style <normal|1pixel|pixel xx|none|pixel>
-default_border pixel 1
-default_floating_border normal
+default_border pixel 0
+default_floating_border none
+
+gaps inner 7
 
 # Hide borders
-hide_edge_borders none
+# hide_edge_borders none
+
+# Don't follow mouse
+focus_follows_mouse no
 
 # change borders
 bindsym $mod+u border none
@@ -35,16 +40,13 @@ bindsym $mod+d exec rofi -show drun
 bindsym $mod+z exec --no-startup-id morc_menu
 
 # Screen brightness controls
-# bindsym XF86MonBrightnessUp exec "xbacklight -inc 10; notify-send 'brightness up'"
-# bindsym XF86MonBrightnessDown exec "xbacklight -dec 10; notify-send 'brightness down'"
+bindsym XF86MonBrightnessUp exec "xbacklight -inc 10; notify-send 'brightness up'"
+bindsym XF86MonBrightnessDown exec "xbacklight -dec 10; notify-send 'brightness down'"
 
 # Start Applications
 bindsym $mod+F2 exec firefox-developer-edition
 # bindsym $mod+F3 exec ranger
 bindsym $mod+Shift+d --release exec "killall dunst; exec notify-send 'restart dunst'"
-
-# Don't follow mouse
-focus_follows_mouse no
 
 # keyboard layout
 bindsym $mod+space exec i3-keyboard-layout cycle us es ru
@@ -63,8 +65,8 @@ bindsym $mod+Shift+l move right
 
 # workspace back and forth (with/without active container)
 workspace_auto_back_and_forth yes
-bindsym $mod+b workspace back_and_forth
-bindsym $mod+Shift+b move container to workspace back_and_forth; workspace back_and_forth
+bindsym $mod+p workspace back_and_forth
+bindsym $mod+Shift+p move container to workspace back_and_forth; workspace back_and_forth
 
 # split orientation
 bindsym $mod+CTRL+h split h
@@ -83,7 +85,7 @@ bindsym $mod+e layout toggle split
 bindsym $mod+Shift+space floating toggle
 
 # change focus between tiling / floating windows
-# bindsym $mod+space focus mode_toggle
+bindsym $mod+Ctrl+space focus mode_toggle
 
 # toggle sticky
 bindsym $mod+Shift+s sticky toggle
@@ -98,17 +100,31 @@ bindsym $mod+Shift+minus move scratchpad
 # If there are multiple scratchpad windows, this command cycles through them.
 bindsym $mod+minus scratchpad show
 
+# Terminal scratchpad with tmux and two windows: 1.Terminal | 2.Neovim temp file
+for_window [instance="alacritty_scratchpad"] move to scratchpad
+bindsym $mod+Shift+t [instance="alacritty_scratchpad"] scratchpad show
+exec "~/dotfiles/script/scratchpad.sh"
+
+# htop scratchpad
+# for_window [instance="htop_scratchpad"] move to scratchpad, sticky enable, border none
+# bindsym $mod+Shift+p [instance="htop_scratchpad"] scratchpad show
+# exec alacritty --class htop_scratchpad -e top
+
+# Dunst shortcuts
+bindsym $mod+x exec dunstctl close-all
+bindsym Ctrl+BackSpace exec dunstctl history-pop
+
 # Workspace names
 # to display names or symbols instead of plain workspace numbers you can use
 # something like: set $ws1 1:mail
 #                 set $ws2 2:
-set $ws1 "1: Terminal"
-set $ws2 "2: IDE"
-set $ws3 "3: Firefox"
-set $ws4 "4: Telegram"
-set $ws5 "5: Slack"
-set $ws6 "6: VSCode"
-set $ws7 "7: Zoom"
+set $ws1 1
+set $ws2 2
+set $ws3 3
+set $ws4 4
+set $ws5 5
+set $ws6 6
+set $ws7 7
 set $ws8 8
 set $ws9 9
 
@@ -150,11 +166,14 @@ assign [class="zoom"] $ws7
 assign [class="Slack"] $ws5
 assign [class="firefoxdeveloperedition"] $ws3
 assign [class="Workspacesclient"] $ws6
+assign [class="Audacious"] $ws8
 
 # Open specific applications in floating mode
-for_window [class="GParted"] floating enable border normal
+for_window [class="GParted"] floating enable
 for_window [class="zoom"] floating enable border normal
 for_window [class="Arandr"] floating enable border normal
+for_window [class="Imager"] floating enable border normal
+for_window [class="Pavucontrol"] floating enable, resize set 800 600
 
 # float pop-up automatically
 for_window [window_role="pop-up"] floating enable
@@ -189,6 +208,9 @@ mode "$mode_system" {
 
 bindsym $mod+BackSpace mode "$mode_system"
 
+bindsym $mod+Ctrl+c exec rofi-expressvpn
+bindsym $mod+Ctrl+b exec bwmenu
+
 # Resize window (you can also use the mouse for that)
 bindsym $mod+r mode "resize"
 mode "resize" {
@@ -205,12 +227,15 @@ mode "resize" {
 
 # Autostart applications
 exec_always --no-startup-id $HOME/.config/polybar/run.sh
+exec_always unclutter --idle 5
+exec_always --no-startup-id xscreensaver --no-splash
+exec_always --no-startup-id compton
+exec_always feh --bg-scale ~/Pictures/summers_end.jpg
+exec_always --no-startup-id mons -a -x ~/dotfiles/script/mons.sh
+exec --no-startup-id redshift-gtk
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 exec --no-startup-id clipit
-exec_always --no-startup-id compton
-exec_always feh --bg-scale ~/Pictures/isle_of_death.jpg
 # exec --no-startup-id nitrogen --restore; sleep 1; picom -b
-#exec_always --no-startup-id connect-monitors
 
 #######
 #THEME#
@@ -226,12 +251,13 @@ set $purple #b16286
 set $aqua #689d68
 set $gray #a89984
 set $darkgray #1d2021
+set $white #fff
 
 #start of window title bars & borders section
 
 # green gruvbox
-# class                 border|backgr|text|indicator|child_border
-client.focused          $green $green $darkgray $purple $green
-client.focused_inactive $darkgray $darkgray $yellow $purple $darkgray
-client.unfocused        $darkgray $darkgray $yellow $purple $darkgray
-client.urgent           $red $red $white $red $red
+# class                 border  |   backgr  |   text    |   indicator   |   child_border
+client.focused          $green      $green      $darkgray   $purple         $green
+client.focused_inactive $darkgray   $darkgray   $yellow     $purple         $darkgray
+client.unfocused        $darkgray   $darkgray   $yellow     $purple         $darkgray
+client.urgent           $red        $red        $white      $red            $red
