@@ -136,10 +136,8 @@ cw() { printf %s "$PWD" | pbcopy; }
 # server - Create server of current dir on port 8000 and open it in browser.
 server() {
 	local port="${1:-8000}"
-	sleep 1 && open "http://localhost:${port}/" &
-	# set the default content-type to `text/plain` instead of `application/octet-stream`
-	# and serve everything as utf-8 (although not technically correct, this doesn’t break anything for binary files)
-	python -c $'import SimpleHTTPServer;\nmap = SimpleHTTPServer.SimpleHTTPRequestHandler.extensions_map;\nmap[""] = "text/plain";\nfor key, value in map.items():\n\tmap[key] = value + ";charset=UTF-8";\nSimpleHTTPServer.test();' "$port"
+    sleep 1 && xdg-open "http://localhost:$port" &
+    python -m  "http.server" "$port"
 }
 
 # compress <file/dir> - Compress <file/dir>.
