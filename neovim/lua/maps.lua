@@ -6,7 +6,11 @@ vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
 -- edit config file
-map("n", "<leader>v", ":e ~/.config/nvim/init.lua<CR>", { noremap = true })
+map("n", "<leader>ev", ":e $MYVIMRC<CR>", { noremap = true })
+-- source config file
+map("n", "<leader>sv", ":source $MYVIMRC<CR>", { noremap = true })
+
+map("i", "<C-U>", "<esc>viwUA", { noremap = true })
 
 -- clear search highlights
 map("n", "<leader>/", ":nohlsearch<cr>", { noremap = true })
@@ -22,11 +26,11 @@ map("n", "<leader>hs", ":split<cr>", { noremap = true })
 map("n", "<leader>bs", ":w<cr>", { noremap = true })
 map("n", "<leader>bd", ":bd<cr>", { noremap = true })
 
---Remap for dealing with word wrap
+-- Remap for dealing with word wrap
 map("n", "k", "v:count == 0 ? 'gk' : 'k'", { noremap = true, expr = true, silent = true })
 map("n", "j", "v:count == 0 ? 'gj' : 'j'", { noremap = true, expr = true, silent = true })
 
---Add leader shortcuts
+-- Add leader shortcuts
 local opts = { noremap = true, silent = true }
 map("n", "<leader><space>", "<cmd>lua require('telescope.builtin').buffers()<CR>", opts)
 map("n", "<leader>sb", "<cmd>lua require('telescope.builtin').current_buffer_fuzzy_find()<CR>", opts)
