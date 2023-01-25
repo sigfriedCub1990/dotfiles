@@ -1,5 +1,5 @@
 zsh-users/zsh-autosuggestions
 zsh-users/zsh-completions
-zsh-users/zsh-syntax-highlighting
+zdharma-continuum/fast-syntax-highlighting
 greymd/docker-zsh-completion
-mfaerevaag/wd
+b0o/zsh-extras
