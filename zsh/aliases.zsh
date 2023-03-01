@@ -12,6 +12,7 @@ alias lga='ls -GFs Extension -b --group-directories-first'
 alias lsil='ls -lFs Extension -b --group-directories-first'
 alias lsc='ls -lFhc --sort=extension'
 alias top='btop'
+alias rm='rm -vi'
 #Configuration files.
 alias vimr='vim ~/.vimrc'
 #VirtualEnvs
