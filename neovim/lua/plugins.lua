@@ -32,9 +32,6 @@ packer.startup(function(use)
     use("itchyny/lightline.vim")
     use("ellisonleao/gruvbox.nvim")
 
-    -- tags management
-    use("ludovicchabant/vim-gutentags")
-
     -- Highlight, edit, and navigate code using a fast incremental parsing library
     use({
         "nvim-treesitter/nvim-treesitter",
@@ -85,4 +82,7 @@ packer.startup(function(use)
     use("dhruvasagar/vim-table-mode")
     use("jose-elias-alvarez/null-ls.nvim")
     use("lervag/vimtex")
+    use("tommcdo/vim-exchange")
+    use("j-hui/fidget.nvim")
+    use("folke/neodev.nvim")
 end)

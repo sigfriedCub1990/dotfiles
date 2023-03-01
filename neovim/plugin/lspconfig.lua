@@ -1,75 +1,82 @@
 -- vim.lsp.set_log_level("debug")
 
+-- Must be called before lspconfig import
+require("neodev").setup{}
 local status, nvim_lsp = pcall(require, "lspconfig")
 if not status then
     return
 end
 local protocol = require("vim.lsp.protocol")
 
-local on_attach = function(client, bufnr)
-    local function buf_set_keymap(...)
-        vim.api.nvim_buf_set_keymap(bufnr, ...)
+local on_attach = function(_, bufnr)
+    local function buf_set_keymap(mode, mapping, cmd, other_opts)
+        local opts = { noremap = true, silent = true }
+        for key, value in pairs(other_opts) do
+            opts[key] = value
+        end
+        vim.api.nvim_buf_set_keymap(bufnr, mode, mapping, cmd, opts)
     end
-    local function buf_set_option(...)
-        vim.api.nvim_buf_set_option(bufnr, ...)
-    end
 
-    buf_set_option("omnifunc", "v:lua.vim.lsp.omnifunc")
-
-    local opts = { noremap = true, silent = true }
-
-    buf_set_keymap("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts)
-    buf_set_keymap("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
-    buf_set_keymap("n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
-    buf_set_keymap("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
-    buf_set_keymap("n", "<C-k>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
-    buf_set_keymap("n", "<leader>D", "<cmd>lua vim.lsp.buf.type_definition()<CR>", opts)
-    buf_set_keymap("n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
-    buf_set_keymap("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
-    buf_set_keymap("n", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
-    buf_set_keymap("n", "<leader>e", "<cmd>lua vim.diagnostic.open_float()<CR>", opts)
-    buf_set_keymap("n", "[d", "<cmd>lua vim.diagnostic.goto_prev()<CR>", opts)
-    buf_set_keymap("n", "]d", "<cmd>lua vim.diagnostic.goto_next()<CR>", opts)
-    buf_set_keymap("n", "<leader>q", "<cmd>lua vim.diagnostic.setloclist()<CR>", opts)
+    buf_set_keymap("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>",  { desc = "Go to declaration" })
+    buf_set_keymap("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", { desc = "Go to definition" })
+    buf_set_keymap("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", { desc = "Go to implementation" })
+    buf_set_keymap("n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", { desc = "Hover" })
+    buf_set_keymap("n", "<C-k>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", { desc = "Show signature help" })
+    buf_set_keymap("n", "<leader>D", "<cmd>lua vim.lsp.buf.type_definition()<CR>", { desc = "Jump to the definition of the type" })
+    buf_set_keymap("n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", { desc = "Rename variable" })
+    buf_set_keymap("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", { desc = "List all the references to the symbol" })
+    buf_set_keymap("n", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", { desc = "Select a code action available for the current position" })
+    buf_set_keymap("n", "<leader>q", "<cmd>lua vim.diagnostic.setloclist()<CR>", { desc = "Add buffer diagnostic to the location list" })
 end
 
-protocol.CompletionItemKind = {
-    "", -- Text
-    "", -- Method
-    "", -- Function
-    "", -- Constructor
-    "", -- Field
-    "", -- Variable
-    "", -- Class
-    "ﰮ", -- Interface
-    "", -- Module
-    "", -- Property
-    "", -- Unit
-    "", -- Value
-    "", -- Enum
-    "", -- Keyword
-    "﬌", -- Snippet
-    "", -- Color
-    "", -- File
-    "", -- Reference
-    "", -- Folder
-    "", -- EnumMember
-    "", -- Constant
-    "", -- Struct
-    "", -- Event
-    "ﬦ", -- Operator
-    "", -- TypeParameter
+local M = {}
+
+M.icons = {
+    Text = "",
+    Method = "",
+    Function = "",
+    Constructor = "",
+    Field = "",
+    Variable = "",
+    Class = "",
+    Interface = "ﰮ",
+    Module = "",
+    Property = "",
+    Unit = "",
+    Value = "",
+    Enum = "",
+    Keyword = "",
+    Snippet = "﬌",
+    Color = "",
+    File = "",
+    Reference = "",
+    Folder = "",
+    EnumMember = "",
+    Constant = "",
+    Struct = "",
+    Event = "",
+    Operator = "ﬦ",
+    TypeParameter = "",
 }
 
--- Set up completion using nvim_cmp with LSP source
-local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
+local function setup_completion_item_icons()
+    local kinds = protocol.CompletionItemKind
+    for i, kind in ipairs(kinds) do
+    kinds[i] = M.icons[kind] or kind
+  end
+end
 
-local clients = { "clangd", "pyright", "elmls", "tsserver", "bashls" }
+setup_completion_item_icons()
+
+-- Set up completion using nvim_cmp with LSP source
+local capabilities = require("cmp_nvim_lsp").default_capabilities()
+
+local clients = { "clangd", "pyright", "elmls", "tsserver", "bashls", "dockerls", "solargraph", "astro", "erlangls" }
 for _, client in ipairs(clients) do
     -- client object reference :help vim.lsp.client
     -- TODO: I'm doing this in order to allow Prettier
     -- to automatically format the code
-    if client.name == "tsserver" then
+    if client == "tsserver" then
         nvim_lsp[client].setup({
             on_attach = on_attach,
             filetypes = { "typescript", "typescriptreact", "typescript.tsx" },
@@ -84,43 +91,31 @@ for _, client in ipairs(clients) do
     end
 end
 
-nvim_lsp.astro.setup{}
-
-vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
-    underline = true,
-    update_in_insert = false,
-    virtual_text = { spacing = 4, signs = false },
-    severity_sort = true,
-})
+nvim_lsp.lua_ls.setup{}
 
 -- Diagnostic symbols in the sign column (gutter)
-local signs = { Error = " ", Warn = " ", Hint = "", Info = " " }
+local signs = { Error = "x", Warn = "~", Hint = "!", Info = "i" }
 for type, icon in pairs(signs) do
     local hl = "DiagnosticSign" .. type
-    vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
+    vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
 end
 
 vim.diagnostic.config({
     virtual_text = {
-        signs = false
+        source = "if_many",
     },
+    severity_sort = true,
     update_in_insert = true,
     float = {
         source = "if_many", -- Or 'if_many'
     },
 })
 
--- TODO: Emmet never worked before, I would like to make it work
-
--- local capabilities = vim.lsp.protocol.make_client_capabilities()
--- capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
-
--- local lsp_options = {
---   capabilities = capabilities,
---   on_attach = on_attach,
---   single_file_support = true,
--- }
-
--- lspconfig.html.setup(vim.tbl_extend('force', lsp_options, { filetypes = { 'html' } }))
-
--- lspconfig.emmet_ls.setup(vim.tbl_extend('force', lsp_options, { filetypes = { 'html', 'css' } }))
+vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
+    vim.lsp.diagnostic.on_publish_diagnostics, {
+    underline = {
+        severity = vim.diagnostic.severity.ERROR
+    },
+    update_in_insert = true,
+    severity_sort = true,
+})
