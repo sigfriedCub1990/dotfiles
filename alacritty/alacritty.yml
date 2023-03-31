@@ -1,6 +1,3 @@
-import:
-  - ~/.config/alacritty/gruvbox_dark.yml
-
 # Any items in the `env` entry below will be added as
 # environment variables. Some entries may override variables
 # set by alacritty itself.
@@ -19,17 +16,16 @@ window:
 # Font configuration
 font:
   normal:
-    family: "MesloLGS NF"
+    family: "Source Code Pro"
     style: Regular
   bold:
-    family: "MesloLGS NF"
+    family: "Source Code Pro"
     style: Bold
   italic:
-    family: "MesloLGS NF"
+    family: "Source Code Pro"
     style: Italic
-
   bold_italic:
-    family: "MesloLGS NF"
+    family: "Source Code Pro"
     style: Extrabold Italic
   size: 10.0
 
