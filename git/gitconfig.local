@@ -22,6 +22,7 @@
 #log
   st       = status -sb
   current  = !git rev-parse --abbrev-ref HEAD
+  l        = "!source ~/dotfiles/git/git_helpers && pretty_git_log"
   lg       = log --graph -10
 #navigate
   topic     = checkout -b
@@ -50,7 +51,7 @@
   renames = copy
 
 [color]
-  ui = true
+  ui = auto
 
 [color "branch"]
   current = blue reverse bold
@@ -101,8 +102,5 @@
 
 [ghq]
   root = /cache/code
-
-[format]
-  pretty = "%C(red bold)%h%C(green)%d%Creset %s %C(green bold)(%ar) %C(blue bold)<%an>"
 
 ; vim:ft=dosini
