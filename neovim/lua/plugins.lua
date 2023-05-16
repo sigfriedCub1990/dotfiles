@@ -28,10 +28,6 @@ packer.startup(function(use)
     use("nvim-telescope/telescope-file-browser.nvim")
     use({ "nvim-telescope/telescope-fzf-native.nvim", run = "make" })
 
-    -- theming neovim
-    use("itchyny/lightline.vim")
-    use("ellisonleao/gruvbox.nvim")
-
     -- Highlight, edit, and navigate code using a fast incremental parsing library
     use({
         "nvim-treesitter/nvim-treesitter",
@@ -85,4 +81,10 @@ packer.startup(function(use)
     use("tommcdo/vim-exchange")
     use("j-hui/fidget.nvim")
     use("folke/neodev.nvim")
+    use("romainl/vim-cool")
+    -- Clojure REPL
+    use("Olical/conjure")
+    use("tpope/vim-dispatch")
+    use("clojure-vim/vim-jack-in")
+    use("radenling/vim-dispatch-neovim")
 end)

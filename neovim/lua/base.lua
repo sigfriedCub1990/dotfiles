@@ -1,7 +1,5 @@
 local set = vim.opt
 
-vim.cmd([[colorscheme gruvbox]])
-
 -- Disable initial Vim message
 set.shortmess = "I"
 
@@ -22,6 +20,15 @@ set.tabstop = 4
 set.shiftwidth = 4
 set.softtabstop = 4
 set.expandtab = true
+
+-- highlight current line
+set.cursorline = true
+
+-- briefily jump to closing bracket when inserted
+set.showmatch = true
+
+-- always show tab bat at the top
+set.showtabline = 2
 
 -- relative movement
 set.relativenumber = true

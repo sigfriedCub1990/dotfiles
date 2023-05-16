@@ -9,11 +9,18 @@ end
 
 local map = vim.api.nvim_set_keymap
 local actions = require("telescope.actions")
-local builtin = require("telescope.builtin")
-local fb_actions = require("telescope").extensions.file_browser.actions
+local fb = require("telescope").extensions.file_browser
 
 telescope.setup({
     defaults = {
+        file_ignore_patterns = {
+            "%.git/",
+            "node_modules/",
+            "coverage/",
+            "__pycache__/",
+            "%.o",
+            "client/graphql/",
+        },
         mappings = {
             n = {
                 ["q"] = actions.close,
@@ -23,8 +30,12 @@ telescope.setup({
         path_display = {
             shorten = { len = 1, exclude = { 1, -1 } },
         },
-        preview = false,
-        color_devicons = false,
+        -- preview = false,
+        layout_strategy = "vertical",
+        layout_config = {
+            prompt_position = "top",
+            mirror = true,
+        },
     },
     extensions = {
         file_browser = {
@@ -40,8 +51,8 @@ telescope.setup({
                 },
                 ["n"] = {
                     -- your custom normal mode mappings
-                    ["N"] = fb_actions.create,
-                    ["h"] = fb_actions.goto_parent_dir,
+                    ["N"] = fb.actions.create,
+                    ["h"] = fb.actions.goto_parent_dir,
                     ["/"] = function()
                         vim.cmd("startinsert")
                     end,
@@ -54,20 +65,20 @@ telescope.setup({
 telescope.load_extension("file_browser")
 telescope.load_extension("fzf")
 
-vim.keymap.set("n", "tb", function()
-    telescope.extensions.file_browser.file_browser({
+vim.keymap.set("n", "<leader>fb", function()
+    fb.file_browser({
         path = "%:p:h",
         cwd = telescope_buffer_dir(),
-        hidden = true,
+        hidden = false,
         grouped = true,
         previewer = false,
         initial_mode = "normal",
         layout_config = { height = 80 },
     })
-end)
+end, { noremap = true })
 
 -- Telescope mappings
-function add_telescope_mapping(mode, mapping, cmd, other_opts)
+local function add_telescope_mapping(mode, mapping, cmd, other_opts)
     local opts = { noremap = true, silent = true }
     for key, value in pairs(other_opts) do
         opts[key] = value
@@ -79,17 +90,19 @@ add_telescope_mapping(
     "n",
     "<leader><leader>",
     "<cmd>lua require('telescope.builtin').buffers()<CR>",
-    { desc = "Search open buffers" }
+    { desc = "List open buffers" }
 )
 add_telescope_mapping(
     "n",
-    "<leader>sb",
+    "<leader>tsb",
     "<cmd>lua require('telescope.builtin').current_buffer_fuzzy_find()<CR>",
     { desc = "Search current buffer" }
 )
-add_telescope_mapping("n", "<leader>sh", "<cmd>Telescope help_tags<CR>", { desc = "Search help tags (Vim)" })
-add_telescope_mapping("n", "<leader>ss", "<cmd>Telescope grep_string<CR>", { desc = "Grep string" })
-add_telescope_mapping("n", "<leader>sm", "<cmd>Telescope man_pages<CR>", { desc = "Search man pages" })
-add_telescope_mapping("n", "<leader>gb", "<cmd>Telescope git_branches<CR>", { desc = "Search git branches" })
-add_telescope_mapping("n", "<leader>sk", "<cmd>Telescope keymaps<CR>", { desc = "Search define keymaps" })
+add_telescope_mapping("n", "<leader>th", "<cmd>Telescope help_tags<CR>", { desc = "Search help tags (Vim)" })
+add_telescope_mapping("n", "<leader>ts", "<cmd>Telescope grep_string<CR>", { desc = "Grep string" })
+add_telescope_mapping("n", "<leader>tm", "<cmd>Telescope man_pages<CR>", { desc = "Search man pages" })
+add_telescope_mapping("n", "<leader>tg", "<cmd>Telescope git_branches<CR>", { desc = "Search git branches" })
+add_telescope_mapping("n", "<leader>tk", "<cmd>Telescope keymaps<CR>", { desc = "Search defined keymaps" })
+add_telescope_mapping("n", "<leader>to", "<cmd>Telescope vim_options<CR>", { desc = "Search define vim options" })
+add_telescope_mapping("n", "<leader>td", "<cmd>Telescope diagnostics<CR>", { desc = "Search diagnostics" })
 add_telescope_mapping("n", "<leader>p", "<cmd>Telescope find_files<CR>", { desc = "Search files" })

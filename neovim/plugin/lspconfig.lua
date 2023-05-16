@@ -71,15 +71,12 @@ setup_completion_item_icons()
 -- Set up completion using nvim_cmp with LSP source
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
-local clients = { "clangd", "pyright", "elmls", "tsserver", "bashls", "dockerls", "solargraph", "astro", "erlangls" }
+local clients = { "clangd", "pyright", "elmls", "tsserver", "bashls", "dockerls", "astro", "erlangls", "clojure_lsp" }
 for _, client in ipairs(clients) do
-    -- client object reference :help vim.lsp.client
-    -- TODO: I'm doing this in order to allow Prettier
-    -- to automatically format the code
     if client == "tsserver" then
         nvim_lsp[client].setup({
             on_attach = on_attach,
-            filetypes = { "typescript", "typescriptreact", "typescript.tsx" },
+            filetypes = { "typescript", "typescriptreact", "typescript.tsx", "javascript" },
             cmd = { "typescript-language-server", "--stdio" },
             capabilities = capabilities,
         })
@@ -92,6 +89,17 @@ for _, client in ipairs(clients) do
 end
 
 nvim_lsp.lua_ls.setup{}
+nvim_lsp.solargraph.setup{
+    on_attach = on_attach,
+    settings = {
+        solargraph = {
+            -- Use this to deactivate diagnostics completely and
+            -- to not collide with Rubocop or create a .solargraph.yaml
+            -- with a Rubocop reporter.
+            diagnostics = false
+        }
+    }
+}
 
 -- Diagnostic symbols in the sign column (gutter)
 local signs = { Error = "x", Warn = "~", Hint = "!", Info = "i" }
@@ -102,7 +110,7 @@ end
 
 vim.diagnostic.config({
     virtual_text = {
-        source = "if_many",
+        source = "if_many"
     },
     severity_sort = true,
     update_in_insert = true,

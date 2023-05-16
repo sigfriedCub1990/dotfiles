@@ -10,10 +10,11 @@ local code_actions = null_ls.builtins.code_actions
 -- Disable tsserver formating capabilities
 local custom_format = function(bufnr)
     vim.lsp.buf.format({
-        bufnr = bufrn,
+        bufnr = bufnr,
         filter = function(client)
             return client.name ~= "tsserver"
         end,
+        timeout_ms = 2000
     })
 end
 
@@ -35,12 +36,16 @@ null_ls.setup({
             diagnostics_format = "[eslint] #{m}\n(#{c})",
             prefer_local = "node_modules/.bin"
         }),
-        diagnostics.pylint,
-        diagnostics.zsh,
+        diagnostics.ruff,
+        diagnostics.write_good,
+        diagnostics.rubocop.with({
+            diagnostics_format = "[rubocop] #{m}\n(#{c})",
+        }),
         -- Formatters
         formatting.shfmt,
         formatting.prettier,
         formatting.black,
+        formatting.rubocop,
         -- Code Actions
         code_actions.eslint
     },

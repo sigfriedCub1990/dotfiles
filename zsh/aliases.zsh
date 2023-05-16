@@ -25,7 +25,7 @@ alias lg="lazygit"
 alias ssh-ls="ssh-add -l"
 alias ssh-remove="ssh-add -D"
 alias ssh="TERM=xterm-256color ssh"
-alias cat="bat"
+alias cat="bat --theme=gruvbox-dark"
 alias n="nvim"
 alias g="git"
 alias dco="docker-compose"
@@ -40,5 +40,9 @@ alias nb="newsboat"
 alias v='f -e nvim'     # quick opening files with vim
 alias m='f -e mplayer'  # quick opening files with mplayer
 alias o='a -e xdg-open' # quick opening files with xdg-open
+
+alias h='ghci' # haskell cli
+
+alias grep='grep --color=always'
 
 # vim: set filetype=sh :

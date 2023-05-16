@@ -9,4 +9,14 @@ end
 
 mason.setup({})
 
-lspconfig.setup({})
+lspconfig.setup({
+    ensure_installed = {
+        "clangd",
+        "pyright",
+        "elmls",
+        "tsserver",
+        "bashls",
+        "dockerls",
+        "solargraph",
+    },
+})

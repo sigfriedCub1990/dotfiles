@@ -109,6 +109,11 @@ _G.packer_plugins = {
     path = "/home/sigfried/.local/share/nvim/site/pack/packer/start/csv.vim",
     url = "https://github.com/chrisbra/csv.vim"
   },
+  ["fidget.nvim"] = {
+    loaded = true,
+    path = "/home/sigfried/.local/share/nvim/site/pack/packer/start/fidget.nvim",
+    url = "https://github.com/j-hui/fidget.nvim"
+  },
   ["friendly-snippets"] = {
     loaded = true,
     path = "/home/sigfried/.local/share/nvim/site/pack/packer/start/friendly-snippets",
@@ -119,20 +124,10 @@ _G.packer_plugins = {
     path = "/home/sigfried/.local/share/nvim/site/pack/packer/start/gitsigns.nvim",
     url = "https://github.com/lewis6991/gitsigns.nvim"
   },
-  ["gruvbox.nvim"] = {
-    loaded = true,
-    path = "/home/sigfried/.local/share/nvim/site/pack/packer/start/gruvbox.nvim",
-    url = "https://github.com/ellisonleao/gruvbox.nvim"
-  },
   ["impatient.nvim"] = {
     loaded = true,
     path = "/home/sigfried/.local/share/nvim/site/pack/packer/start/impatient.nvim",
     url = "https://github.com/lewis6991/impatient.nvim"
-  },
-  ["lightline.vim"] = {
-    loaded = true,
-    path = "/home/sigfried/.local/share/nvim/site/pack/packer/start/lightline.vim",
-    url = "https://github.com/itchyny/lightline.vim"
   },
   ["lsp_signature.nvim"] = {
     loaded = true,
@@ -160,6 +155,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/sigfried/.local/share/nvim/site/pack/packer/start/mason.nvim",
     url = "https://github.com/williamboman/mason.nvim"
+  },
+  ["neodev.nvim"] = {
+    loaded = true,
+    path = "/home/sigfried/.local/share/nvim/site/pack/packer/start/neodev.nvim",
+    url = "https://github.com/folke/neodev.nvim"
   },
   ["null-ls.nvim"] = {
     loaded = true,
@@ -226,15 +226,15 @@ _G.packer_plugins = {
     path = "/home/sigfried/.local/share/nvim/site/pack/packer/start/vim-commentary",
     url = "https://github.com/tpope/vim-commentary"
   },
+  ["vim-exchange"] = {
+    loaded = true,
+    path = "/home/sigfried/.local/share/nvim/site/pack/packer/start/vim-exchange",
+    url = "https://github.com/tommcdo/vim-exchange"
+  },
   ["vim-fugitive"] = {
     loaded = true,
     path = "/home/sigfried/.local/share/nvim/site/pack/packer/start/vim-fugitive",
     url = "https://github.com/tpope/vim-fugitive"
-  },
-  ["vim-gutentags"] = {
-    loaded = true,
-    path = "/home/sigfried/.local/share/nvim/site/pack/packer/start/vim-gutentags",
-    url = "https://github.com/ludovicchabant/vim-gutentags"
   },
   ["vim-repeat"] = {
     loaded = true,
