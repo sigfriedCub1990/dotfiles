@@ -12,6 +12,7 @@ default_border pixel 0
 default_floating_border none
 
 gaps inner 7
+smart_gaps on
 
 # Hide borders
 # hide_edge_borders none
@@ -37,7 +38,7 @@ bindsym $mod+q kill
 # start program launcher
 bindsym $mod+d exec rofi -show drun
 # launch categorized menu
-bindsym $mod+z exec --no-startup-id morc_menu
+# bindsym $mod+z exec --no-startup-id morc_menu
 
 # Screen brightness controls
 bindsym XF86MonBrightnessUp exec "xbacklight -inc 10; notify-send 'brightness up'"
@@ -45,8 +46,6 @@ bindsym XF86MonBrightnessDown exec "xbacklight -dec 10; notify-send 'brightness 
 
 # Start Applications
 bindsym $mod+F2 exec firefox-developer-edition
-# bindsym $mod+F3 exec ranger
-bindsym $mod+Shift+d --release exec "killall dunst; exec notify-send 'restart dunst'"
 
 # keyboard layout
 bindsym $mod+space exec i3-keyboard-layout cycle us es ru
@@ -167,6 +166,7 @@ assign [class="Slack"] $ws5
 assign [class="firefoxdeveloperedition"] $ws3
 assign [class="Workspacesclient"] $ws6
 assign [class="Audacious"] $ws8
+assign [class="TelegramDesktop"] $ws7
 
 # Open specific applications in floating mode
 for_window [class="GParted"] floating enable
@@ -209,7 +209,6 @@ mode "$mode_system" {
 bindsym $mod+BackSpace mode "$mode_system"
 
 bindsym $mod+Ctrl+c exec rofi-expressvpn
-bindsym $mod+Ctrl+b exec bwmenu
 
 # Resize window (you can also use the mouse for that)
 bindsym $mod+r mode "resize"
@@ -225,17 +224,19 @@ mode "resize" {
         bindsym Escape mode "default"
 }
 
+# Remap caps lock when new attached
+bindsym $mod+z exec "setxkbmap -option 'caps:ctrl_modifier';xcape -e 'Caps_Lock=Escape' &"
+
 # Autostart applications
 exec_always --no-startup-id $HOME/.config/polybar/run.sh
 exec_always unclutter --idle 5
 exec_always --no-startup-id xscreensaver --no-splash
 exec_always --no-startup-id compton
-exec_always feh --bg-scale ~/Pictures/summers_end.jpg
+exec_always feh --bg-fill ~/Pictures/school_of_athens.jpg
 exec_always --no-startup-id mons -a -x ~/dotfiles/script/mons.sh
 exec --no-startup-id redshift-gtk
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 exec --no-startup-id clipit
-# exec --no-startup-id nitrogen --restore; sleep 1; picom -b
 
 #######
 #THEME#
