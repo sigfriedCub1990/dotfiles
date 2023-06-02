@@ -1,7 +1,6 @@
 https://hnrss.org/frontpage "Hacker News frontpage"
 https://lobste.rs/rss "Lobste.rs frontpage"
 https://blog.pragmaticengineer.com/rss/ "Example Feeds/Software Engineering"
-https://haseebq.com/feed "Example Feeds/Software Engineering"
 https://this-week-in-neovim.org/rss "This week in Neovim"
 https://pluralistic.net/feed "Pluralistic - Cory Doctorow"
 https://www.unixsheikh.com/feed.rss "Unixsheikh"
@@ -12,3 +11,11 @@ https://www.joshwcomeau.com/rss.xml
 https://evilmartians.com/chronicles.atom
 https://myme.no/feed.xml
 https://twitchard.github.io/atom.xml
+https://thevaluable.dev/index.xml
+https://danluu.com/atom.xml "Dan Luu page"
+https://history.futureofcoding.org/newsletter/rss.xml
+https://feeds.buzzsprout.com/1830936.rss
+https://stratus3d.com/atom.xml
+https://37signals.com/feed/jobs.xml
+https://robertwpearce.com/atom.xml
+https://www.yegor256.com/rss.xml
