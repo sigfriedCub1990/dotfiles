@@ -79,7 +79,10 @@ packer.startup(function(use)
     use("jose-elias-alvarez/null-ls.nvim")
     use("lervag/vimtex")
     use("tommcdo/vim-exchange")
-    use("j-hui/fidget.nvim")
+    use {
+        "j-hui/fidget.nvim",
+        tag = "legacy"
+    }
     use("folke/neodev.nvim")
     use("romainl/vim-cool")
     -- Clojure REPL
