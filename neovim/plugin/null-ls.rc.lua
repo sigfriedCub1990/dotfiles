@@ -37,7 +37,6 @@ null_ls.setup({
             prefer_local = "node_modules/.bin"
         }),
         diagnostics.ruff,
-        diagnostics.write_good,
         diagnostics.rubocop.with({
             diagnostics_format = "[rubocop] #{m}\n(#{c})",
         }),
