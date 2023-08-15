@@ -1,8 +1,7 @@
 require("impatient")
 
 vim.o.termguicolors = true
-vim.cmd([[ colorscheme lucius ]])
-vim.cmd([[ LuciusDarkHighContrast ]])
+vim.cmd[[colorscheme tokyonight]]
 
 require("globals")
 require("base")
