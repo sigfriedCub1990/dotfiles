@@ -5,7 +5,8 @@ alias ..2='cd ../..'
 alias ..3='cd ../../..'
 alias ..4='cd ../../../..'
 alias clear='clear && printf "\e[3J"'
-alias ls='exa -lhFs Extension -b --group-directories-first --git'
+alias ls='ls --hyperlink=auto --color=always'
+alias l='exa -lhFs Extension -b --group-directories-first --git'
 alias la='exa -lahFs Extension -b --group-directories-first'
 alias lt='ls -T --git-ignore'
 alias lga='ls -GFs Extension -b --group-directories-first'
@@ -37,12 +38,15 @@ alias cx="chmod +x "
 alias nb="newsboat"
 
 # fasd aliases
-alias v='f -e nvim'     # quick opening files with vim
-alias m='f -e mplayer'  # quick opening files with mplayer
+alias v='z -e nvim'     # quick opening files with vim
+alias m='z -e mplayer'  # quick opening files with mplayer
 alias o='a -e xdg-open' # quick opening files with xdg-open
 
 alias h='ghci' # haskell cli
 
 alias grep='grep --color=always'
+
+alias icat='kitty +kitten icat'
+alias hg='kitty +kitten hyperlinked_grep'
 
 # vim: set filetype=sh :
