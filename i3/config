@@ -30,7 +30,7 @@ bindsym $mod+n border normal
 font xft:URWGothic-Book 11
 
 # start a terminal
-bindsym $mod+Return exec alacritty
+bindsym $mod+Return exec kitty
 
 # kill focused window
 bindsym $mod+q kill
@@ -68,8 +68,8 @@ bindsym $mod+p workspace back_and_forth
 bindsym $mod+Shift+p move container to workspace back_and_forth; workspace back_and_forth
 
 # split orientation
-bindsym $mod+CTRL+h split h
-bindsym $mod+CTRL+v split v
+# bindsym $mod+Ctrl+h split h
+# bindsym $mod+Ctrl+v split v
 bindsym $mod+t split toggle
 
 # toggle fullscreen mode for the focused container
@@ -191,8 +191,8 @@ bindsym $mod+Shift+c reload
 bindsym $mod+Shift+r restart
 
 # lock screen
-set $i3lockwall sh $HOME/dotfiles/script/lock.sh $HOME/Pictures/lock.png
-bindsym $mod+Ctrl+l exec --no-startup-id $i3lockwall
+# set $i3lockwall sh $HOME/dotfiles/script/lock.sh $HOME/Pictures/lock.png
+# bindsym $mod+l exec --no-startup-id $i3lockwall
 
 # Set shut down, restart and locking features
 set $mode_system (l)ock, (e)xit, (r)eboot, (Ctrl+s)hutdown
