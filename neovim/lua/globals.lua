@@ -21,16 +21,17 @@ vim.cmd([[
 
 vim.cmd([[
     " Status line
-    set statusline=             " Reset statusline
-    set statusline=[%{mode()}]\ " Current active mode
-    set statusline+=%10f\       " Name of the file
-    set statusline+=(%{&ft})    " Filetype
-    set statusline+=%=          " Jump to right side
+    set statusline=              " Reset statusline
+    set statusline=%{FugitiveStatusline()}
+    set statusline+=[%{mode()}]\ " Current active mode
+    set statusline+=%10f\        " Name of the file
+    set statusline+=(%{&ft})     " Filetype
+    set statusline+=%=           " Jump to right side
     set statusline+=%{Scrollbar()}
     set statusline+=\ %{LeftSide()}
-    set statusline+=%2l         " Current line
-    set statusline+=:           " Separator
-    set statusline+=%L          " Total # of lines
+    set statusline+=%2l          " Current line
+    set statusline+=:            " Separator
+    set statusline+=%L           " Total # of lines
 ]])
 
 
