@@ -10,11 +10,7 @@ fi
 # -U options, for array (but not for associative arrays) keep only the first occurrence of each duplicated value.
 typeset -U PATH path
 
-export ASDF_DATA_DIR=/cache/.asdf
-
 . /opt/asdf-vm/asdf.sh
-
-export DOTFILES="$HOME/dotfiles"
 
 typeset -U config_files
 typeset -U fns
@@ -29,7 +25,7 @@ for file in ${${config_files:#*/path.zsh}:#*/completion.zsh}; do
   source "$file"
 done
 
-# Move with Vi like keys through the 
+# Move with Vi like keys through the
 # menu of generated completions.
 # NOTE:
 # This needs to be defined before initializing 
@@ -40,11 +36,12 @@ bindkey -M menuselect 'k' vi-up-line-or-history
 bindkey -M menuselect 'l' vi-forward-char
 bindkey -M menuselect 'j' vi-down-line-or-history
 
-autoload -Uz compinit
-for dump in ~/.zcompdump(N.mh+24); do
-  compinit
-done
-compinit -C
+autoload -Uz compinit 
+if [[ -n ${HOME}/.zcompdump(#qN.mh+24) ]]; then
+	compinit;
+else
+	compinit -C;
+fi;
 
 # load zstyle rules after compinit initialization
 for file in ${(M)config_files:#*/completion.zsh}; do
@@ -59,12 +56,8 @@ done
 unset config_files
 unset fns
 
-# Init fasd
-eval "$(fasd --init auto)"
-
-#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
-export SDKMAN_DIR="/home/sigfried/.sdkman"
-[[ -s "/home/sigfried/.sdkman/bin/sdkman-init.sh" ]] && source "/home/sigfried/.sdkman/bin/sdkman-init.sh"
+# Init zoxide
+eval "$(zoxide init zsh)"
 
 source /home/sigfried/.profile
 source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
@@ -72,4 +65,5 @@ source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-source /home/sigfried/.config/broot/launcher/bash/br
+[[ -s "/home/sigfried/.config/broot/launcher/bash/br" ]] && source /home/sigfried/.config/broot/launcher/bash/br
+[[ -s "/home/sigfried/.sdkman/bin/sdkman-init.sh" ]] && source "/home/sigfried/.sdkman/bin/sdkman-init.sh"
