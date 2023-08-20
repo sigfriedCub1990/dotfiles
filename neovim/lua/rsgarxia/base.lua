@@ -50,7 +50,6 @@ vim.wo.signcolumn = "yes"
 set.scrolloff = 5
 set.display = "truncate"
 set.fillchars = { vert = "│" }
-set.lazyredraw = true
 set.list = true
 set.listchars = {
     extends = "⟩",
