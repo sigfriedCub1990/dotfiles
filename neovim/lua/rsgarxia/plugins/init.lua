@@ -29,30 +29,6 @@ return {
         dependencies = { "rafamadriz/friendly-snippets" }
     },
     {
-        "j-hui/fidget.nvim",
-        tag = "legacy",
-        config = function()
-            local fidget = require("fidget")
-            fidget.setup({
-                text = {
-                    spinner = "moon",
-                    done = "🗸",
-                },
-                timer = {
-                    spinner_rate = 150,
-                },
-                sources = {
-                    ["null-ls"] = {
-                        ignore = true,
-                    },
-                },
-                window = {
-                    blend = 0,
-                },
-            })
-        end
-    },
-    {
         "norcalli/nvim-colorizer.lua",
         config = function()
             local colorizer = require("colorizer")

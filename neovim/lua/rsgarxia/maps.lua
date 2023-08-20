@@ -42,3 +42,15 @@ add_mapping("n", "[d", "<cmd>lua vim.diagnostic.goto_prev()<CR>", { desc = "Goto
 add_mapping("n", "]d", "<cmd>lua vim.diagnostic.goto_next()<CR>", { desc = "Goto next diagnostic" })
 add_mapping("n", ",,", "<C-^>", { desc = "Go to alternate file" })
 add_mapping("n", "<leader>o", ":only<cr>", { desc = "Only display current buffer" })
+
+vim.keymap.set({"n", "i", "s"}, "<c-f>", function()
+  if not require("noice.lsp").scroll(4) then
+    return "<c-f>"
+  end
+end, { silent = true, expr = true })
+
+vim.keymap.set({"n", "i", "s"}, "<c-b>", function()
+  if not require("noice.lsp").scroll(-4) then
+    return "<c-b>"
+  end
+end, { silent = true, expr = true })
