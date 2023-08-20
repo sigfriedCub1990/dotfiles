@@ -4,6 +4,7 @@ return {
     "tpope/vim-commentary",
     "tpope/vim-surround",
     "tpope/vim-repeat",
+    "romainl/vim-cool",
     {
         "williamboman/mason.nvim",
         dependencies = { "williamboman/mason-lspconfig.nvim" },
@@ -49,6 +50,13 @@ return {
                     blend = 0,
                 },
             })
+        end
+    },
+    {
+        "norcalli/nvim-colorizer.lua",
+        config = function()
+            local colorizer = require("colorizer")
+            colorizer.setup()
         end
     }
 }
