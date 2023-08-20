@@ -37,6 +37,9 @@ return {
               nls.builtins.diagnostics.ruff,
               nls.builtins.formatting.ruff,
               nls.builtins.formatting.black,
+              nls.builtins.diagnostics.rubocop.with({
+                  diagnostics_format = "[rubocop] #{m}\n(#{c})",
+              }),
             },
             on_attach = function(client, bufnr)
               if client.server_capabilities.documentFormattingProvider then
@@ -103,6 +106,24 @@ return {
                     })
                 end
             end
+
+
+            lspconfig.lua_ls.setup {
+                on_attach = on_attach,
+                capabilities = capabilities
+            }
+
+            lspconfig.solargraph.setup{
+                on_attach = on_attach,
+                settings = {
+                    solargraph = {
+                        -- Use this to deactivate diagnostics completely and
+                        -- to not collide with Rubocop or create a .solargraph.yaml
+                        -- with a Rubocop reporter.
+                        diagnostics = false
+                    }
+                }
+            }
 
             -- Diagnostic symbols in the sign column (gutter)
             local signs = { Error = "x", Warn = "~", Hint = "!", Info = "i" }
