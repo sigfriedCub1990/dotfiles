@@ -13,6 +13,8 @@ default_floating_border pixel 2
 
 gaps inner 7
 smart_gaps on
+bindsym $mod+i gaps inner all set 0 
+bindsym $mod+o gaps vertical all set 0
 
 # Hide borders
 # hide_edge_borders none
@@ -30,7 +32,7 @@ bindsym $mod+n border normal
 font xft:URWGothic-Book 11
 
 # start a terminal
-bindsym $mod+Return exec kitty
+bindsym $mod+Return exec st
 
 # kill focused window
 bindsym $mod+q kill
