@@ -30,7 +30,7 @@ alias cat="bat --theme=gruvbox-dark"
 alias n="nvim"
 alias g="git"
 alias dco="docker-compose"
-alias zt="zathura"
+alias zt="zathura --fork"
 alias pes="pipenv shell"
 alias cx="chmod +x "
 
