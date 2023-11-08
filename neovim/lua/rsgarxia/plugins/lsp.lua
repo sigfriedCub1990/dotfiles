@@ -44,7 +44,9 @@ return {
             local items = remove_same_file_references(options, current_file)
 
             vim.fn.setloclist(0, {}, ' ', items)
-            require('telescope.builtin').loclist()
+            require('telescope.builtin').loclist({
+                trim_text = true
+            })
           end
 
           -- local function refs()
