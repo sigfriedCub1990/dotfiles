@@ -25,6 +25,8 @@ return {
                 mapping = {
                     ["<C-d>"] = cmp.mapping.scroll_docs(-4),
                     ["<C-f>"] = cmp.mapping.scroll_docs(4),
+                    ["<C-p>"] = cmp.mapping.select_prev_item(),
+                    ["<C-n>"] = cmp.mapping.select_next_item(),
                     ["<C-Space>"] = cmp.mapping.complete(),
                     ["<C-e>"] = cmp.mapping.close(),
                     ["<CR>"] = cmp.mapping.confirm({ select = true }),
@@ -45,7 +47,10 @@ return {
                     { name = "buffer" },
                     { name = "path" },
                 },
-                formatting = { format = lspkind.cmp_format() }
+                formatting = { format = lspkind.cmp_format() },
+                experimental = {
+                    ghost_text = true
+                }
             }
         end
 }

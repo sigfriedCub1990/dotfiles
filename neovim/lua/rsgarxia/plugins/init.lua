@@ -7,6 +7,8 @@ return {
     "romainl/vim-cool",
     "unblevable/quick-scope",
     "dhruvasagar/vim-table-mode",
+    "sunaku/tmux-navigate",
+    "nvim-tree/nvim-web-devicons",
     {
         "williamboman/mason.nvim",
         dependencies = { "williamboman/mason-lspconfig.nvim" },
@@ -35,6 +37,9 @@ return {
         config = function()
             require('mini.indentscope').setup()
             require('mini.pairs').setup()
+            require('mini.statusline').setup()
+            require('mini.cursorword').setup()
+            require('mini.starter').setup()
         end
     },
 }
