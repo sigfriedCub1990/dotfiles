@@ -5,6 +5,8 @@ return {
     "tpope/vim-surround",
     "tpope/vim-repeat",
     "romainl/vim-cool",
+    "unblevable/quick-scope",
+    "dhruvasagar/vim-table-mode",
     {
         "williamboman/mason.nvim",
         dependencies = { "williamboman/mason-lspconfig.nvim" },
@@ -26,5 +28,13 @@ return {
             local colorizer = require("colorizer")
             colorizer.setup()
         end
-    }
+    },
+    {
+        'echasnovski/mini.nvim',
+        version = false,
+        config = function()
+            require('mini.indentscope').setup()
+            require('mini.pairs').setup()
+        end
+    },
 }

@@ -1,5 +1,6 @@
 return {
     "folke/noice.nvim",
+    event = "VeryLazy",
     opts = {
       lsp = {
         -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
@@ -20,16 +21,17 @@ return {
         lsp_doc_border = false, -- add a border to hover docs and signature help
       },
       routes = {
-        -- { view = "split", filter = { min_width = 500 } },
         {
           filter = {
             event = "msg_show",
-            kind = "search_count",
+            kind = "",
           },
           opts = { skip = true },
         },
       },
     },
-    event = "VimEnter",
-    dependencies = { "MunifTanjim/nui.nvim" },
+    dependencies = {
+        "MunifTanjim/nui.nvim",
+        "rcarriga/nvim-notify"
+    },
 }

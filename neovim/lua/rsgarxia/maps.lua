@@ -28,8 +28,8 @@ add_mapping("i", "<C-U>", "<esc>viwUA", { silent = false, desc = "Make WORD uppe
 add_mapping("n", "gs", ":%s/", { silent = false })
 
 -- Splits
-add_mapping("n", "<leader>vs", ":vsplit<cr>", { silent = false })
-add_mapping("n", "<leader>hs", ":split<cr>", { silent = false })
+add_mapping("n", "<leader>vs", ":vsplit<cr>", { silent = false, desc = 'Split vertically' })
+add_mapping("n", "<leader>hs", ":split<cr>", { silent = false, desc = 'Split horizontally' })
 
 -- Readd_mapping for dealing with word wrap
 add_mapping("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true })
@@ -42,6 +42,10 @@ add_mapping("n", "[d", "<cmd>lua vim.diagnostic.goto_prev()<CR>", { desc = "Goto
 add_mapping("n", "]d", "<cmd>lua vim.diagnostic.goto_next()<CR>", { desc = "Goto next diagnostic" })
 add_mapping("n", ",,", "<C-^>", { desc = "Go to alternate file" })
 add_mapping("n", "<leader>o", ":only<cr>", { desc = "Only display current buffer" })
+
+
+-- Fugitive
+add_mapping("n", "<leader>g", ":G<cr>", { desc = "(Fugitive) Display Fugitive" })
 
 vim.keymap.set({"n", "i", "s"}, "<c-f>", function()
   if not require("noice.lsp").scroll(4) then
