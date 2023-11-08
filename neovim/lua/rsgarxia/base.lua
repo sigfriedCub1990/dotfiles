@@ -74,3 +74,7 @@ set.autowrite = true
 
 -- the swap file
 set.swapfile = false
+
+set.termguicolors = true
+vim.cmd.colorscheme "lucius"
+vim.cmd([[ LuciusDarkHighContrast ]])

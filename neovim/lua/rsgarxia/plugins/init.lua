@@ -17,14 +17,6 @@ return {
         end
     },
     {
-        "folke/tokyonight.nvim",
-        lazy = false,
-        priority = 1000,
-        config = function()
-          vim.cmd.colorscheme "tokyonight"
-        end,
-    },
-    {
         "L3MON4D3/LuaSnip",
         dependencies = { "rafamadriz/friendly-snippets" }
     },
