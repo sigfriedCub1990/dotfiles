@@ -27,7 +27,7 @@ font:
   bold_italic:
     family: "Source Code Pro"
     style: Extrabold Italic
-  size: 8.0
+  size: 10.0
 
 cursor:
   style:
