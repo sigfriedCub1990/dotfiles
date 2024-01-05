@@ -1,0 +1,5 @@
+[user]
+	name = Rubén S. García
+	email = rssanjuan2704@gmail.com
+[include]
+	path = /home/sigfried/.gitconfig.local

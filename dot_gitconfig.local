@@ -1,0 +1,103 @@
+[core]
+  pager = delta
+[pull]
+  rebase = true
+[alias]
+#stage
+  alias    = "!sh -c '[ $# = 2 ] && git config --global alias.\"$1\" \"$2\" && exit 0 || echo \"usage: git alias <new alias> <original command>\" >&2 && exit 1' -"
+  how      = "!f() { bat -l gitconfig ~/.gitconfig.local | rg "$1"; }; f"
+  set      = add -u
+  aa      = add .
+  nuke     = !git reset --hard HEAD && git clean -xfd
+  save     = stash
+#commit
+  ci       = commit
+  put      = commit --allow-empty                       --allow-empty-message --message ''
+  ca       = commit --allow-empty --amend               --allow-empty-message --reuse-message=HEAD --reset-author
+  pick     = cherry-pick --allow-empty-message
+  upstream = !git push -u origin $(git current)
+#log
+  st       = status -sb
+  current  = !git rev-parse --abbrev-ref HEAD
+  l        = "!source ~/dotfiles/git/git_helpers && pretty_git_log"
+  lg       = log --graph -10
+#navigate
+  topic     = checkout -b
+  co        = checkout
+  prev      = checkout -
+  uncommit  = reset HEAD^
+  branches  = branch -vv
+  drop      = branch -D
+  #delete remote's branch
+  drop2     = push origin --delete
+  drop3     = !git drop $1 && git drop2 $1
+  rename    = branch -m
+#sync
+  sync = fetch --prune
+  c = clone
+  fr = !git svn fetch && git svn rebase
+#submodules
+# Why on demand?
+  spush = push --recurse-submodules="on-demand"
+  supdate = submodule update --remote --merge
+#tricks
+  untrack = rm --cache --
+
+[diff]
+  color = true
+  renames = copy
+
+[color]
+  ui = auto
+
+[color "branch"]
+  current = blue reverse bold
+  local = blue bold
+  remote = green bold
+
+[color "diff"]
+  meta = 11
+  frag = magenta bold
+  old = red bold
+  new = green bold
+  commit = yellow bold
+  whitespace = red reverse
+
+[color "status"]
+  added = green bold
+  changed = yellow bold
+  untracked = red bold
+
+[clean]
+  requireForce = false
+
+[color "diff-highlight"]
+  oldNormal = red bold
+  oldHighlight = red bold 52
+  newNormal = green bold
+  newHighlight = green bold 22
+
+[interactive]
+  diffFilter = delta --color-only
+
+[delta]
+  navigate = true
+  syntax-theme = Dracula
+  features = side-by-side line-numbers decorations
+  whitespace-error-style = 22 reverse
+
+[delta "decorations"]
+  commit-decoration-style = bold yellow box ul
+  file-style = bold yellow ul
+  file-decoration-style = none
+
+[push]
+  default=current
+
+[diff]
+  colorMoved = default
+
+[ghq]
+  root = /cache/code
+
+; vim:ft=dosini
