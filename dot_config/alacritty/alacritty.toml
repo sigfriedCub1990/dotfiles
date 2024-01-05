@@ -1,0 +1,45 @@
+[cursor]
+blink_interval = 750
+vi_mode_style = "Block"
+
+[cursor.style]
+blinking = "On"
+shape = "Block"
+
+[env]
+TERM = "screen-256color"
+
+[font]
+size = 10.0
+
+[font.bold]
+family = "Source Code Pro"
+style = "Bold"
+
+[font.bold_italic]
+family = "Source Code Pro"
+style = "Extrabold Italic"
+
+[font.italic]
+family = "Source Code Pro"
+style = "Italic"
+
+[font.normal]
+family = "Source Code Pro"
+style = "Regular"
+
+[hints]
+alphabet = "jfkdls;ahgurieowpq"
+
+[[hints.enabled]]
+command = "xdg-open"
+hyperlinks = true
+post_processing = true
+regex = "(ipfs:|ipns:|magnet:|mailto:|gemini:|gopher:|https:|http:|news:|file:|git:|ssh:|ftp:)[^\u0000-\u001F\u007F-<>\"\\s{-}\\^⟨⟩`]+"
+
+[hints.enabled.binding]
+key = "L"
+mods = "Control|Shift"
+
+[window]
+opacity = 0.8
