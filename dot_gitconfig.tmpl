@@ -1,0 +1,5 @@
+[user]
+	name = "{{ .name }}"
+	email = "{{ .email }}"
+[include]
+	path = {{ .chezmoi.commandDir }}{{ .chezmoi.pathSeparator }}.gitconfig.local
