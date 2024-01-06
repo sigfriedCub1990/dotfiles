@@ -19,7 +19,7 @@
 #log
   st       = status -sb
   current  = !git rev-parse --abbrev-ref HEAD
-  l        = "!source ~/dotfiles/git/git_helpers && pretty_git_log"
+  l        = "!source ~/.config/git/git_helpers && pretty_git_log"
   lg       = log --graph -10
 #navigate
   topic     = checkout -b
