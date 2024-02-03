@@ -18,8 +18,8 @@ typeset -U PATH path
 
 typeset -U config_files
 typeset -U fns
-config_files=($DOTFILES/*/*.zsh)
-fns=($DOTFILES/*/functions/*.zsh)
+config_files=($HOME/.config/zsh/confs/*.zsh)
+fns=($HOME/.config/zsh/confs/functions/*.zsh)
 
 # load antibody plugins
 #source ~/.zsh_plugins.sh

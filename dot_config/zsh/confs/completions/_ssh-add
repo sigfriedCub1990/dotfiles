@@ -1,0 +1,2 @@
+#compdef ssh-add
+_files -f -W "$HOME/.ssh/"
