@@ -1,3 +1,5 @@
+import = [ "~/.config/alacritty/kanagawa.toml" ]
+
 [cursor]
 blink_interval = 750
 vi_mode_style = "Block"
@@ -10,7 +12,7 @@ shape = "Block"
 TERM = "screen-256color"
 
 [font]
-size = 10.0
+size = 10
 
 [font.bold]
 family = "Source Code Pro"
@@ -43,3 +45,4 @@ mods = "Control|Shift"
 
 [window]
 opacity = 0.8
+decorations = "Full"
