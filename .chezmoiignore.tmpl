@@ -1,5 +1,7 @@
-{{- if eq chezmoi.os "darwin" }}
+{{- if eq .chezmoi.os "darwin" }}
 ~/.xinitrc
+{{- end }}
 
-{{- if eq chezmoi.os "linux" }}
+{{- if eq .chezmoi.os "linux" }}
 ./config/aerospace
+{{- end }}
