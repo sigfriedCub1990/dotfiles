@@ -87,9 +87,11 @@ return {
 		},
 		config = function()
 			vim.g["fzf_layout"] = { down = "50%" }
-			vim.api.nvim_set_keymap("n", "<leader><leader>", ":Buffers<CR>", { noremap = true })
-			vim.api.nvim_set_keymap("n", "<leader>p", ":Files<CR>", { noremap = true })
-			vim.api.nvim_set_keymap("n", "<leader>ss", ":RG<CR>", { noremap = true })
+			vim.api.nvim_set_keymap("n", "<leader><leader>", ":FzfLua buffers<CR>", { noremap = true })
+			vim.api.nvim_set_keymap("n", "<leader>p", ":FzfLua files<CR>", { noremap = true })
+			vim.api.nvim_set_keymap("n", "<leader>ss", ":FzfLua live_grep_native<CR>", { noremap = true })
+			vim.api.nvim_set_keymap("n", "<leader>sl", ":FzfLua live_grep_resume<CR>", { noremap = true })
+			vim.api.nvim_set_keymap("n", "<leader>ca", ":FzfLua lsp_code_actions<CR>", { noremap = true })
 		end,
 	},
 }
