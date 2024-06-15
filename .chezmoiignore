@@ -1,7 +1,7 @@
 {{ if eq .chezmoi.os "darwin" }}
-~/.xinitrc
+.xinitrc
 {{ end }}
 
 {{ if eq .chezmoi.os "linux" }}
-./config/aerospace/
+.config/aerospace/
 {{ end }}
