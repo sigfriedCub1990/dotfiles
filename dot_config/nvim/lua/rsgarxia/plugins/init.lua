@@ -11,7 +11,7 @@ return {
 		lazy = false,
 		priority = 1000,
 		config = function()
-			vim.cmd([[colorscheme kanagawa]])
+			vim.cmd.colorscheme("kanagawa-dragon")
 		end,
 	},
 	{
@@ -86,7 +86,18 @@ return {
 			{ "<leader>ss", desc = "(FZF) Search strings" },
 		},
 		config = function()
-			vim.g["fzf_layout"] = { down = "50%" }
+			require("fzf-lua").setup({
+				fzf_opts = {
+					["--layout"] = "reverse-list",
+				},
+				files = { previewer = false },
+				lsp = {
+					code_actions = {
+						prompt = "Code Actions> ",
+						previewer = "codeaction_native",
+					},
+				},
+			})
 			vim.api.nvim_set_keymap("n", "<leader><leader>", ":FzfLua buffers<CR>", { noremap = true })
 			vim.api.nvim_set_keymap("n", "<leader>p", ":FzfLua files<CR>", { noremap = true })
 			vim.api.nvim_set_keymap("n", "<leader>ss", ":FzfLua live_grep_native<CR>", { noremap = true })
