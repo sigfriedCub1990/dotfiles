@@ -1,5 +1,8 @@
 {{ if eq .chezmoi.os "darwin" }}
 .xinitrc
+.config/dunst/
+.config/i3/
+.config/picom/
 {{ end }}
 
 {{ if eq .chezmoi.os "linux" }}
