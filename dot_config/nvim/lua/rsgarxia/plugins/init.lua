@@ -6,14 +6,12 @@ return {
 	"tpope/vim-repeat",
 	"romainl/vim-cool",
 	"unblevable/quick-scope",
-	"dhruvasagar/vim-table-mode",
-	"sunaku/tmux-navigate",
 	{
-		"folke/tokyonight.nvim",
+		"rebelot/kanagawa.nvim",
 		lazy = false,
 		priority = 1000,
 		config = function()
-			vim.cmd([[colorscheme tokyonight]])
+			vim.cmd([[colorscheme kanagawa]])
 		end,
 	},
 	{
@@ -51,11 +49,14 @@ return {
 		version = false,
 		event = "BufReadPost",
 		config = function()
+			local lib = require("rsgarxia.lib")
 			require("mini.indentscope").setup()
 			require("mini.pairs").setup()
-			require("mini.statusline").setup()
-			require("mini.cursorword").setup()
-			require("mini.starter").setup()
+			require("mini.statusline").setup({
+				content = {
+					active = lib.status_line,
+				},
+			})
 		end,
 	},
 	{
@@ -78,8 +79,7 @@ return {
 		end,
 	},
 	{
-		"junegunn/fzf.vim",
-		dependencies = { "junegunn/fzf" },
+		"ibhagwan/fzf-lua",
 		keys = {
 			{ "<leader><leader>", desc = "(FZF) Search buffers" },
 			{ "<leader>p", desc = "(FZF) Search files" },
