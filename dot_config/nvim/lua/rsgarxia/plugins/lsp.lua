@@ -6,7 +6,6 @@ return {
 		config = function()
 			require("neodev").setup({}) -- Inject lua stuff
 			local lsp_signature = require("lsp_signature")
-			local protocol = require("vim.lsp.protocol")
 
 			lsp_signature.setup({
 				bind = true,
@@ -14,44 +13,6 @@ return {
 				hint_enable = false,
 				handler_opts = { border = "none" },
 			})
-
-			local function get_filename(str)
-				local split = vim.split(str, "/")
-				local length = #split
-
-				return split[length]
-			end
-
-			local function remove_same_file_references(options, current_file)
-				local ids = {}
-
-				for i, v in ipairs(options.items) do
-					if get_filename(v.filename) == current_file then
-						table.insert(ids, 1, i)
-					end
-				end
-
-				for _, val in pairs(ids) do
-					table.remove(options.items, val)
-				end
-
-				return options
-			end
-
-			local function on_list(options)
-				local current_file = get_filename(options.context.params.textDocument.uri)
-
-				local items = remove_same_file_references(options, current_file)
-
-				vim.fn.setloclist(0, {}, " ", items)
-				require("telescope.builtin").loclist({
-					trim_text = true,
-				})
-			end
-
-			-- local function refs()
-			--   vim.lsp.buf.references(nil, { on_list = on_list })
-			-- end
 
 			local function on_attach(_, bufnr)
 				local function buf_set_keymap(mode, mapping, cmd, other_opts)
@@ -62,12 +23,12 @@ return {
 					vim.api.nvim_buf_set_keymap(bufnr, mode, mapping, cmd, opts)
 				end
 
-				buf_set_keymap("n", "gr", "", {
-					desc = "(LSP) List all the references to the symbol",
-					callback = function()
-						vim.lsp.buf.references(nil, { on_list = on_list })
-					end,
-				})
+				buf_set_keymap(
+					"n",
+					"gr",
+					"<cmd>lua vim.lsp.buf.references()<CR>",
+					{ desc = "(LSP) List all the references to the symbol" }
+				)
 				buf_set_keymap(
 					"n",
 					"gD",
@@ -118,8 +79,18 @@ return {
 			local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
 			local lspconfig = require("lspconfig")
-			local clients =
-				{ "clangd", "pyright", "elmls", "tsserver", "bashls", "dockerls", "astro", "erlangls", "clojure_lsp" }
+			local clients = {
+				"clangd",
+				"pyright",
+				"elmls",
+				"tsserver",
+				"bashls",
+				"dockerls",
+				"astro",
+				"erlangls",
+				"clojure_lsp",
+				"lua_ls",
+			}
 			for _, client in ipairs(clients) do
 				if client == "tsserver" then
 					lspconfig[client].setup({
@@ -136,11 +107,6 @@ return {
 				end
 			end
 
-			lspconfig.lua_ls.setup({
-				on_attach = on_attach,
-				capabilities = capabilities,
-			})
-
 			lspconfig.solargraph.setup({
 				on_attach = on_attach,
 				settings = {
@@ -152,13 +118,6 @@ return {
 					},
 				},
 			})
-
-			-- Diagnostic symbols in the sign column (gutter)
-			local signs = { Error = "⚫", Warn = "⚫", Hint = "⚫", Info = "⚫" }
-			for type, icon in pairs(signs) do
-				local hl = "DiagnosticSign" .. type
-				vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
-			end
 		end,
 	},
 }
