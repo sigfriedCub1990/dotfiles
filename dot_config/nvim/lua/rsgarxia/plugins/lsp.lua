@@ -90,6 +90,7 @@ return {
 				"erlangls",
 				"clojure_lsp",
 				"lua_ls",
+				"css_ls",
 			}
 			for _, client in ipairs(clients) do
 				if client == "tsserver" then
