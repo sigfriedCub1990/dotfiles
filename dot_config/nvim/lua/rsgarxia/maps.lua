@@ -45,6 +45,12 @@ utils.add_mapping("n", "]d", "", {
 })
 utils.add_mapping("n", ",,", "<C-^>", { desc = "Go to alternate file" })
 utils.add_mapping("n", "<leader>o", ":only<cr>", { desc = "Only display current buffer" })
+utils.add_mapping("n", "<C-j>", "<C-w>j", { desc = "Move to below split" })
+utils.add_mapping("n", "<C-k>", "<C-w>k", { desc = "Move to above split" })
+utils.add_mapping("n", "<C-h>", "<C-w>h", { desc = "Move to left split" })
+utils.add_mapping("n", "<C-l>", "<C-w>l", { desc = "Move to right split" })
+utils.add_mapping("n", "<leader>l", ":Lazy<cr>", { desc = "Open Lazy" })
+utils.add_mapping("n", "<leader>m", ":Mason<cr>", { desc = "Open Mason" })
 
 -- Fugitive
 utils.add_mapping("n", "<leader>g", ":G<cr>", { desc = "(Fugitive) Display Fugitive" })
