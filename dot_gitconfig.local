@@ -28,6 +28,7 @@
   uncommit  = reset HEAD^
   branches  = branch -vv
   drop      = branch -D
+  ds        = diff --stat
   #delete remote's branch
   drop2     = push origin --delete
   drop3     = !git drop $1 && git drop2 $1
