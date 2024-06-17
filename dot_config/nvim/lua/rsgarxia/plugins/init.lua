@@ -6,6 +6,7 @@ return {
 	"tpope/vim-repeat",
 	"romainl/vim-cool",
 	"unblevable/quick-scope",
+	"sunaku/tmux-navigate",
 	{
 		"rebelot/kanagawa.nvim",
 		lazy = false,
