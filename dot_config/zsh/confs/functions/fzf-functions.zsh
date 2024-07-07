@@ -124,6 +124,12 @@ ft() {
   done
 }
 
+ftp() {
+    local files
+    IFS=$'\n' files=($(fzf-tmux --query="^test_" --multi --select-1 --exit-0))
+    [[ -n "$files" ]] && pytest "${files[@]}"
+}
+
 # fcs - get git commit sha
 # example usage: git rebase -i `fcs`
 fcs() {
@@ -227,27 +233,53 @@ fgs() {
 FZF-EOF"
 }
 
-fstash() {
-    local out q k sha
-    while out=$(
-            git stash list --pretty="%C(yellow)%h %>(14)%Cgreen%cr %C(blue)%gs" |
-                fzf --ansi --no-sort --query="$q" --print-query \
-                    --expect=ctrl-d,ctrl-b);
+# tm - create new tmux session, or switch to existing one. Works from within tmux too. (@bag-man)
+# `tm` will allow you to select your tmux session via fzf.
+# `tm irc` will attach to the irc session (if it exists), else it will create it.
+tm() {
+  [[ -n "$TMUX" ]] && change="switch-client" || change="attach-session"
+  if [ $1 ]; then
+    tmux $change -t "$1" 2>/dev/null || (tmux new-session -d -s $1 && tmux $change -t "$1"); return
+  fi
+  session=$(tmux list-sessions -F "#{session_name}" 2>/dev/null | fzf --exit-0) &&  tmux $change -t "$session" || echo "No sessions found."
+}
+
+# tmk - TMux Kill session
+tmk () {
+    local sessions
+    sessions="$(tmux ls|fzf --exit-0 --multi)"  || return $?
+    local i
+    for i in "${(f@)sessions}"
     do
-        mapfile -t out <<< "$out"
-        q="${out[0]}"
-        k="${out[1]}"
-        sha="${out[-1]}"
-        sha="${sha%% *}"
-        [[ -z "$sha" ]] && continue
-        if [[ "$k" == 'ctrl-d' ]]; then
-            git diff $sha
-        elif [[ "$k" == 'ctrl-b' ]]; then
-            git stash branch "stash-$sha" $sha
-            break;
-        else
-            git stash show -p $sha
-        fi
+        [[ $i =~ '([^:]*):.*' ]] && {
+            echo "Killing $match[1]"
+            tmux kill-session -t "$match[1]"
+        }
     done
 }
 
+# run npm script (requires jq)
+fns() {
+  local script
+  script=$(cat package.json | jq -r '.scripts | keys[] ' | sort | fzf) && npm run $(echo "$script")
+}
+
+# Install one or more versions of specified language
+# e.g. `vmi rust` # => fzf multimode, tab to mark, enter to install
+# if no plugin is supplied (e.g. `vmi<CR>`), fzf will list them for you
+# Mnemonic [V]ersion [M]anager [I]nstall
+vmi() {
+  local lang=${1}
+
+  if [[ ! $lang ]]; then
+    lang=$(asdf plugin-list | fzf)
+  fi
+
+  if [[ $lang ]]; then
+    local versions=$(asdf list-all $lang | fzf --tac --no-sort --multi)
+    if [[ $versions ]]; then
+      for version in $(echo $versions);
+      do; asdf install $lang $version; done;
+    fi
+  fi
+}
