@@ -3,9 +3,6 @@ local set = vim.opt
 -- Disable initial Vim message
 set.shortmess = "I"
 
--- Don't display mode below status line (lightline)
-set.showmode = false
-
 -- Set completeopt to have a better completion experience
 set.completeopt = "menu,menuone,noselect"
 set.signcolumn = "yes"
@@ -30,7 +27,7 @@ set.showmatch = true
 -- always show tab bat at the top
 set.showtabline = 2
 
--- relative movement
+-- relative line numbers
 set.relativenumber = true
 
 --Make line numbers default
@@ -52,11 +49,11 @@ set.display = "truncate"
 set.fillchars = { vert = "│" }
 set.list = true
 set.listchars = {
-    extends = "⟩",
-    nbsp = "␣",
-    precedes = "⟨",
-    tab = "► ",
-    trail = "·",
+	extends = "⟩",
+	nbsp = "␣",
+	precedes = "⟨",
+	tab = "► ",
+	trail = "·",
 }
 
 -- multiple windows

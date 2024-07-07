@@ -13,6 +13,10 @@ function M.add_mapping(mode, mapping, cmd, other_opts)
 	map(mode, mapping, cmd, default_opts)
 end
 
+function M.map(mapping, cmd, desc)
+	vim.keymap.set("n", mapping, cmd, { desc = desc, noremap = true })
+end
+
 function M.goto_error(type)
 	-- code
 	if type == "next" then
