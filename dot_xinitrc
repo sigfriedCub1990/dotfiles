@@ -35,6 +35,7 @@ feh --bg-fill ~/Pictures/isle_of_death.jpg
 brightnessctl -d 'intel_backlight' set 100%
 setxkbmap -option 'caps:ctrl_modifier';xcape -e 'Caps_Lock=Escape' &
 
+sxhkd &
 clipit &
 unclutter &
 udiskie &
