@@ -14,6 +14,11 @@ TERM = "screen-256color"
 [font]
 size = 10
 
+{{- if eq .chezmoi.os "linux" }}
+[font.normal]
+family = "Source Code Pro"
+style = "Regular"
+
 [font.bold]
 family = "Source Code Pro"
 style = "Bold"
@@ -25,10 +30,25 @@ style = "Extrabold Italic"
 [font.italic]
 family = "Source Code Pro"
 style = "Italic"
+{{- end }}
 
+{{- if eq .chezmoi.os "darwin" }}
 [font.normal]
-family = "Source Code Pro"
+family = "Hack Nerd Font"
 style = "Regular"
+
+[font.bold]
+family = "Hack Nerd Font"
+style = "Bold"
+
+[font.bold_italic]
+family = "Hack Nerd Font"
+style = "Extrabold Italic"
+
+[font.italic]
+family = "Hack Nerd Font"
+style = "Italic"
+{{- end }}
 
 [hints]
 alphabet = "jfkdls;ahgurieowpq"
