@@ -13,8 +13,8 @@ bind '"' split-window -v -c '#{pane_current_path}'
 # Resizing pane
 bind -r C-k resize-pane -U 5
 bind -r C-j resize-pane -D 5
-bind -r C-h resize-pane -L 5
-bind -r C-l resize-pane -R 5
+bind -r C-[ resize-pane -L 5
+bind -r C-] resize-pane -R 5
 
 # Display lazygit in the current folder as a poppup
 bind -r g display-popup -d '#{pane_current_path}' -w80% -h80% -E lazygit
@@ -34,7 +34,13 @@ bind-key -T copy-mode-vi V send -X begin-selection
 
 # Yank the selected text and cancel
 # bind-key -T copy-mode-vi y send -X copy-selection-and-cancel
+{{- if eq .chezmoi.os "linux" }}
 bind-key -T copy-mode-vi y send -X copy-pipe-and-cancel "xsel --clipboard"
+{{- end }}
+
+{{- if eq .chezmoi.os "darwin" }}
+bind-key -T copy-mode-vi y send -X copy-pipe-and-cancel "pbcopy --clipboard"
+{{- end }}
 
 # Go to last window using Prefix+a
 bind-key p last-window
@@ -42,18 +48,19 @@ bind-key p last-window
 set -g @plugin 'tmux-plugins/tpm'
 set -g @plugin 'tmux-plugins/tmux-sensible'
 set -g @plugin 'tmux-plugins/tmux-resurrect'
-set -g @plugin 'sunaku/tmux-navigate'
+set -g @plugin 'christoomey/vim-tmux-navigator'
 
-# tmux-navigate keybinds
-set -g @navigate-left  '-n M-h'
-set -g @navigate-down  '-n M-j'
-set -g @navigate-up    '-n M-k'
-set -g @navigate-right '-n M-l'
-set -g @navigate-back  '-n M-\;'
+# Remap Ctrl-L to Prefix-L since it collides with 'christoomey/vim-tmux-navigator' plugin
+bind C-l send-keys 'C-l'
+
+{{- if eq .chezmoi.os "linux" }}
+# Pomodoro
+bind-key s if-shell 'pomodoro start -d 45' ''
+bind-key S if-shell 'pomodoro clear' ''
+{{- end }}
 
 set-option -g default-terminal "screen-256color"
 set-option -sa terminal-overrides ",screen-256color:RGB"
-
 ##############
 ### DESIGN ###
 ##############
