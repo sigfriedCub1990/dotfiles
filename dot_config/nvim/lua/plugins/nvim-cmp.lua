@@ -13,16 +13,13 @@ return {
 	config = function()
 		local cmp = require("cmp")
 		local lspkind = require("lspkind")
-		local luasnip = require("luasnip")
-		luasnip.config.setup({})
 
 		cmp.setup({
 			snippet = {
 				expand = function(args)
-					luasnip.lsp_expand(args)
+					require("luasnip").lsp_expand(args.body)
 				end,
 			},
-			completion = { completeopt = "menu,menuone,noinsert" },
 			mapping = cmp.mapping.preset.insert({
 				["<C-p>"] = cmp.mapping.select_prev_item(),
 				["<C-n>"] = cmp.mapping.select_next_item(),
@@ -43,6 +40,8 @@ return {
 			sources = {
 				{ name = "nvim_lsp", priority = 10 },
 				{ name = "luasnip" },
+			},
+			{
 				{ name = "buffer" },
 				{ name = "path" },
 			},
