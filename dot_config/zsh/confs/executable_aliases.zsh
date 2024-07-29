@@ -17,7 +17,7 @@ alias rm='rm -vi'
 #Configuration files.
 alias vimr='vim ~/.vimrc'
 #VirtualEnvs
-alias activate='. env/bin/activate'
+alias activate='. venv/bin/activate'
 
 # Lazy stuff
 alias lzd="lazydocker"
