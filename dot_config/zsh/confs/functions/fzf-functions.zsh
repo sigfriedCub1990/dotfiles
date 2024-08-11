@@ -126,7 +126,7 @@ ft() {
 
 ftp() {
     local files
-    IFS=$'\n' files=($(fzf-tmux --query="^test_" --multi --select-1 --exit-0))
+    IFS=$'\n' files=($(fzf-tmux --query="'test_" --multi --select-1 --exit-0))
     [[ -n "$files" ]] && pytest "${files[@]}"
 }
 
@@ -174,13 +174,6 @@ fdr() {
   cd "$DIR"
 }
 
-# fs() {
-#   local dir
-#   dir=$(find ${1:-.} -path '*/\.*' -prune \
-#                   -o -type d -print 2> /dev/null | fzf +m) &&
-#   cd "$dir"
-# }
-
 # cd into the directory of the selected file
 fw() {
    local file
@@ -218,7 +211,6 @@ fenv() {
 rh() {
  eval $( ([ -n "$ZSH_NAME" ] && fc -l 1 || history) | fzf +s --tac | sed 's/ *[0-9]* *//')
 }
-# TODO: add binding
 
 # Git
 # Git commit browser
@@ -282,4 +274,15 @@ vmi() {
       do; asdf install $lang $version; done;
     fi
   fi
+}
+
+# Replace zoxide's default view
+# with FZF integration
+z() {
+  local dir=$(
+    zoxide query --list --score |
+    fzf --height 40% --layout reverse --info inline \
+        --nth 2.. --tac --no-sort --query "$*" \
+        --bind 'enter:become:echo {2..}'
+  ) && cd "$dir"
 }
