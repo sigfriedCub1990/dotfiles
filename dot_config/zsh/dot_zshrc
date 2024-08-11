@@ -8,7 +8,6 @@ fi
 
 alias cm='chezmoi'
 export MANPAGER='nvim +Man!' 
-export DOTFILES=$HOME/dotfiles
 
 # man zshbuiltins
 # -U options, for array (but not for associative arrays) keep only the first occurrence of each duplicated value.
@@ -20,9 +19,6 @@ typeset -U config_files
 typeset -U fns
 config_files=($HOME/.config/zsh/confs/*.zsh)
 fns=($HOME/.config/zsh/confs/functions/*.zsh)
-
-# load antibody plugins
-#source ~/.zsh_plugins.sh
 
 # load everything but the path and completion files
 for file in ${${config_files:#*/path.zsh}:#*/completion.zsh}; do
@@ -62,9 +58,16 @@ unset fns
 
 # Init zoxide
 eval "$(zoxide init zsh)"
+unalias z 2> /dev/null
 
 #source /home/sigfried/.profile
 source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+# load antidote plugins
+source /usr/share/zsh-antidote/antidote.zsh
+antidote load
+
+alias kubectl="minikube kubectl --"
