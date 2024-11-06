@@ -7,13 +7,13 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
 fi
 
 alias cm='chezmoi'
-export MANPAGER='nvim +Man!' 
+export MANPAGER='nvim +Man!'
 
 # man zshbuiltins
 # -U options, for array (but not for associative arrays) keep only the first occurrence of each duplicated value.
 typeset -U PATH path
 
-. /opt/asdf-vm/asdf.sh
+eval "$(~/.local/bin/mise activate zsh)"
 
 typeset -U config_files
 typeset -U fns
@@ -71,3 +71,6 @@ source /usr/share/zsh-antidote/antidote.zsh
 antidote load
 
 alias kubectl="minikube kubectl --"
+
+# To customize prompt, run `p10k configure` or edit ~/.config/zsh/.p10k.zsh.
+[[ ! -f ~/.config/zsh/.p10k.zsh ]] || source ~/.config/zsh/.p10k.zsh
