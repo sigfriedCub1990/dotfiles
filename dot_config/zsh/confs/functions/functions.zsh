@@ -350,3 +350,16 @@ fe() {
   IFS=$'\n' files=($(fzf-tmux --query="$1" --multi --select-1 --exit-0))
   [[ -n "$files" ]] && ${EDITOR:-vim} "${files[@]}"
 }
+
+# Activates Python's virtualenv
+activate() {
+    if [ -d ".venv" ]; then
+        echo "Activating virtualenv"
+        source ".venv/bin/activate"
+    fi
+
+    if [ -d "venv" ]; then
+        echo "Activating virtualenv"
+        source "venv/bin/activate"
+    fi
+} 
