@@ -29,16 +29,13 @@ alias n="nvim"
 alias g="git"
 alias dco="docker-compose"
 alias zt="zathura --fork"
-alias pes="pipenv shell"
 alias cx="chmod +x "
 
 # RSS reader
 alias nb="newsboat"
 
-# fasd aliases
-alias v='z -e nvim'     # quick opening files with vim
-alias m='z -e mplayer'  # quick opening files with mplayer
-alias o='a -e xdg-open' # quick opening files with xdg-open
+alias kubectl="minikube kubectl --"
+alias cm='chezmoi'
 
 alias h='ghci' # haskell cli
 
