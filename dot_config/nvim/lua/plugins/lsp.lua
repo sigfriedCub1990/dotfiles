@@ -1,8 +1,43 @@
 return {
 	{
-		"ray-x/lsp_signature.nvim",
-		opts = {},
-		event = "VeryLazy",
+		"saghen/blink.cmp",
+		lazy = false, -- lazy loading handled internally
+		-- optional: provides snippets for the snippet source
+		dependencies = "rafamadriz/friendly-snippets",
+
+		-- use a release tag to download pre-built binaries
+		version = "v0.*",
+		-- OR build from source, requires nightly: https://rust-lang.github.io/rustup/concepts/channels.html#working-with-nightly-rust
+		-- build = 'cargo build --release',
+		-- If you use nix, you can build from source using latest nightly rust with:
+		-- build = 'nix run .#build-plugin',
+
+		---@module 'blink.cmp'
+		---@type blink.cmp.Config
+		opts = {
+			-- 'default' for mappings similar to built-in completion
+			-- 'super-tab' for mappings similar to vscode (tab to accept, arrow keys to navigate)
+			-- 'enter' for mappings similar to 'super-tab' but with 'enter' to accept
+			-- see the "default configuration" section below for full documentation on how to define
+			-- your own keymap.
+			keymap = { preset = "default" },
+
+			highlight = {
+				-- sets the fallback highlight groups to nvim-cmp's highlight groups
+				-- useful for when your theme doesn't support blink.cmp
+				-- will be removed in a future release, assuming themes add support
+				use_nvim_cmp_as_default = true,
+			},
+			-- set to 'mono' for 'Nerd Font Mono' or 'normal' for 'Nerd Font'
+			-- adjusts spacing to ensure icons are aligned
+			nerd_font_variant = "mono",
+
+			-- experimental auto-brackets support
+			-- accept = { auto_brackets = { enabled = true } }
+
+			-- experimental signature help support
+			trigger = { signature_help = { enabled = true } },
+		},
 	},
 	{
 		"neovim/nvim-lspconfig",
@@ -42,8 +77,6 @@ return {
 						"(LSP) Add buffer diagnostic to the location list"
 					)
 
-					require("lsp_signature").on_attach({}, event.buf)
-
 					-- The following two autocommands are used to highlight references of the
 					-- word under your cursor when your cursor rests there for a little while.
 					--    See `:help CursorHold` for information about when this is executed
@@ -76,22 +109,16 @@ return {
 				end,
 			})
 
-			-- LSP servers and clients are able to communicate to each other what features they support.
-			--  By default, Neovim doesn't support everything that is in the LSP specification.
-			--  When you add nvim-cmp, luasnip, etc. Neovim now has *more* capabilities.
-			--  So, we create new capabilities with nvim cmp, and then broadcast that to the servers.
-			local capabilities = vim.lsp.protocol.make_client_capabilities()
-			capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
-
 			local servers = {
 				clangd = {},
-				pyright = {},
+				ruff = {},
 				bashls = {},
 				dockerls = {},
 				lua_ls = {},
 				cssls = {},
 				gopls = {},
-				tsserver = {},
+				ts_ls = {},
+				rust_analyzer = {},
 				-- elmls = {},
 				-- astro = {},
 				-- clojure_lsp = {},
@@ -104,9 +131,9 @@ return {
 			-- for you, so that they are available from within Neovim.
 			local ensure_installed = vim.tbl_keys(servers or {})
 			vim.list_extend(ensure_installed, {
-				"stylua", -- Used to format Lua code
+				"stylua",
 				"ruff",
-				"pylint",
+				"prettierd",
 			})
 			require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 
@@ -114,6 +141,13 @@ return {
 				handlers = {
 					function(server_name)
 						local server = servers[server_name] or {}
+						-- LSP servers and clients are able to communicate to each other what features they support.
+						--  By default, Neovim doesn't support everything that is in the LSP specification.
+						--  When you add nvim-cmp, luasnip, etc. Neovim now has *more* capabilities.
+						--  So, we create new capabilities with nvim cmp, and then broadcast that to the servers.
+						-- local capabilities = vim.lsp.protocol.make_client_capabilities()
+						-- capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
+						local capabilities = require("blink.cmp").get_lsp_capabilities(server.capabilities)
 						-- This handles overriding only values explicitly passed
 						-- by the server configuration above. Useful when disabling
 						-- certain features of an LSP (for example, turning off formatting for tsserver)
