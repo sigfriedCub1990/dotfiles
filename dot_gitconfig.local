@@ -29,9 +29,6 @@
   branches  = branch -vv
   drop      = branch -D
   ds        = diff --stat
-  #delete remote's branch
-  drop2     = push origin --delete
-  drop3     = !git drop $1 && git drop2 $1
   rename    = branch -m
 #sync
   sync = fetch --prune
@@ -44,12 +41,37 @@
 #tricks
   untrack = rm --cache --
 
-[diff]
-  color = true
-  renames = copy
+[column]
+    ui = auto
 
-[color]
-  ui = auto
+[branch]
+    sort = -committerdate
+
+[tag]
+    sort = version:refname
+
+[diff]
+  algorithm = histogram
+  colorMoved = plain
+  color = true
+  renames = true
+  mnemonicPrefix = true
+
+[push]
+    default = simple
+    autoSetupRemote = true
+    followTags = true
+
+[fetch]
+    prune = true
+    pruneTags = true
+    all = true
+
+[help]
+    autocorrect = prompt
+
+[commit]
+    verbose = true
 
 [color "branch"]
   current = blue reverse bold
@@ -94,12 +116,6 @@
 
 [push]
   default=current
-
-[diff]
-  colorMoved = default
-
-[ghq]
-  root = /cache/code
 
 [init]
   defaultBranch = master
