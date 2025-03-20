@@ -356,10 +356,14 @@ activate() {
     if [ -d ".venv" ]; then
         echo "Activating virtualenv"
         source ".venv/bin/activate"
+        return
     fi
 
     if [ -d "venv" ]; then
         echo "Activating virtualenv"
         source "venv/bin/activate"
+        return
     fi
+
+    echo "Virtualenv not found, create one by running 'python -m venv venv'"
 } 
