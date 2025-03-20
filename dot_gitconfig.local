@@ -101,4 +101,7 @@
 [ghq]
   root = /cache/code
 
+[init]
+  defaultBranch = master
+
 ; vim:ft=dosini
