@@ -54,12 +54,6 @@ set -g @plugin 'tmux-plugins/tmux-copycat'
 # Remap Ctrl-L to Prefix-L since it collides with 'christoomey/vim-tmux-navigator' plugin
 bind C-l send-keys 'C-l'
 
-{{- if eq .chezmoi.os "linux" }}
-# Pomodoro
-bind-key s if-shell 'pomodoro start -d 45' ''
-bind-key S if-shell 'pomodoro clear' ''
-{{- end }}
-
 set-option -g default-terminal "screen-256color"
 set-option -sa terminal-overrides ",screen-256color:RGB"
 ##############
