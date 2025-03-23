@@ -3,3 +3,5 @@
 	email = "{{ .email }}"
 [include]
 	path = {{ .chezmoi.homeDir }}{{ .chezmoi.pathSeparator }}.gitconfig.local
+[core]
+  excludesFile = {{ .chezmoi.homeDir }}/.gitignore
