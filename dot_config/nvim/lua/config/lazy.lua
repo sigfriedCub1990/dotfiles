@@ -80,14 +80,6 @@ vim.cmd([[
     highlight QuickScopeSecondary guifg='#5fffff' gui=underline ctermfg=81 cterm=underline
 ]])
 
-vim.api.nvim_create_autocmd("TextYankPost", {
-	desc = "Highlight when yanking text",
-	group = vim.api.nvim_create_augroup("highlight-yank", { clear = true }),
-	callback = function()
-		vim.highlight.on_yank()
-	end,
-})
-
 -- Remap space as leader key
 utils.add_mapping("", "<Space>", "<Nop>")
 vim.g.mapleader = " "
