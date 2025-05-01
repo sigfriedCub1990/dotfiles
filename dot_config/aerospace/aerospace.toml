@@ -3,34 +3,31 @@
 enable-normalization-flatten-containers = false
 enable-normalization-opposite-orientation-for-nested-containers = false
 
-# Run Sketchybar together with AeroSpace
+on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
+on-focus-changed = ['move-mouse window-lazy-center']
 
-# sketchbar has a built-in detection of already running process,
-# so it won't be run twice on AeroSpace restart
-# after-startup-command = ['exec-and-forget /opt/homebrew/opt/sketchybar/bin/sketchybar']
+start-at-login = true
 
-# Notify Sketchybar about workspace change
-# exec-on-workspace-change = ['/bin/bash', '-c',
-#     '/opt/homebrew/opt/sketchybar/bin/sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=$AEROSPACE_FOCUSED_WORKSPACE'
-# ]
+[gaps]
+inner.vertical =   5
+inner.horizontal = 5
+outer.top =        5
+outer.left =       5
+outer.bottom =     5
+outer.right =      5
 
 [mode.main.binding]
-alt-enter = 'exec-and-forget open -n /System/Applications/Utilities/Alacritty.app'
+# cmd-enter = 'exec-and-forget open -n /usr/local/bin/ghostty'
 
-alt-j = 'focus left'
-alt-k = 'focus down'
-alt-l = 'focus up'
-alt-semicolon = 'focus right'
+# cmd-shift-j = 'move-through left'
+# cmd-shift-k = 'move-through down'
+# cmd-shift-l = 'move-through up'
+# cmd-shift-semicolon = 'move-through right'
 
-alt-shift-j = 'move-through left'
-alt-shift-k = 'move-through down'
-alt-shift-l = 'move-through up'
-alt-shift-semicolon = 'move-through right'
+# alt-h = 'split horizontal'
+# alt-v = 'split vertical'
 
-alt-h = 'split horizontal'
-alt-v = 'split vertical'
-
-alt-f = 'fullscreen'
+# alt-f = 'fullscreen'
 
 alt-s = 'layout v_accordion' # 'layout stacking' in i3
 alt-w = 'layout h_accordion' # 'layout tabbed' in i3
@@ -38,54 +35,24 @@ alt-e = 'layout list horizontal vertical' # 'layout toggle split' in i3
 
 alt-shift-space = 'layout floating tiling' # 'floating toggle' in i3
 
-# Not supported, because this command is redundant in AeroSpace mental model.
-# See: https://github.com/nikitabobko/AeroSpace/blob/main/docs/guide.md#floating-windows
-#alt-space = 'focus toggle_tiling_floating'
+cmd-shift-n = 'move-workspace-to-monitor next --wrap-around'
+cmd-shift-p = 'move-workspace-to-monitor prev --wrap-around'
 
-# `focus parent`/`focus child` are not yet supported, and it's not clear whether they should be supported at all
-# https://github.com/nikitabobko/AeroSpace/issues/5
-# alt-a = 'focus parent'
+cmd-shift-m = 'focus-monitor --wrap-around next'
 
-alt-shift-n = 'move-workspace-to-monitor next --wrap-around'
-alt-shift-p = 'move-workspace-to-monitor prev --wrap-around'
+# alt-shift-r = 'reload-config'
+# cmd-shift-r = 'mode resize'
 
-alt-p = 'workspace-back-and-forth'
-
-alt-1 = 'workspace 1'
-alt-2 = 'workspace 2'
-alt-3 = 'workspace 3'
-alt-4 = 'workspace 4'
-alt-5 = 'workspace 5'
-alt-6 = 'workspace 6'
-alt-7 = 'workspace 7'
-alt-8 = 'workspace 8'
-alt-9 = 'workspace 9'
-alt-0 = 'workspace 10'
-
-alt-shift-1 = 'move-node-to-workspace 1'
-alt-shift-2 = 'move-node-to-workspace 2'
-alt-shift-3 = 'move-node-to-workspace 3'
-alt-shift-4 = 'move-node-to-workspace 4'
-alt-shift-5 = 'move-node-to-workspace 5'
-alt-shift-6 = 'move-node-to-workspace 6'
-alt-shift-7 = 'move-node-to-workspace 7'
-alt-shift-8 = 'move-node-to-workspace 8'
-alt-shift-9 = 'move-node-to-workspace 9'
-alt-shift-0 = 'move-node-to-workspace 10'
-
-alt-shift-r = 'reload-config'
-
-alt-shift-m = 'focus-monitor --wrap-around next'
-
-alt-r = 'mode resize'
+alt-slash = 'layout tiles horizontal vertical'
+alt-comma = 'layout accordion horizontal vertical'
 
 [mode.resize.binding]
-h = 'resize width -50'
-l = 'resize width +50'
-j = 'resize height +50'
-k = 'resize height -50'
+h = 'resize smart -50'
+l = 'resize smart +50'
+j = 'resize smart +50'
+k = 'resize smart -50'
 enter = 'mode main'
-esc = 'mode esc'
+esc = 'mode main'
 
 [[on-window-detected]]
 if.app-id = 'ru.keepcoder.Telegram'
@@ -107,9 +74,9 @@ run = ['move-node-to-workspace 3']
 if.app-id = 'com.brave.Browser'
 run = ['move-node-to-workspace 4']
 
-[[on-window-detected]]
-if.app-id = 'com.tinyspeck.slackmacgap'
-run = ['move-node-to-workspace 5']
+# [[on-window-detected]]
+# if.app-id = 'com.tinyspeck.slackmacgap'
+# run = ['move-node-to-workspace 5']
 
 [[on-window-detected]]
 if.app-id = 'md.obsidian'
