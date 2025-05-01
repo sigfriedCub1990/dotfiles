@@ -130,6 +130,20 @@ utils.add_mapping("n", "<leader>m", ":Mason<cr>", { desc = "Open Mason" })
 -- Fugitive
 utils.add_mapping("n", "<leader>g", ":G<cr>", { desc = "(Fugitive) Display Fugitive" })
 
+vim.diagnostic.config({
+	virtual_lines = { current_line = true },
+	signs = {
+		text = {
+			[vim.diagnostic.severity.ERROR] = "● ",
+			[vim.diagnostic.severity.WARN] = "● ",
+			[vim.diagnostic.severity.INFO] = "● ",
+			[vim.diagnostic.severity.HINT] = "● ",
+		},
+	},
+	severity_sort = true,
+	float = { source = "if_many", border = "rounded" },
+})
+
 -- Bootstrap lazy.nvim
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
