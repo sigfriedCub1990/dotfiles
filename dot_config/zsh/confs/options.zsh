@@ -36,12 +36,3 @@ export KEYTIMEOUT=1
 
 # Edit line in vim with e in Normal mode:
 bindkey -M vicmd '^e' edit-command-line
-
-# NOTE: This works on Arch Linux, should test on MacOS
-if [ $(command -v "fzf") ]; then
-    # shellcheck disable=SC1091
-    source /usr/share/fzf/completion.zsh
-    source /usr/share/fzf/key-bindings.zsh
-else
-    bindkey '^R' history-incremental-search-backward
-fi

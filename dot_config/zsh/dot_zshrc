@@ -63,12 +63,10 @@ unalias z 2> /dev/null
 #source /home/sigfried/.profile
 source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
 
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-
 # load antidote plugins
 source /usr/share/zsh-antidote/antidote.zsh
 antidote load
 
+source <(fzf --zsh)
 # To customize prompt, run `p10k configure` or edit ~/.config/zsh/.p10k.zsh.
 [[ ! -f ~/.config/zsh/.p10k.zsh ]] || source ~/.config/zsh/.p10k.zsh
