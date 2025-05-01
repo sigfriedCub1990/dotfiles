@@ -5,6 +5,7 @@ return {
 		{ "<leader>p", desc = "Files" },
 		{ "<leader>ss", desc = "Grep files" },
 		{ "<leader>ca", desc = "Code actions" },
+		{ "gr", desc = "[G]o to [R]eferences" },
 	},
 	opts = function(_, opts)
 		local map = require("config.utils").map

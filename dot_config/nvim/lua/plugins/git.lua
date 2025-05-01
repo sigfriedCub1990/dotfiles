@@ -35,6 +35,7 @@ return {
 			map({ "n", "v" }, "<leader>hr", "<cmd>Gitsigns reset_hunk<CR>")
 			map("n", "<leader>hn", "<cmd>Gitsign next_hunk<CR>")
 			map("n", "<leader>hp", "<cmd>Gitsigns prev_hunk<CR>")
+			map("n", "<leader>gb", ":FzfLua git_branches<CR>")
 		end,
 	},
 }
