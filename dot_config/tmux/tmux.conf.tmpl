@@ -60,7 +60,12 @@ set-option -sa terminal-overrides ",screen-256color:RGB"
 ### DESIGN ###
 ##############
 
-source-file ~/.config/tmux/falcon.tmux.conf
+# source-file ~/.config/tmux/falcon.tmux.conf
+
+bind-key S choose-window "join-pane -v -s "%%""
+bind-key V choose-window "join-pane -h -s "%%""
+
+bind a set-option synchronize-panes
 
 # Install TPM if needed
 if "test ! -d ~/.tmux/plugins/tpm" \
