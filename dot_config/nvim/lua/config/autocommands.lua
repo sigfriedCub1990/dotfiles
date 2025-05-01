@@ -39,3 +39,19 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		end
 	end,
 })
+
+vim.api.nvim_create_autocmd("LspAttach", {
+	group = vim.api.nvim_create_augroup("lsp-attach", { clear = true }),
+	callback = function(event)
+		local map = function(keys, func, desc)
+			vim.keymap.set("n", keys, func, { buffer = event.buf, desc = "LSP: " .. desc })
+		end
+
+		map("grr", "<cmd>FzfLua lsp_references<CR>", "List all the references to the symbol")
+		map("grD", "<cmd>lua vim.lsp.buf.declaration()<CR>", "Go to declaration")
+		map("grd", "<cmd>lua vim.lsp.buf.definition()<CR>", "Go to definition")
+		map("gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", "Go to implementation")
+		map("<C-k>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", "Show signature help")
+		map("<leader>D", "<cmd>lua vim.lsp.buf.type_definition()<CR>", "Jump to the definition of the type")
+	end,
+})
