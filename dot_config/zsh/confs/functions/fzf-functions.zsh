@@ -302,3 +302,10 @@ ftmuxp() {
         tmuxp load "$ID"
     fi
 }
+
+k9() {
+    local config
+    config=$(ls ~/.kube/ | sed -n "/kubeconfig$/p" | fzf)
+    echo "Connecting to $config"
+    k9s --kubeconfig ~/.kube/"$config"
+}

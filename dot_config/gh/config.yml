@@ -9,7 +9,7 @@ pager:
 # Aliases allow you to create nicknames for gh commands
 aliases:
     co: pr checkout
-    prc: pr create
+    prc: pr create -a @me
     prw: pr view -w
     prs: pr status
     prm: pr merge -sd
