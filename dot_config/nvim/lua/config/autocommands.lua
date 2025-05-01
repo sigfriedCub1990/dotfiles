@@ -55,3 +55,9 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		map("<leader>D", "<cmd>lua vim.lsp.buf.type_definition()<CR>", "Jump to the definition of the type")
 	end,
 })
+
+-- From @groig https://github.com/groig/nvim/blob/main/init.lua#L183
+vim.api.nvim_create_autocmd("BufReadPost", {
+	pattern = "*",
+	command = [[silent! normal! g`"zv]],
+})
