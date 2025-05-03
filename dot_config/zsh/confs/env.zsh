@@ -15,6 +15,7 @@ export PATH=$GO_PATH:$RUBY_PATH:$LOCAL_SCRIPTS:$PATH
 
 export FZF_DEFAULT_COMMAND="rg --files --hidden --glob '!.git'"
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+export FZF_DEFAULT_OPTS="--layout=reverse-list --height=40% --cycle --highlight-line"
 
 #Preferred editor for local and remote sessions
 if [[ -n $SSH_CONNECTION ]]; then

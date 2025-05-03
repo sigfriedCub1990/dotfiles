@@ -131,7 +131,6 @@ utils.add_mapping("n", "<leader>m", ":Mason<cr>", { desc = "Open Mason" })
 utils.add_mapping("n", "<leader>g", ":G<cr>", { desc = "(Fugitive) Display Fugitive" })
 
 vim.diagnostic.config({
-	virtual_lines = { current_line = true },
 	signs = {
 		text = {
 			[vim.diagnostic.severity.ERROR] = "● ",
