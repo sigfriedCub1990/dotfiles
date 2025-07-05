@@ -128,7 +128,7 @@ utils.add_mapping("n", "<leader>l", ":Lazy<cr>", { desc = "Open Lazy" })
 utils.add_mapping("n", "<leader>m", ":Mason<cr>", { desc = "Open Mason" })
 
 -- Fugitive
-utils.add_mapping("n", "<leader>g", ":G<cr>", { desc = "(Fugitive) Display Fugitive" })
+utils.add_mapping("n", "<leader>gg", ":G<cr>", { desc = "(Fugitive) Display Fugitive" })
 
 vim.diagnostic.config({
 	signs = {
