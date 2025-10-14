@@ -10,4 +10,5 @@ README.md
 
 {{ if eq .chezmoi.os "linux" }}
 .config/aerospace/
+.config/skhd
 {{ end }}

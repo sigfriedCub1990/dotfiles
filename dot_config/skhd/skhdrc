@@ -1,0 +1,47 @@
+# MODES =======================================================================
+:: default
+:: resize @
+# NEW TERMINAL ================================================================
+lcmd - return: /opt/homebrew/bin/kitty -1 --directory ~
+# MANAGEMENT ==================================================================
+lcmd + shift - r: skhd --restart-service && aerospace reload-config
+# FOCUS WINDOWS ===============================================================
+lcmd - k: aerospace focus up
+lcmd - l: aerospace focus right
+lcmd - j: aerospace focus down
+lcmd - h: aerospace focus left
+# MOVE WINDOWS ================================================================
+lcmd + shift - k: aerospace move up
+lcmd + shift - l: aerospace move right
+lcmd + shift - j: aerospace move down
+lcmd + shift - h: aerospace move left
+# FOCUS SPACES ================================================================
+lcmd - 1: aerospace workspace 1
+lcmd - 2: aerospace workspace 2
+lcmd - 3: aerospace workspace 3
+lcmd - 4: aerospace workspace 4
+lcmd - 5: aerospace workspace 5
+lcmd - 6: aerospace workspace 6
+lcmd - 7: aerospace workspace 7
+lcmd - 8: aerospace workspace 8
+lcmd - 9: aerospace workspace 9
+lcmd - 0: aerospace workspace 10
+# MOVE WINDOW TO SPACE ========================================================
+lcmd + shift - 1: aerospace move-node-to-workspace 1
+lcmd + shift - 2: aerospace move-node-to-workspace 2
+lcmd + shift - 3: aerospace move-node-to-workspace 3
+lcmd + shift - 4: aerospace move-node-to-workspace 4
+lcmd + shift - 5: aerospace move-node-to-workspace 5
+lcmd + shift - 6: aerospace move-node-to-workspace 6
+lcmd + shift - 7: aerospace move-node-to-workspace 7
+lcmd + shift - 8: aerospace move-node-to-workspace 8
+lcmd + shift - 9: aerospace move-node-to-workspace 9
+lcmd + shift - 0: aerospace move-node-to-workspace 10
+# FOCUS MONTIOR ===============================================================
+lcmd - p: aerospace focus-monitor --wrap-around prev
+lcmd - n: aerospace focus-monitor --wrap-around next
+# MOVE WINDOW TO MONITOR ======================================================
+lcmd + shift - p: aerospace move-node-to-monitor --wrap-around prev
+lcmd + shift - n: aerospace move-node-to-monitor --wrap-around next
+# TOGGLE FULLSCREEN ===========================================================
+lcmd - f: aerospace fullscreen
