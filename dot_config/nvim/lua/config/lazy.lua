@@ -1,6 +1,9 @@
 local utils = require("config.utils")
 local set = vim.opt
 
+-- For Obsidian.nvim
+set.conceallevel = 2
+
 -- Disable initial Vim message
 set.shortmess = "I"
 
@@ -129,6 +132,9 @@ utils.add_mapping("n", "<leader>m", ":Mason<cr>", { desc = "Open Mason" })
 
 -- Fugitive
 utils.add_mapping("n", "<leader>gg", ":G<cr>", { desc = "(Fugitive) Display Fugitive" })
+
+-- Obsidian
+utils.add_mapping("n", "<leader>oq", ":ObsidianQuickSwitch<cr>", { desc = "[O]bsidian [Q]uickswitch" })
 
 vim.diagnostic.config({
 	signs = {

@@ -34,7 +34,6 @@ alias cx="chmod +x "
 # RSS reader
 alias nb="newsboat"
 
-alias kubectl="minikube kubectl --"
 alias cm='chezmoi'
 
 alias h='ghci' # haskell cli

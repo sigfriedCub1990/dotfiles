@@ -23,7 +23,6 @@ return {
 		},
 	},
 	{ "nvim-lua/plenary.nvim", lazy = true },
-	{ "nvim-tree/nvim-web-devicons", lazy = true },
 	{
 		"rebelot/kanagawa.nvim",
 		lazy = false,
@@ -60,6 +59,7 @@ return {
 					active = lib.status_line,
 				},
 			})
+			require("mini.icons").setup()
 		end,
 	},
 }

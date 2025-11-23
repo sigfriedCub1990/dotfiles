@@ -4,12 +4,23 @@ return {
 	{
 		"nvim-treesitter/nvim-treesitter",
 		build = ":TSUpdate",
+		branch = "master",
 		opts = {
-			highlight = {
-				enable = true,
-			},
-			indent = {
-				enable = true,
+			highlight = { enable = true },
+			indent = { enable = true },
+			ensure_installed = {
+				"c",
+				"lua",
+				"markdown",
+				"markdown_inline",
+				"python",
+				"ruby",
+				"javascript",
+				"typescript",
+				"vim",
+				"vimdoc",
+				"css",
+				"dockerfile",
 			},
 			incremental_selection = {
 				enable = true,
@@ -23,9 +34,8 @@ return {
 			textobjects = {
 				select = {
 					enable = true,
-					lookahead = true, -- Automatically jump forward to textobj, similar to targets.vim
+					lookahead = true,
 					keymaps = {
-						-- You can use the capture groups defined in textobjects.scm
 						["af"] = "@function.outer",
 						["if"] = "@function.inner",
 						["ac"] = "@class.outer",
@@ -34,7 +44,7 @@ return {
 				},
 				move = {
 					enable = true,
-					set_jumps = true, -- whether to set jumps in the jumplist
+					set_jumps = true,
 					goto_next_start = {
 						["]m"] = "@function.outer",
 						["]]"] = "@class.outer",

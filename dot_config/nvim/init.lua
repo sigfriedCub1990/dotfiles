@@ -12,4 +12,4 @@ vim.lsp.config("*", {
 	root_markers = { ".git" },
 })
 
-vim.lsp.enable({ "basedpyright", "luals", "clangd", "ts_ls", "dockerls", "bashls", "cssls" })
+vim.lsp.enable({ "basedpyright", "luals", "clangd", "ts_ls", "dockerls", "bashls", "cssls", "ruff" })

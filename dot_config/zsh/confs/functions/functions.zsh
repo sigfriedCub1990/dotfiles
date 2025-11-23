@@ -39,13 +39,13 @@ j(){
   fi
 }
 
-jj(){
-  if [ $# -eq 0 ]; then
-    yarn && yarn start
-  else
-    yarn "$@"
-  fi
-}
+# jj(){
+#   if [ $# -eq 0 ]; then
+#     yarn && yarn start
+#   else
+#     yarn "$@"
+#   fi
+# }
 
 
 # Search aliases/functions
