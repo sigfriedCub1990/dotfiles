@@ -29,16 +29,16 @@ bindsym $mod+n border normal
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
-font xft:URWGothic-Book 11
+font pango:BlexMono Regular 15px
 
 # start a terminal
-bindsym $mod+Return exec alacritty
+bindsym $mod+Return exec ghostty
 
 # kill focused window
 bindsym $mod+q kill
 
 # start program launcher
-bindsym $mod+d exec rofi -show drun
+bindsym $mod+d exec dmenu_run
 # launch categorized menu
 # bindsym $mod+z exec --no-startup-id morc_menu
 
@@ -95,16 +95,16 @@ bindsym $mod+Shift+s sticky toggle
 bindsym $mod+a focus parent
 
 # move the currently focused window to the scratchpad
-bindsym $mod+Shift+minus move scratchpad
+# bindsym $mod+Shift+minus move scratchpad
 
 # Show the next scratchpad window or hide the focused scratchpad window.
 # If there are multiple scratchpad windows, this command cycles through them.
 bindsym $mod+minus scratchpad show
 
 # Terminal scratchpad with tmux and two windows: 1.Terminal | 2.Neovim temp file
-for_window [instance="alacritty_scratchpad"] move to scratchpad
-bindsym $mod+Shift+t [instance="alacritty_scratchpad"] scratchpad show
-exec "~/dotfiles/script/scratchpad.sh"
+# for_window [instance="alacritty_scratchpad"] move to scratchpad
+# bindsym $mod+Shift+t [instance="alacritty_scratchpad"] scratchpad show
+# exec "~/dotfiles/script/scratchpad.sh"
 
 # htop scratchpad
 # for_window [instance="htop_scratchpad"] move to scratchpad, sticky enable, border none
@@ -163,11 +163,8 @@ bindsym $mod+Shift+8 move container to workspace $ws8; workspace $ws8
 bindsym $mod+Shift+9 move container to workspace $ws9; workspace $ws9
 
 # Open applications on specific workspaces
-assign [class="zoom"] $ws7
 assign [class="Slack"] $ws5
 assign [class="firefoxdeveloperedition"] $ws3
-assign [class="Workspacesclient"] $ws6
-assign [class="Audacious"] $ws8
 assign [class="TelegramDesktop"] $ws7
 
 # Open specific applications in floating mode
@@ -180,8 +177,6 @@ for_window [class="Pavucontrol"] floating enable, resize set 800 600
 # float pop-up automatically
 for_window [window_role="pop-up"] floating enable
 for_window [window_role="task_dialog"] floating enable
-
-for_window [class="Alacritty"] border pixel 1
 
 # switch to workspace with urgent window automatically
 for_window [urgent=latest] focus
@@ -208,7 +203,7 @@ mode "$mode_system" {
     bindsym Escape mode "default"
 }
 
-bindsym $mod+BackSpace mode "$mode_system"
+bindsym $mod+BackSpace sysact
 
 bindsym $mod+Ctrl+c exec rofi-expressvpn
 
@@ -226,47 +221,44 @@ mode "resize" {
         bindsym Escape mode "default"
 }
 
+bindsym $mod+F6 exec torwrap
+bindsym $mod+F9 exec mounter
+bindsym $mod+F10 exec unmounter
+
 # Remap caps lock when new attached
-bindsym $mod+z exec "setxkbmap -option 'caps:ctrl_modifier';xcape -e 'Caps_Lock=Escape' &"
+# bindsym $mod+z exec "setxkbmap -option 'caps:ctrl_modifier';xcape -e 'Caps_Lock=Escape' &"
 
 # Autostart applications
 # exec_always --no-startup-id $HOME/.config/polybar/run.sh
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
-exec_always unclutter --idle 5
-exec_always --no-startup-id xscreensaver --no-splash
 exec_always --no-startup-id compton
-exec_always feh --bg-fill ~/Pictures/school_of_athens.jpg
-exec_always --no-startup-id mons -a -x ~/dotfiles/script/mons.sh
-exec --no-startup-id redshift-gtk
 exec --no-startup-id clipit
 
-#######
-#THEME#
-#######
-
-# set primary gruvbox colorscheme colors
-set $bg #282828
-set $red #cc241d
-set $green #98971a
-set $yellow #d79921
-set $blue #458588
-set $purple #b16286
-set $aqua #689d68
-set $gray #a89984
-set $darkgray #1d2021
-set $white #fff
-
 bar {
-  status_command i3status
+  status_command i3blocks
   position top
   separator_symbol "|"
 }
 
-#start of window title bars & borders section
+#######
+#THEME#
+#######
+# set primary Kanagawa Wave colorscheme colors
+set $bg #1f1f28
+set $red #c34043
+set $green #76946a
+set $yellow #c0a36e
+set $blue #7e9cd8
+set $purple #957fb8
+set $aqua #7fb4ca
+set $gray #727169
+set $darkgray #16161d
+set $white #dcd7ba
 
-# green gruvbox
+#start of window title bars & borders section
+# Kanagawa Wave theme
 # class                 border  |   backgr  |   text    |   indicator   |   child_border
-client.focused          $green      $green      $darkgray   $purple         $green
-client.focused_inactive $darkgray   $darkgray   $yellow     $purple         $darkgray
-client.unfocused        $darkgray   $darkgray   $yellow     $purple         $darkgray
+client.focused          $aqua       $aqua       $darkgray   $purple         $aqua
+client.focused_inactive $darkgray   $darkgray   $gray       $purple         $darkgray
+client.unfocused        $darkgray   $darkgray   $gray       $purple         $darkgray
 client.urgent           $red        $red        $white      $red            $red
