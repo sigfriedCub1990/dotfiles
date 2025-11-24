@@ -13,7 +13,7 @@ export MANPAGER='nvim +Man!'
 # -U options, for array (but not for associative arrays) keep only the first occurrence of each duplicated value.
 typeset -U PATH path
 
-eval "$(~/.local/bin/mise activate zsh)"
+eval "$(/usr/bin/mise activate zsh)"
 
 typeset -U config_files
 typeset -U fns
