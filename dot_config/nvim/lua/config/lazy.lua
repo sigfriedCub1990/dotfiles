@@ -134,7 +134,7 @@ utils.add_mapping("n", "<leader>m", ":Mason<cr>", { desc = "Open Mason" })
 utils.add_mapping("n", "<leader>gg", ":G<cr>", { desc = "(Fugitive) Display Fugitive" })
 
 -- Obsidian
-utils.add_mapping("n", "<leader>oq", ":ObsidianQuickSwitch<cr>", { desc = "[O]bsidian [Q]uickswitch" })
+utils.add_mapping("n", "<leader>oq", ":Obsidian quick_switch<cr>", { desc = "[O]bsidian [Q]uickswitch" })
 
 vim.diagnostic.config({
 	signs = {
