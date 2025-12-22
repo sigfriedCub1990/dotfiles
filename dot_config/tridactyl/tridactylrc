@@ -1,0 +1,23 @@
+sanitize tridactyllocal tridactylsync
+
+unbind a
+unbind gt
+
+bind e scrollline -10
+
+bind J tabnext
+bind K tabprev
+bind ,s source
+bind gt fillcmdline tab
+
+bind yg composite js "git clone " + document.location.href.replace(/https?:\/\//,"git@").replace("/",":").replace(/$/,".git") | clipboard yank
+
+set searchurls.mdn https://developer.mozilla.org/en-US/search?q=
+set searchurls.archwiki https://wiki.archlinux.org/index.php?go=go&search=
+set searchurls.wikipedia https://en.wikipedia.org/w/index.php?search=
+set searchurls.wikipedia_simple https://simple.wikipedia.org/w/index.php?search=
+set searchurls.github https://github.com/search?q=
+set searchurls.rae https://dle.rae.es/
+
+"" New reddit is bad
+autocmd DocStart ^http(s?)://www.reddit.com js tri.excmds.urlmodify("-t", "www", "old")
