@@ -20,6 +20,7 @@ return {
 		map("<leader>sw", fzf_lua.grep_cword, "[S]earch [w]ord under the cursor")
 		map("<leader>ca", fzf_lua.lsp_code_actions, "[C]ode [a]ctions")
 		map("<leader>gr", fzf_lua.lsp_references, "[G]o to [R]eferences")
+		map("<leader>ls", fzf_lua.lsp_live_workspace_symbols, "[L]ive workspace [S]ymbols")
 
 		return vim.tbl_deep_extend("force", opts, {
 			fzf_opts = {

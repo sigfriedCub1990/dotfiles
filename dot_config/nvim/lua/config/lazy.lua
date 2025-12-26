@@ -106,13 +106,6 @@ utils.add_mapping("n", "<leader>hs", ":split<cr>", { silent = false, desc = "Spl
 utils.add_mapping("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true })
 utils.add_mapping("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true })
 
-utils.add_mapping(
-	"n",
-	"<leader>e",
-	"<cmd>lua vim.diagnostic.open_float()<CR>",
-	{ nowait = true, desc = "Open diagnostics in float window" }
-)
-
 -- Navigation
 utils.add_mapping("n", "[d", "", {
 	desc = "Goto previous diagnostic",
@@ -127,6 +120,7 @@ utils.add_mapping("n", "]d", "", {
 	end,
 })
 utils.add_mapping("n", ",,", "<C-^>", { desc = "Go to alternate file" })
+utils.add_mapping("n", "<leader>w", ":w<cr>", { desc = "[W]rite file" })
 utils.add_mapping("n", "<leader>l", ":Lazy<cr>", { desc = "Open Lazy" })
 utils.add_mapping("n", "<leader>m", ":Mason<cr>", { desc = "Open Mason" })
 
