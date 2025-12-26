@@ -1,10 +1,13 @@
 command=/usr/share/i3blocks/$BLOCK_NAME
-separator_block_width=15
 markup=none
 SCRIPT_DIR=/home/rsgarxia/.config/i3blocks/scripts/
 
+[music]
+command=sb-music
+interval=1
+
 [time]
-command=date '+%Y %b %d (%a) %H:%M'
+command=sb-clock
 interval=1
 
 [volume]
