@@ -2,6 +2,10 @@ command=/usr/share/i3blocks/$BLOCK_NAME
 markup=none
 SCRIPT_DIR=/home/rsgarxia/.config/i3blocks/scripts/
 
+[packages]
+command=sb-pacpackages
+interval=1
+
 [music]
 command=sb-music
 interval=1
