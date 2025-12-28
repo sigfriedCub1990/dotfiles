@@ -15,16 +15,17 @@ default_border pixel $default_border
 default_floating_border pixel $default_border
 
 ## Dropdowns
-for_window [instance="dropdown_"] floating enable
-for_window [instance="dropdown_"] move scratchpad
-for_window [instance="dropdown_"] sticky enable
-for_window [instance="dropdown_"] scratchpad show
+for_window [instance="dropdown_*"] floating enable
+for_window [instance="dropdown_*"] move scratchpad
+for_window [instance="dropdown_*"] sticky enable
+for_window [instance="dropdown_*"] scratchpad show
+for_window [instance="dropdown_*"] border pixel 3
 for_window [instance="dropdown_pulsemixer"] resize set 625 450
-for_window [instance="dropdown_pulsemixer"] border pixel 3
 for_window [instance="dropdown_pulsemixer"] move position center
 for_window [instance="dropdown_ngrrram"] resize set 645 450
-for_window [instance="dropdown_ngrrram"] border pixel 3
 for_window [instance="dropdown_ngrrram"] move position center
+for_window [instance="dropdown_lf"] resize set 900 900
+for_window [instance="dropdown_lf"] move position center
 
 ## Basic bindings
 bindsym $mod+Return exec --no-startup-id $terminal --font-size=10
@@ -40,6 +41,7 @@ bindsym $mod+F6 exec torwrap
 bindsym $mod+F9 exec mounter
 bindsym $mod+F10 exec unmounter
 bindsym $mod+F12 exec --no-startup-id ghostty --x11-instance-name="dropdown_ngrrram" --font-size=10 -e ngrrram --n 4 --top 150 --combi 15 --rep 1 --wpm 70 --acc 100 --cat
+bindsym $mod+Ctrl+r exec --no-startup-id ghostty --x11-instance-name="dropdown_lf" --font-size=10 -e lf
 
 ## Letter bindings
 bindsym $mod+q kill
