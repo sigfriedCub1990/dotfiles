@@ -14,10 +14,12 @@ bind yg composite js "git clone " + document.location.href.replace(/https?:\/\//
 
 set searchurls.mdn https://developer.mozilla.org/en-US/search?q=
 set searchurls.archwiki https://wiki.archlinux.org/index.php?go=go&search=
-set searchurls.wikipedia https://en.wikipedia.org/w/index.php?search=
-set searchurls.wikipedia_simple https://simple.wikipedia.org/w/index.php?search=
-set searchurls.github https://github.com/search?q=
+set searchurls.w https://en.wikipedia.org/w/index.php?search=
+set searchurls.ws https://simple.wikipedia.org/w/index.php?search=
+set searchurls.gh https://github.com/search?q=
 set searchurls.rae https://dle.rae.es/
+set searchurls.dict https://www.merriam-webster.com/dictionary/
+set searchurls.thesaurus https://www.merriam-webster.com/thesaurus/
 
 "" New reddit is bad
 autocmd DocStart ^http(s?)://www.reddit.com js tri.excmds.urlmodify("-t", "www", "old")
