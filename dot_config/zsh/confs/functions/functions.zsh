@@ -25,12 +25,6 @@ convertAllMDFilesToTabs(){
  find . -name '*.md' ! -type d -exec bash -c 'expand -t 4 "$0" > /tmp/e && mv /tmp/e "$0"' {} \;
 }
 
-# Update Zsh plugins
-uz(){
-  antibody bundle <~/dotfiles/antibody/zsh_plugins.txt >~/.zsh_plugins.sh
-  antibody update
-}
-
 j(){
   if [ $# -eq 0 ]; then
     yarn
@@ -38,15 +32,6 @@ j(){
     yarn "$@"
   fi
 }
-
-# jj(){
-#   if [ $# -eq 0 ]; then
-#     yarn && yarn start
-#   else
-#     yarn "$@"
-#   fi
-# }
-
 
 # Search aliases/functions
 falias() {
@@ -77,31 +62,6 @@ fpath() {
             print $i
         }
     }'
-}
-
-# Fetch pull request
-fpr() {
-    if ! git rev-parse --git-dir > /dev/null 2>&1; then
-        echo "error: fpr must be executed from within a git repository"
-        return 1
-    fi
-    (
-        cdgr
-        if [ "$#" -eq 2 ]; then
-            local repo="${PWD##*/}"
-            local user="${1}"
-            local branch="${2}"
-        elif [ "$#" -eq 3 ]; then
-            local repo="${1}"
-            local user="${2}"
-            local branch="${3}"
-        else
-            echo "Usage: fpr [repo] username branch"
-            return 1
-        fi
-
-        git fetch "git@github.com:${user}/${repo}" "${branch}:${user}/${branch}"
-    )
 }
 
 # md <folder-name> - Create folder and cd to it

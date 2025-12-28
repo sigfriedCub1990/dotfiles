@@ -62,13 +62,6 @@ gpo(){
   git pull origin $(git symbolic-ref --short -q HEAD)
 }
 
-# Make PR
-pr() {
-  # TODO: test it
-  git push -u origin "$1"
-  hub pull-request -h "$1" -F -
-}
-
 # Pull changes from upstream (fork) to master
 gfu(){
   git fetch upstream
@@ -79,77 +72,6 @@ gfu(){
 gri(){
   git rm "$*"
   git rm --cached "$*"
-}
-
-# Update contributing file commit
-gzo(){
-  git add CONTRIBUTING.md
-  git commit -m "contrib: update"
-  git push
-}
-
-# Commit all changes with <commit-msg>. gw <commit-msg>
-gw() {
-    git add .
-    git commit -m "${(j: :)@}"
-    # TODO: check if there is configured push destination. If not, don't push.
-    # TODO: change other functions there to do the same
-    git push
-}
-
-# Commit all changes with `add <commit-msg>`. gwa <commit-msg>
-gwa(){
-  git add .
-  git commit -m "add $*"
-  git push
-}
-
-# Commit all changes with `<fix commit-msg>`. gwf <commit-msg>
-gwf(){
-  git add .
-  git commit -m "fix $*"
-  git push
-}
-
-# Commit all changes with `<remove commit-msg>`. gwr <commit-msg>
-gwr(){
-  git add .
-  git commit -m "remove $*"
-  git push
-}
-
-# Commit all changes with `improve <msg>`. gwi <msg>
-gwi() {
-    git add .
-    git commit -m "improve $*"
-    git push
-}
-
-# Commit all changes with `update <msg>`. gwe <msg>
-gwu() {
-    git add .
-    git commit -m "update $*"
-    git push
-}
-
-# Commit all changes with `refactor`
-gwe() {
-    git add .
-    git commit -m 'refactor'
-    git push
-}
-
-# Commit all changes with `update`
-ggs() {
-    git add .
-    git commit -m 'update'
-    git push
-}
-
-# Write quick commit message. gc <commit-msg>
-gc() {
-    git commit -m "$*"
-    #set -x; git commit -m "$*"; set +x;
 }
 
 # cd to root of .git project
@@ -203,6 +125,6 @@ gll() {
     fi
 }
 
-function gi() { 
-    curl -sLw n https://www.toptal.com/developers/gitignore/api/$@;
+function gi() {
+    curl -s https://www.toptal.com/developers/gitignore/api/$@
 }
