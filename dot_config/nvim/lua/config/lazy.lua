@@ -1,6 +1,9 @@
 local utils = require("config.utils")
 local set = vim.opt
 
+-- Set cmdlocation to statusline
+set.showcmdloc = 'statusline'
+
 -- For Obsidian.nvim
 set.conceallevel = 2
 
@@ -121,6 +124,8 @@ utils.add_mapping("n", "]d", "", {
 })
 utils.add_mapping("n", ",,", "<C-^>", { desc = "Go to alternate file" })
 utils.add_mapping("n", "<leader>w", ":w<cr>", { desc = "[W]rite file" })
+utils.add_mapping("n", "<leader>wa", ":wa<cr>", { desc = "[W]rite [A]ll files" })
+utils.add_mapping("n", "<leader>q", ":q<cr>", { desc = "[Q]uit buffer" })
 utils.add_mapping("n", "<leader>l", ":Lazy<cr>", { desc = "Open Lazy" })
 utils.add_mapping("n", "<leader>m", ":Mason<cr>", { desc = "Open Mason" })
 

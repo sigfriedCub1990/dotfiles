@@ -27,6 +27,7 @@ function M.status_line()
 		"%<", -- Mark general truncate point
 		{ hl = "MiniStatuslineFilename", strings = { filename } },
 		"%=", -- End left alignment
+        { hl = mode_hl, strings = { '%S' }},
 		{ hl = "MiniStatuslineFileinfo", strings = { scroll } },
 		{ hl = "MiniStatuslineFileinfo", strings = { fileinfo } },
 		{ hl = mode_hl, strings = { search, location } },
