@@ -39,7 +39,7 @@
   spush = push --recurse-submodules="on-demand"
   supdate = submodule update --remote --merge
 #tricks
-  untrack = rm --cache --
+  forget = rm --cache --
 
 [column]
     ui = auto
