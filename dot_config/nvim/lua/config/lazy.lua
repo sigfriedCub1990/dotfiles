@@ -2,7 +2,7 @@ local utils = require("config.utils")
 local set = vim.opt
 
 -- Set cmdlocation to statusline
-set.showcmdloc = 'statusline'
+set.showcmdloc = "statusline"
 
 -- For Obsidian.nvim
 set.conceallevel = 2
