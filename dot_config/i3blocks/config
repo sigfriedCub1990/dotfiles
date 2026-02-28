@@ -1,14 +1,17 @@
-command=/usr/share/i3blocks/$BLOCK_NAME
 markup=none
 SCRIPT_DIR=/home/rsgarxia/.config/i3blocks/scripts/
 
-[packages]
-command=sb-pacpackages
-interval=1
+[arch-update]
+command=$SCRIPT_DIR/arch-update -y
+interval=3600
+markup=pango
+BASE_COLOR=#5fff5f
+UPDATE_COLOR=#FFFF85
+LABEL= 
 
-[music]
-command=sb-music
-interval=1
+# [music]
+# command=sb-music
+# interval=1
 
 [time]
 command=sb-clock
@@ -16,7 +19,7 @@ interval=1
 
 [volume]
 command=sb-volume
-interval=once
+interval=5
 
 [torrent]
 command=sb-torrent

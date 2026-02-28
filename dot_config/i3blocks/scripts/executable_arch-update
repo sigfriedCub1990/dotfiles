@@ -1,0 +1,175 @@
+#!/usr/bin/env python3
+#
+# Copyright (C) 2017 Marcel Patzwahl
+# Copyright (C) 2025 Ruben Garcia
+# Licensed under the terms of the GNU GPL v3 only.
+#
+# i3blocks blocklet script to see the available updates of pacman and the AUR
+from subprocess import run, CalledProcessError
+import argparse
+import os
+import re
+
+LABEL = os.environ.get("LABEL", "")
+MESSAGE = "{0}<span color='{1}'>{2}</span>"
+
+
+def create_argparse():
+    def _default(name, default="", arg_type=str):
+        val = default
+        if name in os.environ:
+            val = os.environ[name]
+        return arg_type(val)
+
+    strbool = lambda s: s.lower() in ["t", "true", "1"]
+    strlist = lambda s: s.split()
+
+    parser = argparse.ArgumentParser(description="Check for pacman updates")
+    parser.add_argument(
+        "-b",
+        "--base_color",
+        default=_default("BASE_COLOR", "green"),
+        help="base color of the output(default=green)",
+    )
+    parser.add_argument(
+        "-u",
+        "--updates_available_color",
+        default=_default("UPDATE_COLOR", "yellow"),
+        help="color of the output, when updates are available(default=yellow)",
+    )
+    parser.add_argument(
+        "-a",
+        "--aur",
+        action="store_const",
+        const=True,
+        default=_default("AUR", "False", strbool),
+        help="Include AUR packages. Attn: Yaourt must be installed",
+    )
+    parser.add_argument(
+        "-y",
+        "--aur_yay",
+        action="store_const",
+        const=True,
+        default=_default("AUR_YAY", "False", strbool),
+        help="Include AUR packages. Attn: Yay must be installed",
+    )
+    parser.add_argument(
+        "-q",
+        "--quiet",
+        action="store_const",
+        const=True,
+        default=_default("QUIET", "False", strbool),
+        help="Do not produce output when system is up to date",
+    )
+    parser.add_argument(
+        "-w",
+        "--watch",
+        nargs="*",
+        default=_default("WATCH", arg_type=strlist),
+        help="Explicitly watch for specified packages. "
+        "Listed elements are treated as regular expressions for matching.",
+    )
+    return parser.parse_args()
+
+
+class CommandRunner:
+    @staticmethod
+    def run_command(command: list[str]) -> str | None:
+        output = ""
+        try:
+            output = run(command, check=True).stdout
+        except CalledProcessError as error:
+            output = error.stdout
+
+        return str(output) if output else None
+
+
+def get_updates():
+    output = CommandRunner.run_command(["checkupdates"])
+
+    if not output:
+        return []
+
+    updates = [line.split(" ")[0] for line in output.split("\n") if line]
+
+    return updates
+
+
+def get_aur_yaourt_updates():
+    output = CommandRunner.run_command(["yaourt", "-Qua"])
+
+    if not output:
+        return []
+
+    aur_updates = [
+        line.split(" ")[0] for line in output.split("\n") if line.startswith("aur/")
+    ]
+
+    return aur_updates
+
+
+def get_aur_yay_updates():
+    output = CommandRunner.run_command(["yay", "-Qua"])
+
+    if not output:
+        return []
+
+    aur_updates = [line.split(" ")[0] for line in output.split("\n") if line]
+
+    return aur_updates
+
+
+def matching_updates(updates, watch_list):
+    matches = set()
+    for u in updates:
+        for w in watch_list:
+            if re.match(w, u):
+                matches.add(u)
+
+    return matches
+
+
+def read_button():
+    button = os.environ.get("BLOCK_BUTTON", "")
+    if button == "1":
+        CommandRunner.run_command(
+            [
+                "st",
+                "-e",
+                "bash",
+                "-c",
+                "sudo pacman -Syu; echo 'Press enter to close'; read",
+            ]
+        )
+
+
+args = create_argparse()
+
+read_button()
+
+updates = get_updates()
+
+if args.aur:
+    updates += get_aur_yaourt_updates()
+elif args.aur_yay:
+    updates += get_aur_yay_updates()
+
+update_count = len(updates)
+if update_count > 0:
+    if update_count == 1:
+        info = f"{update_count} update available"
+        short_info = f"{update_count} update"
+    else:
+        info = f"{update_count} updates available"
+        short_info = f"{update_count} updates"
+
+    matches = matching_updates(updates, args.watch)
+    if matches:
+        info += " [{0}]".format(", ".join(matches))
+        short_info += "*"
+
+    print(MESSAGE.format(LABEL, args.updates_available_color, info))
+    print(MESSAGE.format(LABEL, args.updates_available_color, short_info))
+
+if not args.quiet:
+    print(MESSAGE.format(LABEL, args.base_color, "system up to date"))
