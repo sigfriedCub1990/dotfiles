@@ -67,6 +67,12 @@ set.listchars = {
 set.previewheight = 5
 set.splitbelow = true
 set.splitright = true
+-- minimum window sizes so golden_size can't squash a window out of sight
+-- (winwidth/winheight must be >= winminwidth/winminheight, so set them first)
+set.winwidth = 30
+set.winminwidth = 15
+set.winheight = 10
+set.winminheight = 3
 
 -- selecting text
 set.clipboard = "unnamedplus,unnamed"
