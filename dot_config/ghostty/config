@@ -44,6 +44,6 @@
 
 theme = Kanagawa Wave
 window-decoration = none
-shell-integration = zsh
+shell-integration = detect
 font-family = "Fira Code Nerd Font Mono"
 confirm-close-surface = false
