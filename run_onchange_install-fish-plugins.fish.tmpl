@@ -1,0 +1,19 @@
+#!/opt/homebrew/bin/fish
+#
+# Restore fisher plugins whenever fish_plugins changes.
+# The plugin files themselves are deliberately not managed by chezmoi — fisher
+# owns them, and this script is what rebuilds them on a new machine.
+#
+# The plugin list is inlined below so chezmoi re-runs this script whenever
+# fish_plugins changes:
+{{ range (splitList "\n" (include "dot_config/fish/fish_plugins")) -}}
+#   {{ . }}
+{{ end -}}
+
+if not functions -q fisher
+    curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish \
+        | source
+    and fisher install jorgebucaran/fisher
+end
+
+fisher update
