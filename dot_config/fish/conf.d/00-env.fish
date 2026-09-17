@@ -39,6 +39,11 @@ set -gx SQLITE_HISTORY $XDG_DATA_HOME/sqlite_history
 set -gx FZF_DEFAULT_COMMAND "rg --files --hidden --glob '!.git'"
 set -gx FZF_DEFAULT_OPTS "--layout=reverse-list --height=40% --cycle --highlight-line"
 
+# What fzf.fish's file search (ctrl-t) passes to fd: show dotfiles, but never
+# the contents of .git. Same idea as the --hidden --glob '!.git' above.
+# A fish variable, not an environment one: fzf.fish reads it directly.
+set -g fzf_fd_opts --hidden --exclude=.git
+
 # --- bat --------------------------------------------------------------------
 # Also used by fzf.fish previews, so it belongs in the environment rather than
 # as a flag on the `cat` abbreviation.

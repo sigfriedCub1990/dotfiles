@@ -1,4 +1,4 @@
-#!/opt/homebrew/bin/fish
+#!/usr/bin/env fish
 #
 # Tide prompt configuration, captured declaratively.
 # chezmoi re-runs this only when the file contents change, so it costs
