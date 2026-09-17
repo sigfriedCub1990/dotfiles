@@ -1,23 +1,14 @@
 README.md
 .config/gh/hosts.yml
 
-{{ if eq .chezmoi.os "darwin" }}
-.xinitrc
-.config/dunst/
-.config/i3/
-.config/picom/
-{{ end }}
-
-{{ if eq .chezmoi.os "linux" }}
-.config/aerospace/
-.config/skhd
-{{ end }}
-
-# fish: managed by fisher (fish_plugins) or generated at runtime, not by hand
+# fish: files chezmoi must not manage. fisher owns the plugin files (see
+# run_onchange_install-fish-plugins.fish.tmpl, which rebuilds them); tide,
+# fzf.fish, rustup and uv generate the rest at runtime.
 .config/fish/fish_variables
 .config/fish/conf.d/_tide_init.fish
 .config/fish/conf.d/fzf.fish
 .config/fish/conf.d/rustup.fish
+.config/fish/conf.d/uv.env.fish
 .config/fish/completions/fisher.fish
 .config/fish/completions/tide.fish
 .config/fish/completions/fzf_configure_bindings.fish
@@ -26,6 +17,28 @@ README.md
 .config/fish/functions/fish_mode_prompt.fish
 .config/fish/functions/fzf_configure_bindings.fish
 .config/fish/functions/_fzf_*
+# ...except _fzf_down, which is ours rather than fzf.fish's. A later rule
+# overrides an earlier one, so this negation must stay below the glob.
+!.config/fish/functions/_fzf_down.fish
 .config/fish/functions/tide
 .config/fish/functions/tide.fish
 .config/fish/functions/_tide_*
+
+# fish: work tooling, deliberately unmanaged — this repo is public.
+# Lives only at ~/.config/fish/conf.d/06-work-darwin.fish on the work Mac.
+.config/fish/conf.d/06-work-darwin.fish
+
+{{ if eq .chezmoi.os "darwin" }}
+.xinitrc
+.config/dunst/
+.config/i3/
+.config/picom/
+.config/fish/conf.d/05-linux.fish
+.config/fish/conf.d/10-login.fish
+{{ end }}
+
+{{ if eq .chezmoi.os "linux" }}
+.config/aerospace/
+.config/skhd
+.config/fish/conf.d/05-darwin.fish
+{{ end }}

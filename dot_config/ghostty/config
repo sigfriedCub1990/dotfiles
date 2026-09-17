@@ -43,7 +43,7 @@
 # resize-overlay-duration = 4s 200ms
 
 theme = Kanagawa Wave
-window-decoration = none
+# window-decoration = none
 shell-integration = detect
 font-family = "Fira Code Nerd Font Mono"
 confirm-close-surface = false
