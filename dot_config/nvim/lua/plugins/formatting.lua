@@ -22,12 +22,28 @@ return {
 	event = { "BufWritePre", "BufNewFile" },
 	cmd = { "ConformInfo" },
 	opts = function(_, opts)
+		-- Increase logging level
+		opts.log_level = vim.log.levels.DEBUG
+
 		opts.formatters_by_ft = opts.formatters_by_ft or {}
+		opts.formatters = opts.formatters or {}
+
+		opts.formatters_by_ft = {
+			python = { "ruff_format" },
+			lua = { "stylua" },
+			c = { "clang-format" },
+		}
+		opts.formatters["clang-format"] = {
+			append_args = {
+				"--style=mozilla",
+				"--sort-includes",
+			},
+		}
+
+		-- File formats suported by Prettier
 		for _, ft in ipairs(prettierd_compatible) do
 			opts.formatters_by_ft[ft] = { "prettierd" }
 		end
-		opts.formatters_by_ft["python"] = { "ruff_format" }
-		opts.formatters_by_ft["lua"] = { "stylua" }
 
 		opts.format_on_save = {
 			timeout_ms = 1000,
