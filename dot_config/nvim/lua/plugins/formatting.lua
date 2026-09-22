@@ -29,10 +29,11 @@ return {
 		opts.formatters = opts.formatters or {}
 
 		opts.formatters_by_ft = {
-			python = { "ruff_format" },
+			python = { "ruff_fix", "ruff_format", "ruff_organize_imports" },
 			lua = { "stylua" },
 			c = { "clang-format" },
 		}
+
 		opts.formatters["clang-format"] = {
 			append_args = {
 				"--style=mozilla",
@@ -42,7 +43,7 @@ return {
 
 		-- File formats suported by Prettier
 		for _, ft in ipairs(prettierd_compatible) do
-			opts.formatters_by_ft[ft] = { "prettierd" }
+			opts.formatters_by_ft[ft] = { "prettier" }
 		end
 
 		opts.format_on_save = {
