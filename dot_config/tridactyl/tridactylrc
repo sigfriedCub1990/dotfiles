@@ -9,6 +9,7 @@ bind J tabnext
 bind K tabprev
 bind ,s source
 bind gt fillcmdline tab
+bind ,, tab #
 
 bind yg composite js "git clone " + document.location.href.replace(/https?:\/\//,"git@").replace("/",":").replace(/$/,".git") | clipboard yank
 
@@ -23,3 +24,6 @@ set searchurls.thesaurus https://www.merriam-webster.com/thesaurus/
 
 "" New reddit is bad
 autocmd DocStart ^http(s?)://www.reddit.com js tri.excmds.urlmodify("-t", "www", "old")
+
+blacklistadd https://www.overleaf.com
+blacklistadd https://tboi.online/
