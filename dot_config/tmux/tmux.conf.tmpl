@@ -74,4 +74,6 @@ bind a set-option synchronize-panes
 if "test ! -d ~/.tmux/plugins/tpm" \
    "run 'git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm && ~/.tmux/plugins/tpm/bin/install_plugins'"
 
+# TPM lives in ~/.tmux/plugins; without this it looks in ~/.config/tmux/plugins
+set-environment -g TMUX_PLUGIN_MANAGER_PATH '~/.tmux/plugins/'
 run -b '~/.tmux/plugins/tpm/tpm'
