@@ -5,6 +5,9 @@ set $browser firefox-developer-edition
 set $default_border 2
 set $gaps_size 7
 
+## Autostart
+exec --no-startup-id snixembed --fork
+
 ## Gaps
 gaps inner $gaps_size
 smart_gaps on
@@ -161,12 +164,6 @@ mode "resize" {
         bindsym Escape mode "default"
 }
 
-bar {
-  font pango:mono 10
-  status_command i3blocks
-  position top
-  separator_symbol "|"
-}
 
 ## Extra Keys
 bindsym XF86MonBrightnessUp exec "xbacklight -inc 10; notify-send 'brightness up'"
@@ -190,3 +187,20 @@ client.focused          $aqua       $aqua       $darkgray   $purple         $aqu
 client.focused_inactive $darkgray   $darkgray   $gray       $purple         $darkgray
 client.unfocused        $darkgray   $darkgray   $gray       $purple         $darkgray
 client.urgent           $red        $red        $white      $red            $red
+
+bar {
+  font pango:Noto Sans Mono, Noto Color Emoji, Symbols Nerd Font Mono 10
+  status_command i3blocks
+  position top
+  separator_symbol "|"
+  colors {
+    background $bg
+    statusline $white
+    separator  $gray
+    #                  border     bg         text
+    focused_workspace  $aqua      $aqua      $darkgray
+    active_workspace   $darkgray  $darkgray  $white
+    inactive_workspace $bg        $bg        $gray
+    urgent_workspace   $red       $red       $white
+  }
+}

@@ -9,7 +9,7 @@ BASE_COLOR=#5fff5f
 UPDATE_COLOR=#FFFF85
 LABEL= 
 
-# [music]
+[music]
 # command=sb-music
 # interval=1
 
