@@ -14,5 +14,8 @@ return {
 				path = "~/Documents/Alexandria",
 			},
 		},
+		sync = {
+			enabled = true,
+		},
 	},
 }

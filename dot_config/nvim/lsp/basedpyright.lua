@@ -9,6 +9,7 @@ return {
 				autoSearchPaths = true,
 				useLibraryCodeForTypes = true,
 			},
+			typeCheckingMode = "basic",
 		},
 	},
 }
