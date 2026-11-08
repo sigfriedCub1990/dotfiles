@@ -5,10 +5,10 @@
 # Licensed under the terms of the GNU GPL v3 only.
 #
 # i3blocks blocklet script to see the available updates of pacman and the AUR
-from subprocess import run, CalledProcessError
 import argparse
 import os
 import re
+from subprocess import CalledProcessError, run
 
 LABEL = os.environ.get("LABEL", "")
 MESSAGE = "{0}<span color='{1}'>{2}</span>"
@@ -77,14 +77,14 @@ class CommandRunner:
     def run_command(command: list[str]) -> str | None:
         output = ""
         try:
-            output = run(command, check=True).stdout
+            output = run(command, check=True, capture_output=True).stdout
         except CalledProcessError as error:
             output = error.stdout
 
         return str(output) if output else None
 
 
-def get_updates():
+def get_updates() -> list[str]:
     output = CommandRunner.run_command(["checkupdates"])
 
     if not output:
@@ -95,7 +95,7 @@ def get_updates():
     return updates
 
 
-def get_aur_yaourt_updates():
+def get_aur_yaourt_updates() -> list[str]:
     output = CommandRunner.run_command(["yaourt", "-Qua"])
 
     if not output:
@@ -108,7 +108,7 @@ def get_aur_yaourt_updates():
     return aur_updates
 
 
-def get_aur_yay_updates():
+def get_aur_yay_updates() -> list[str]:
     output = CommandRunner.run_command(["yay", "-Qua"])
 
     if not output:
@@ -165,7 +165,7 @@ if update_count > 0:
 
     matches = matching_updates(updates, args.watch)
     if matches:
-        info += " [{0}]".format(", ".join(matches))
+        info += " [{}]".format(", ".join(matches))
         short_info += "*"
 
     print(MESSAGE.format(LABEL, args.updates_available_color, info))
